@@ -1,0 +1,15 @@
+@import "../functions";
+@import "../variables";
+
+$new-primary: purple;
+$new-secondary: rgb(0, 0, 0);
+$new-warning: green;
+
+$new-theme-colors: (
+  "primary": $new-primary,
+  "secondary": $new-secondary,
+  "warning": $new-warning,
+);
+
+$theme-colors: map-merge($theme-colors, $new-theme-colors);
+@import "../bootstrap.scss";
