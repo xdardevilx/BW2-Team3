@@ -1,6 +1,8 @@
 let myUrl =
   "https://striveschool-api.herokuapp.com/api/deezer/search?q=metallica";
-let albumId = 212377;
+
+let albumId = 212357;
+
 const getDataDatas = function () {
   fetch(myUrl)
     .then((response) => {
@@ -21,9 +23,15 @@ const getDataDatas = function () {
 };
 
 const generateAlbum = function (data, albumId) {
-  const result = data.filter((element) => {
+  let result = data.filter((element) => {
     return element.album.id === albumId;
   });
   console.log("CD :", result[0].album.title, "  ", "Canzoni :", result);
 };
 getDataDatas();
+
+const secondsIntoMinutes = function (secondi) {
+  let minutes = secondi / 60;
+  return minutes.toFixed(2);
+};
+console.log(secondsIntoMinutes(476));
