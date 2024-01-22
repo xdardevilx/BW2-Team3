@@ -10,13 +10,24 @@ const getDataDatas = function () {
       }
     })
     .then((data) => {
-      console.log(data, "data");
-      let dataArray = data;
-      const arrayAlbumId = Array.from(dataArray);
-      console.log(arrayAlbumId);
+      generateAlbum(data.data);
     })
     .catch((err) => {
       console.log(err, "errore");
     });
 };
 getDataDatas();
+
+const generateAlbum = function (response) {
+  response.forEach((element) => {
+    let albumId = element.album.id;
+    console.log(albumId);
+  });
+};
+
+// const newCol = document.createElement("div");
+// newCol.classList.add("col");
+// newCol.innerHTML = `  <h3>${element.}</h3>
+// <h2></h2>
+// <p></p>
+// <p></p>`;
