@@ -11,6 +11,7 @@ const getDataDatas = function () {
     })
     .then((data) => {
       generateAlbum(data.data);
+      console.log(data.data);
     })
     .catch((err) => {
       console.log(err, "errore");
@@ -24,10 +25,3 @@ const generateAlbum = function (response) {
     console.log(albumId);
   });
 };
-
-// const newCol = document.createElement("div");
-// newCol.classList.add("col");
-// newCol.innerHTML = `  <h3>${element.}</h3>
-// <h2></h2>
-// <p></p>
-// <p></p>`;
