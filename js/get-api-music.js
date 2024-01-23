@@ -7,3 +7,4 @@ const getAlbum = async () => {
 };
 
 getAlbum();
+console.log(getAlbum());

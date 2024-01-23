@@ -41,9 +41,9 @@ const arrayButtonsConfig = [
   new ButtonConfig("Home", "#", "bi bi-house-door-fill"),
   new ButtonConfig("cerca", "#", "bi bi-search"),
   new ButtonConfig("La mia libreria", "#", "bi bi-collection"),
-  new ButtonConfig("Crea Playlis", "#", "bi bi-collection"),
-  new ButtonConfig("Brani che ti piacciono", "#", "bi bi-collection"),
-  new ButtonConfig("I tuoi episodi", "#", "bi bi-collection"),
+  new ButtonConfig("Crea Playlist", "#", "bi bi-plus"),
+  new ButtonConfig("Brani che ti piacciono", "#", "bi bi-suit-heart-fill"),
+  new ButtonConfig("I tuoi episodi", "#", "bi bi-bookmark-fill"),
 ];
 
 // -----DOM MANIPULATION-----
@@ -106,7 +106,14 @@ const addNavigationButtons = () => {
 const createCardHero = () => {
   const heroPage = document.getElementById("hero-page");
   const card = document.createElement("div");
-  card.classList.add("card", "p-0", "mt-3", "text-white", "bg-black", "bg-gradient");
+  card.classList.add(
+    "card",
+    "p-0",
+    "mt-3",
+    "text-white",
+    "bg-black",
+    "bg-gradient"
+  );
   heroPage.appendChild(card);
   card.innerHTML = `
   <div class="row align-items-center  g-0">
