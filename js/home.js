@@ -106,7 +106,7 @@ const addNavigationButtons = () => {
 const createCardHero = () => {
   const heroPage = document.getElementById("hero-page");
   const card = document.createElement("div");
-  card.classList.add("card", "p-0", "mt-3", "text-bg-dark");
+  card.classList.add("card", "p-0", "mt-3", "text-white", "bg-black", "bg-gradient");
   heroPage.appendChild(card);
   card.innerHTML = `
   <div class="row align-items-center  g-0">
@@ -119,7 +119,7 @@ const createCardHero = () => {
     <p class="m-0">ALBUM</p>
       <h2 class="card-title m-0 ">titolo della canzone molto molto </h2>
       <p class="card-text m-0">Fedez, Salmo</p>
-      <p class="card-text m-0"><small class="text-body-secondary">Ascolta il nuovo singolo di Fedez e Salmo</small></p>
+      <p class="card-text m-0"><small">Ascolta il nuovo singolo di Fedez e Salmo</small></p>
       <button id="play-button" class="btn btn-primary rounded-5 ps-4 pe-4 mt-2">Play</button>
       <button id="play-button" class="btn btn-outline-primary rounded-5 ps-4 pe-4 mt-2 ms-3">Salva</button>
 
@@ -137,7 +137,7 @@ const createCardGridCell = () => {
   col.classList.add("col-4", "p-1", "m-0");
   grid.appendChild(col);
   col.innerHTML = `
-  <div id="custom-card" class="card">
+  <div class="card custom-card">
   <div class="row g-0 justify-content-center align-items-center">
     <div class="col-md-3">
       <img src="http://placekitten.com/200/200" 
@@ -163,9 +163,34 @@ const creatGrid = () => {
   }
 };
 
+const createCardPreference = () => {
+  const row = document.getElementById("preference");
+  row.classList.add("justify-content-evenly");
+  const col = document.createElement("div");
+  col.classList.add("col-2", "p-1", "m-0");
+  row.appendChild(col);
+  col.innerHTML = `
+  <div class="card custom-card ">
+  <img class="p-2" src="http://placekitten.com/300" class="card-img-top" alt="...">
+  <div class="card-body p-0 text-center ">
+    <h5 class="card-title">Card title</h5>
+    <pclass="card-text"><small>sottotitolo</small> </p>
+  </div>
+</div>  
+  `;
+};
+
+const createPreference = () => {
+  const preference = document.getElementById("preference");
+  for (let i = 0; i < 5; i++) {
+    createCardPreference();
+  }
+};
+
 // ------main------
 addNavigationButtons();
 addUsers();
 createCardHero();
 createTitleUsers();
 creatGrid();
+createPreference();
