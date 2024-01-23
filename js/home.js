@@ -134,19 +134,18 @@ const createCardHero = () => {
 const createCardGridCell = () => {
   const grid = document.getElementById("grid");
   const col = document.createElement("div");
-  col.classList.add("col-4", "p-0");
+  col.classList.add("col-4", "p-1", "m-0");
   grid.appendChild(col);
   col.innerHTML = `
-  <div class="card mb-3">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="http://placekitten.com/100/100" class="img-fluid rounded-start" alt="..." width="50">
+  <div id="custom-card" class="card">
+  <div class="row g-0 justify-content-center align-items-center">
+    <div class="col-md-3">
+      <img src="http://placekitten.com/200/200" 
+      class="img-fluid rounded-start" alt="...">
     </div>
-    <div class="col-md-8">
+    <div class="col-md-9 ">
       <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text"></p>
-        <p class="card-text"><small class="text-body-secondary"></small></p>
+        <p class="card-text ps-3">titolo canzone prova</p>
       </div>
     </div>
   </div>
@@ -156,6 +155,9 @@ const createCardGridCell = () => {
 };
 
 const creatGrid = () => {
+  const grid = document.getElementById("grid");
+  grid.classList.add("row", "g-3", "p-0");
+
   for (let i = 0; i < 6; i++) {
     createCardGridCell();
   }
@@ -166,4 +168,4 @@ addNavigationButtons();
 addUsers();
 createCardHero();
 createTitleUsers();
-creatGrid()
+creatGrid();
