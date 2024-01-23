@@ -36,8 +36,8 @@ const createNavigationButton = (btnConfig, classSpace) => {
 
 const addNavigationButtons = () => {
   for (let i = 0; i < arrayButtonsConfig.length; i++) {
-  //if i ===  2 add padding bottom on 3th button
-    createNavigationButton(arrayButtonsConfig[i], (i === 2) ? "pb-4" : null);
+    //if i ===  2 add padding bottom on 3th button
+    createNavigationButton(arrayButtonsConfig[i], i === 2 ? "pb-4" : null);
   }
 };
 
