@@ -1,7 +1,9 @@
-let myUrl =
-  "https://striveschool-api.herokuapp.com/api/deezer/search?q=metallica";
-
 let albumId = 212357;
+
+let myUrl = "https://api.deezer.com/album/" + albumId + "/tracks";
+
+// https://striveschool-api.herokuapp.com/api/deezer/album/{id}
+// ./album.html?albumId=123
 
 const getDataDatas = function () {
   fetch(myUrl)
@@ -34,4 +36,4 @@ const secondsIntoMinutes = function (secondi) {
   let minutes = secondi / 60;
   return minutes.toFixed(2);
 };
-console.log(secondsIntoMinutes(476));
+console.log(secondsIntoMinutes(756));
