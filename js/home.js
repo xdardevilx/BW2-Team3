@@ -1,3 +1,5 @@
+// -----configuration-------
+
 class ButtonConfig {
   constructor(text, link, icon) {
     this.text = text;
