@@ -11,6 +11,7 @@ const getArtist = function () {
         throw new Error("errore");
       }
     })
+
     .then((data) => {
       console.log("OGGETTO ARTISTA", data);
       const oggettoArtista = data;
@@ -28,10 +29,39 @@ const getArtist = function () {
             throw new Error("ERRORE");
           }
         })
+
         .then((dataIdUrl) => {
-          //   const album = data.album;
           console.log("OGGETTO ARTISTA DA URL CON ID", dataIdUrl);
+
+          function formattaNumeroConPunti(numero) {
+            return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+          }
+
+          const generaContenuto = () => {
+            const divAlto = document.getElementById("sezioneAlta");
+            const divImg = document.getElementById("imgArtista");
+            const img = document.createElement("img");
+            const colName = document.createElement("h1");
+            const colAscoltatoriMensili = document.createElement("div");
+            //COME CIRCA SEMPRE L'IMMAGINE DI BACKROUND MI DA PROBLEMI,
+            ///CHIODO FISSO .. DOMANI MI DITE VOI CHE STO SBAGLIANDO, ITANTO HO ASSEGNATO LA SORGENTE AD UN IMMAGINE PER VEDERE SE FUNZIONAVA
+
+            colName.classList.add("col");
+            colAscoltatoriMensili.classList.add("col", "fs-5");
+            img.src = dataIdUrl.picture_big;
+            // divImg.style.background = "url(${dataIdUrl.picture_big})";
+            colName.innerText = dataIdUrl.name;
+            /// MODIFICO IL NUMERO DEGLI ASCOLTATORI MENSILI CON UN PUNTINO OGNI 3 CIFRE INTERE
+            const numeroFormattato = formattaNumeroConPunti(dataIdUrl.nb_fan);
+            colAscoltatoriMensili.innerText = `${numeroFormattato} ascoltatori mensili`;
+
+            divImg.appendChild(img);
+            divAlto.appendChild(colName);
+            divAlto.appendChild(colAscoltatoriMensili);
+          };
+          generaContenuto();
         })
+
         .catch((err) => {
           console.log("errore", err);
         });
@@ -51,6 +81,7 @@ const getArtist = function () {
       // }
       //   });
     })
+
     .catch((err) => {
       console.log(err, "errore");
     });
