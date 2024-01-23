@@ -1,5 +1,5 @@
 let myUrl = "https://striveschool-api.herokuapp.com/api/deezer/artist/";
-let nomeArtista = "metallica";
+let nomeArtista = "gue";
 
 const getArtist = function () {
   fetch(myUrl + nomeArtista)
