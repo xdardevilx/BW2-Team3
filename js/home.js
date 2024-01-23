@@ -7,6 +7,7 @@ class ButtonConfig {
     this.icon = icon;
   }
 }
+
 const arrayButtonsConfig = [
   new ButtonConfig("Home", "#", "bi bi-house-door-fill"),
   new ButtonConfig("cerca", "#", "bi bi-search"),
@@ -18,9 +19,12 @@ const arrayButtonsConfig = [
 
 // -----DOM MANIPULATION-----
 
-const createNavigationButton = (btnConfig) => {
+const createNavigationButton = (btnConfig, classSpace) => {
   const menu = document.getElementById("menu");
   const button = document.createElement("div");
+  if (classSpace) {
+    button.classList.add(classSpace);
+  }
   menu.appendChild(button);
   button.innerHTML = `
     <a class="text-decoration-none" href="${btnConfig.link}">
@@ -32,7 +36,8 @@ const createNavigationButton = (btnConfig) => {
 
 const addNavigationButtons = () => {
   for (let i = 0; i < arrayButtonsConfig.length; i++) {
-    createNavigationButton(arrayButtonsConfig[i]);
+  //if i ===  2 add padding bottom on 3th button
+    createNavigationButton(arrayButtonsConfig[i], (i === 2) ? "pb-4" : null);
   }
 };
 
