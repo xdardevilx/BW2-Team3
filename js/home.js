@@ -65,8 +65,18 @@ const createNavigationButton = (btnConfig, classSpace) => {
 
 const createTitleUsers = () => {
   const title = document.getElementById("title");
+  title.classList.add("d-flex", "justify-content-evenly", "mt-2");
   const text = document.createElement("p");
+  const divIcon=document.createElement("div");
+  const icon = document.createElement("i");
+  const iconClosed = document.createElement("i");
+  iconClosed.classList.add("bi", "bi-x");
+  icon.classList.add("bi","bi-person-add");
   title.appendChild(text);
+  title.appendChild(divIcon);
+  divIcon.appendChild(icon);
+  divIcon.appendChild(iconClosed);
+
   text.innerText = "Attività amici";
 };
 
