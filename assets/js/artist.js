@@ -94,3 +94,13 @@ getArtist();
 
 // URLSearchParams.append() ///////  Aggiunge una coppia chiave/valore specificata come nuovo parametro di ricerca.
 // URLSearchParams.forEach()
+
+// const tracklist = function () {
+//   const arrayTrackList = [data];
+//   const divTracklist = document.getElementById("tracklist");
+//   arrayTrackList.forEach(element => {
+//     element.createElement("div")
+//     divTracklist.appendChild(element)
+//     console.log("TRACKLIST, BRANI PIù ASCOLTATI", element)
+// };
+// tracklist()
