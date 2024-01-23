@@ -1,15 +1,55 @@
 @import "../functions";
 @import "../variables";
 
-$new-primary: purple;
-$new-secondary: rgb(0, 0, 0);
-$new-warning: green;
+$new-primary: rgb(242 242 242); //testo
+$new-secondary: rgb(30 215 96); //bottone play
+$new-dark: rgb(05, 05, 05); //bottone salva
+$new-gray: rgb(129 129 129);
 
 $new-theme-colors: (
   "primary": $new-primary,
   "secondary": $new-secondary,
-  "warning": $new-warning,
+  "warning": $new-dark,
+  "info": $new-gray,
 );
+
+$h1-font-size: $font-size-base * 6 !important;
+$h2-font-size: $font-size-base * 2 !important;
+$h3-font-size: $font-size-base * 1.75 !important;
+$h4-font-size: $font-size-base * 1.5 !important;
+$h5-font-size: $font-size-base * 0.5 !important;
+$h6-font-size: $font-size-base * 0.75 !important;
+
+@mixin buttons {
+  width: 80px;
+  height: 40px;
+  border-top-left-radius: 50px !important;
+  border-top-right-radius: 50px !important;
+  border-bottom-left-radius: 50px !important;
+  border-bottom-right-radius: 50px !important;
+  font-size: 0.8em !important;
+  font-weight: 700 !important;
+}
+
+#play-button {
+  @include buttons;
+  background-color: $new-secondary;
+}
+#save-button {
+  @include buttons;
+  background-color: $new-dark;
+  color: $new-primary;
+  border: 0.3px solid $new-primary;
+}
+#following-button {
+  background-color: $new-dark;
+  color: $new-primary;
+  border-radius: 0;
+  border: 0.3px solid $new-primary;
+  width: 120px;
+  height: 35px;
+  padding-top: 0.3em !important;
+}
 
 $theme-colors: map-merge($theme-colors, $new-theme-colors);
 @import "../bootstrap.scss";
