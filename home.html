@@ -17,35 +17,33 @@
   <body>
     <header></header>
     <main>
-      <section class="ps-2 pe-2">
+      <section class="ps-2 pe-2 bg-black">
         <div id="row-home" class="row">
-          <div class="col-3">
-            <div id="menu">
-              <!-- Element from JS -->
-            </div>
-          </div>
-          <div class="col-7">
-            <div id="hero-page">
-              <!-- Element from JS -->
-            </div>
-            <div class="container">
-              <div class="row">
-                <div class="col-4">test</div>
-                <div class="col-4">test</div>
-                <div class="col-4">test</div>
-              </div>
-              <div class="row">
-                <div class="col-2">test</div>
-                <div class="col-2">test</div>
-                <div class="col-2">test</div>
-                <div class="col-2">test</div>
-                <div class="col-2">test</div>
-              </div>
-            </div>
-          </div>
           <div class="col-2">
-            <div id="title">test</div>
-            <div id="user">test</div>
+            <div id="menu" class="font">
+              <!-- Element from JS -->
+            </div>
+            <hr class="border" />
+            <div id="album"></div>
+          </div>
+          <div class="col-7 bg-dark">
+            <div id="hero-page" class="font">
+              <!-- Element from JS -->
+            </div>
+            <div class="container text-bg-dark">
+              <h3 class="my-3">Buonasera</h3>
+              <div id="grid" class="row"></div>
+              <div class="row"></div>
+            </div>
+          </div>
+          <div class="col-3 text-white">
+            <div id="title" class="font">
+              <!-- element from JS -->
+            </div>
+            <div id="user" class="font">
+              <img src="" alt="" />
+              <!-- element from JS -->
+            </div>
           </div>
         </div>
       </section>
@@ -56,5 +54,6 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"></script>
     <script type="module" src="./js/home.js"></script>
+    <script src="./js/get-api-music.js"></script>
   </body>
 </html>
