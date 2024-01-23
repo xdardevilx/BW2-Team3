@@ -14,6 +14,8 @@ const arrayButtonsConfig = [
   new ButtonConfig("I tuoi episodi", "#", "bi bi-collection"),
 ];
 
+// -----DOM MANIPULATION-----
+
 const createNavigationButton = (btnConfig) => {
   const menu = document.getElementById("menu");
   const button = document.createElement("div");
@@ -31,4 +33,32 @@ const addNavigationButtons = () => {
     createNavigationButton(arrayButtonsConfig[i]);
   }
 };
+
+const createCardHero = () => {
+  const heroPage = document.getElementById("hero-page");
+  const card = document.createElement("div");
+  card.classList.add("card", "p-0", "mt-3");
+  heroPage.appendChild(card);
+  card.innerHTML = `
+  <div class="row align-items-center  g-0">
+  <div class="col-md-2 ps-2">
+    <img src="http://placekitten.com/300/300
+    " class="img-fluid rounded-start" alt="...">
+  </div>
+  <div class="col-md-10">
+    <div class="card-body">
+    <p class="m-0">ALBUM</p>
+      <h2 class="card-title m-0 ">titolo della canzone molto molto </h2>
+      <p class="card-text m-0">Fedez, Salmo</p>
+      <p class="card-text m-0"><small class="text-body-secondary">Ascolta il nuovo singolo di Fedez e Salmo kudaksjdsòkdnlasjdalsjòskjdòaksjd</small></p>
+
+    </div>
+  </div>
+</div>
+</div>
+  `;
+};
+
+// ------main------
 addNavigationButtons();
+createCardHero();
