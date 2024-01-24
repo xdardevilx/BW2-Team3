@@ -1,6 +1,7 @@
 // CERCANDO UN GENERE LA PAGINA LI CARICHERà
 let myUrl = ' https://striveschool-api.herokuapp.com/api/deezer/album/';
-const albumId = '212350';
+const albumId = '1121401';
+let songNumber = 0;
 
 const searchGenere = function () {
   fetch(myUrl + albumId)
@@ -9,7 +10,7 @@ const searchGenere = function () {
       if (response.ok) {
         return response.json();
       } else {
-        throw new error('ERRORE');
+        throw new Error('ERRORE');
       }
     })
     .then((data) => {
@@ -49,6 +50,8 @@ const searchGenere = function () {
           const divTracklist = document.getElementById('divTracklist');
           const divTrack = document.createElement('div');
 
+          console.log(element.preview, 'lepreview');
+
           const secondsIntoMinutes = function (secondi) {
             let minutes = secondi / 60;
             return minutes.toFixed(2);
@@ -61,9 +64,8 @@ const searchGenere = function () {
           // console.log("TITOLO TRACK", titoloTrack);
           divTrack.classList.add('row');
           divTrack.innerHTML = `
-          <div class="col col-md-4 col-lg-7 d-flex align-items-center   ">
-              <h5 class="me-4 text-secondary ">${numeroCanzoneInAlbum}</h5>
-              <img src="${element.md5_image}" alt="preview brano">
+          <div class="col col-md-7 col-lg-7 d-flex align-items-center   ">
+              <h5 class="me-4 text-secondary">${numeroCanzoneInAlbum}</h5>
               <div class="">
                 <h4 class="pt-3 text-white " id="titolo">${element.title}</h4>
                 <h5 class="text-white-50    ">${element.artist.name}</h5>
@@ -77,7 +79,21 @@ const searchGenere = function () {
 
           divTracklist.appendChild(divTrack);
         });
+        const previewSongArray = data.tracks.data;
+        console.log(previewSongArray);
+
+        const h4Elements = document.querySelectorAll('h4');
+        h4Elements.forEach((element, index) => {
+          element.addEventListener('click', function () {
+            playAudio(index);
+          });
+        });
+
+        const playAudio = function (index) {
+          new Audio(previewSongArray[index].preview).play();
+        };
       };
+
       creaContenutoAlbum();
     })
     .catch((err) => {
