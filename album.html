@@ -16,19 +16,23 @@
   <body  >
     <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary  rounded-2" tabindex="0">
     
-    <header class=" p-5 bg-black sticky-top">
+    <header class=" p-5 bg-black sticky-top ">
       
       <i class="bi bi-arrow-left-circle-fill  fs-2 me-3 ms-3"></i><i class="bi bi-arrow-right-circle-fill fs-2"></i>
-      <div class="container m-0">
+      <div class="container-fluid  ">
+
+        <div>
+<div class="row ">
         <!---COPERTINA ALUM-->
-        <div id="copertina-album" class=" row flex-nowrap align-items-end   ">
-          <div class="d-flex align-items-end col col-md-8 col-lg-4  ">
+        
+          <div class="d-flex align-items-end col col-md-12  ">
+           
             <img
               src="./assets/imgs/main/image-14.jpg"
-              class="d-block w-100 shadow bg-body-tertiary rounded mt-5 "
+              class=" shadow bg-body-tertiary rounded mt-5"
               alt="Album-IMG"
             />
-            <div class="col col-md-12 col-lg-12 ms-4">
+            <div class="ms-4">
               <div>
                 <p class="text-white-50" >ALBUM</p>
               </div>
@@ -39,13 +43,19 @@
                 <p class="text-white" >Skillet • 2013 • 15 brani ,<span class="text-white-50" > 48 min 12 sec.</span> </p> 
               </div>
             </div>
+
+            
           </div>
           <!----/__________________________________________________/--->
         </div>
+
+</div>
+
+
       </div>
     </header>
     </div>
-    <main class=" bg-dark-subtle d-flex flex-column vh-100  " style="background: linear-gradient(180deg, rgba(134,131,131,1) 0%, rgba(13,12,12,0.8603816526610644) 14%);">
+    <main class=" bg-dark-subtle d-flex flex-column   " style="background: linear-gradient(180deg, rgba(134,131,131,1) 0%, rgba(13,12,12,0.8603816526610644) 14%);">
     <section class="d-flex justify-content-center pt-4 ">
       <div class="container d-flex flex-column align-items-baseline  ">
         <div class=" row ">
@@ -87,7 +97,7 @@
     </main>
     <!-----------MUSICA BAR-------------->
     
-    <footer class="bg-black pt-4  pb-5   "  >
+    <footer class="bg-black pt-4  pb-5 fixed-bottom   "  >
       <div class="container-fluid ">
         <div class="row align-items-center  justify-content-between ">
       
@@ -96,47 +106,49 @@
           
         <div class="song-bar col col-md-2  ">
 <div class="row align-items-center ">
-          <div class="song-info col col-md-5 ">
-            <div class="img-container d-flex align-items-center   ">
+          
+            <div class="img-container d-flex align-items-center col col-md-10 col-lg-9  ">
               <img class="img-thumbnail bg-black ms-4  " style="width: 7em;" src="./assets/imgs/main/image-1.jpg"  alt="">
               <div class="song-description d-flex flex-column  justify-content-center ms-3 ">
             <p class="title text-white">Rise</p>
             <p class="artist text-white-50  ">Skillet</p>
+            
             
           </div>
   
       
           
         </div>
-          </div>
-          <div class="icons col col-md-4   ">
+          
+          <div class="icons col col-md-1 col-lg-2   ">
             <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-heart fs-5 ms-4"></i></a>
         
         </div>
+        
 </div>
         </div>
 
-        <div class="progress-controller    col col-md-8  " >
+        <div class="progress-controller    col col-md-4  " >
           <div class="row justify-content-center   ">
 <div class="col col-md-4">
           <div class="coontrol-buttons d-flex align-items-center justify-content-center mt-4 ">
-          <a class=" link-success link-underline-success link-underline-opacity-25" href="#"><i class="bi bi-shuffle fs-2 me-4 "></i></a> 
-          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-skip-backward-fill fs-2 me-4"></i></a> 
-          <a class=" link-dark link-underline-dark link-underline-opacity-25" href="#"><i class="bi bi-play-fill fs-1 me-4 d-inline-block bg-white rounded-circle p-1 icon-link-hover  "></i></a> 
-          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-skip-forward-fill fs-2 me-4"></i></a> 
-          <a class=" link-success link-underline-success link-underline-opacity-25" href="#"><i class="bi bi-repeat fs-2 me-4"></i></a> 
+          <a class=" link-success link-underline-success link-underline-opacity-25" href="#"><i class="bi bi-shuffle fs-2 me-3 "></i></a> 
+          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-skip-backward-fill fs-2 me-3"></i></a> 
+          <a class=" link-dark link-underline-dark link-underline-opacity-25" href="#"><i class="bi bi-play-fill fs-1 me-3 d-inline-block bg-white rounded-circle  icon-link-hover  "></i></a> 
+          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-skip-forward-fill fs-2 me-3"></i></a> 
+          <a class=" link-success link-underline-success link-underline-opacity-25" href="#"><i class="bi bi-repeat fs-2 me-3"></i></a> 
           </div>
           <div>
             </div>
 </div>
 <div class="row justify-content-center ">
 
-          <div class="progress-container d-flex align-items-center justify-content-center col col-md-12  " style="width: ;">
+          <div class="progress-container d-flex align-items-center justify-content-center col col-md-12">
             <span class="me-2 text-white-50">0:49</span>
-            <div class="progress-bar border  mt-1 rounded-3 bg-secondary" style="width: 50%;">
-              <div class="progess position-relative rounded-5 bg-light  " style="width: 30%;height: 4px;"></div>
+            <div class="progress-bar  mt-1 rounded-3 bg-secondary" style="width: 100%;">
+              <div class="progess  rounded-5 bg-light  " style="width: 30%;height: 4px;"></div>
             </div>
-            <span class="ms-2 text-white-50">3:15</span>
+            <span class="ms-2 text-white-50">3:15 </span>
           </div>
 
 </div>  
@@ -144,16 +156,18 @@
 
         </div>
 
-        <div class="others-featurers d-flex justify-content-end  col col-md-2 ">
+        <div class="others-featurers d-flex  align-items-center   col col-md-3 ">
+
           <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-mic-fill fs-5 me-2"></i></a>
           <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-menu-button-wide fs-5 me-2"></i></a>
           <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-pc-display fs-5 me-2"></i></a>
           <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-volume-up fs-5 me-1"></i></a>
           
-<div class="progress-bar " style="width: 8em; ">
-  <div class="progress bg-body-secondary "  style="height: 1em;"></div>
-  <div><a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-arrows-angle-expand"></i></a></div>
+<div class="progress-bar d-flex " style="width: 8em; ">
+  <div class="progress   bg-body-secondary  "  style="height:5px;"></div>
+  
           </div>
+<div class=" ms-3"><a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-arrows-angle-expand fs-5"></i></a></div>
           </div>
         
 
