@@ -2,6 +2,7 @@
 import { searchAPI } from "./search-api-music.js";
 import { getAlbum } from "./get-api-music.js";
 import { getArtistAPI } from "./get-artist.js";
+
 const idAlbums = [
   "382624",
   "1121182",
@@ -92,7 +93,36 @@ const createSearchBar = () => {
   searchBar.addEventListener("submit", (e) => {
     let searchTerm = document.getElementById("searchInput").value;
     searchAPI(searchTerm);
+    createSearchBar();
   });
+};
+
+const saveDataLocalStorage = () => {
+  const inputsearch = document.getElementById("search-bar");
+  const searchElements = [];
+  inputsearch.addEventListener("submit", () => {
+    let inputValue = document.getElementById("searchInput").value;
+    searchElements.push(inputValue);
+    localStorage.setItem("search", JSON.stringify(searchElements));
+    console.log(searchElements);
+  });
+};
+
+const createResearchfromLocalStorage = () => {
+  const searchvalues = JSON.parse(localStorage.getItem("search"));
+
+  if (searchvalues && searchvalues.length > 0) {
+    const research = document.getElementById("params-search");
+    research.innerHTML = "";
+    searchvalues.forEach((element) => {
+      const researchElement = document.createElement("a");
+      researchElement.classList.add("text-decoration-none", "text-white", "d-flex");
+      researchElement.innerHTML = element;
+      research.appendChild(researchElement);
+    });
+  } else {
+    console.log("nessun valore in uscita");
+  }
 };
 
 const createNavigationButton = (btnConfig, classSpace) => {
@@ -208,7 +238,7 @@ const createCardGridCell = (album) => {
   col.classList.add("col-4", "p-1", "m-0");
   grid.appendChild(col);
   col.innerHTML = `
-  <div id="${album.id}" class="card custom-card">
+  <div id="${album.id}" class="card custom-card h-100 ">
   <div class="row g-0 justify-content-center align-items-center">
     <div class="col-md-3">
       <img src="${album.cover_small}" 
@@ -216,7 +246,7 @@ const createCardGridCell = (album) => {
     </div>
     <div class="col-md-9 ">
       <div class="card-body">
-        <p class="card-text ps-3">${album.title}</p>
+        <p class="card-text ps-3">${album.title.substring(0, 25)}...</p>
       </div>
     </div>
   </div>
@@ -281,3 +311,5 @@ createTitleUsers();
 createGrid(idAlbums);
 createPreference(idArtist);
 createNavBar();
+saveDataLocalStorage();
+createResearchfromLocalStorage();

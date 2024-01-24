@@ -153,7 +153,20 @@ const getArtist = function () {
             });
           };
           creaTracklist();
+
+          const liElements = document.querySelectorAll("li");
+          liElements.forEach((element, index) => {
+            element.addEventListener("click", function () {
+              playAudio(index);
+            });
+          });
+          
+          const playAudio = function (index) {
+            new Audio(arrayTrackList[index].preview).play();
+          };
         })
+
+
         .catch((err) => {
           console.log("errore", err);
         });
