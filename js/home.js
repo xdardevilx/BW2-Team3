@@ -1,5 +1,7 @@
 // -----configuration-------
+import { searchAPI } from "./search-api-music.js";
 import { getAlbum } from "./get-api-music.js";
+import { getArtistAPI } from "./get-artist.js";
 const idAlbums = [
   "382624",
   "1121182",
@@ -9,8 +11,11 @@ const idAlbums = [
   "708674",
 ];
 
+const idArtist = ["412", "7357", "115", "4611", "13"];
+
 class ButtonConfig {
-  constructor(text, link, icon) {
+  constructor(id, text, link, icon) {
+    this.id = id;
     this.text = text;
     this.link = link;
     this.icon = icon;
@@ -47,15 +52,48 @@ const arrayUsersConfig = [
 ];
 
 const arrayButtonsConfig = [
-  new ButtonConfig("Home", "#", "bi bi-house-door-fill"),
-  new ButtonConfig("cerca", "#", "bi bi-search"),
-  new ButtonConfig("La mia libreria", "#", "bi bi-collection"),
-  new ButtonConfig("Crea Playlist", "#", "bi bi-plus"),
-  new ButtonConfig("Brani che ti piacciono", "#", "bi bi-suit-heart-fill"),
-  new ButtonConfig("I tuoi episodi", "#", "bi bi-bookmark-fill"),
+  new ButtonConfig("home", "Home", "#", "bi bi-house-door-fill"),
+  new ButtonConfig("search", "cerca", "#", "bi bi-search"),
+  new ButtonConfig("my-library", "La mia libreria", "#", "bi bi-collection"),
+  new ButtonConfig("create-playlist", "Crea Playlist", "#", "bi bi-plus"),
+  new ButtonConfig(
+    "my-track",
+    "Brani che ti piacciono",
+    "#",
+    "bi bi-suit-heart-fill"
+  ),
+  new ButtonConfig("my-podcast", "I tuoi episodi", "#", "bi bi-bookmark-fill"),
 ];
 
 // -----DOM MANIPULATION-----
+
+const createNavBar = () => {
+  const navBar = document.getElementById("nav-bar");
+  const iconLeft = document.createElement("i");
+  const iconRight = document.createElement("i");
+  iconLeft.classList.add("bi", "bi-arrow-left-circle-fill", "fs-2", "pe-4");
+  iconRight.classList.add("bi", "bi-arrow-right-circle-fill", "fs-2");
+  navBar.appendChild(iconLeft);
+  navBar.appendChild(iconRight);
+  createSearchBar();
+};
+
+const createSearchBar = () => {
+  const navBar = document.getElementById("nav-bar");
+  const searchBar = document.createElement("div");
+  navBar.appendChild(searchBar);
+  searchBar.innerHTML = `
+  <div id="search-bar" class="container-fluid d-none ">
+    <form class="d-flex" role="search">
+      <input id="searchInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    </form>
+  </div>
+`;
+  searchBar.addEventListener("submit", (e) => {
+    let searchTerm = document.getElementById("searchInput").value;
+    searchAPI(searchTerm);
+  });
+};
 
 const createNavigationButton = (btnConfig, classSpace) => {
   const menu = document.getElementById("menu");
@@ -65,11 +103,18 @@ const createNavigationButton = (btnConfig, classSpace) => {
   }
   menu.appendChild(button);
   button.innerHTML = `
-    <a class="text-decoration-none text-white" href="${btnConfig.link}">
+    <a id="${btnConfig.id}" class="text-decoration-none text-white" href="${btnConfig.link}">
     <i class="${btnConfig.icon}"></i>
     <span>${btnConfig.text}</span>
   </a>
     `;
+  const search = document.getElementById("search");
+  if (btnConfig.id === "search") {
+    search.addEventListener("click", () => {
+      const searchBar = document.getElementById("search-bar");
+      searchBar.classList.toggle("d-none");
+    });
+  }
 };
 
 const createTitleUsers = () => {
@@ -194,21 +239,26 @@ const createGrid = (listIdAlbums) => {
   });
 };
 
-const createCardPreference = (album) => {
+const createCardPreference = (artist) => {
   const row = document.getElementById("preference");
   row.classList.add("justify-content-evenly");
   const col = document.createElement("div");
   col.classList.add("col-2", "p-1", "m-0");
   row.appendChild(col);
   col.innerHTML = `
-  <div class="card custom-card ">
-  <img class="p-2" src="${album.cover_medium}" class="card-img-top" alt="...">
+  <div id="${artist.id}" class="card custom-card ">
+  <img class="p-2" src="${artist.picture_medium}" class="card-img-top" alt="...">
   <div class="card-body p-0 text-center ">
-    <h5 class="card-title">${album.title}</h5>
-    <pclass="card-text"><small>${album.label}</small> </p>
+    <h5 class="card-title">${artist.name}</h5>
+    <pclass="card-text"><small>n album: ${artist.nb_album}</small> </p>
   </div>
 </div>  
   `;
+  const sendParam = document.getElementById(artist.id);
+  sendParam.addEventListener("click", (e) => {
+    const url = `./paginaArtista.html?artistId=${artist.id}`;
+    window.location.href = url;
+  });
 };
 
 const createPreference = (listIdAlbums) => {
@@ -218,7 +268,7 @@ const createPreference = (listIdAlbums) => {
   }
   const preference = document.getElementById("preference");
   listIdAlbums.forEach(async (element) => {
-    let album = await getAlbum(element);
+    let album = await getArtistAPI(element);
     createCardPreference(album);
   });
 };
@@ -229,4 +279,5 @@ addUsers();
 createCardHero();
 createTitleUsers();
 createGrid(idAlbums);
-createPreference(idAlbums);
+createPreference(idArtist);
+createNavBar();
