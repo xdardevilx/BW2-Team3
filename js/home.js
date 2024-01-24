@@ -77,6 +77,7 @@ const createNavBar = () => {
   navBar.appendChild(iconRight);
   createSearchBar();
 };
+
 const createSearchBar = () => {
   const navBar = document.getElementById("nav-bar");
   const searchBar = document.createElement("div");
@@ -259,6 +260,7 @@ const createCardPreference = (artist) => {
     window.location.href = url;
   });
 };
+
 const createPreference = (listIdAlbums) => {
   if (!listIdAlbums) {
     console.log("no id albums");
