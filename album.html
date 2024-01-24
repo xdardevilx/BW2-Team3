@@ -13,7 +13,7 @@
       crossorigin="anonymous"
     />
   </head>
-  <body  >
+  <body >
     <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary  rounded-2" tabindex="0">
     
     <header class=" p-5 bg-black sticky-top ">
@@ -24,23 +24,21 @@
         <div>
 <div class="row ">
         <!---COPERTINA ALUM-->
-        
-          <div class="d-flex align-items-end col col-md-12  ">
-           
-            <img
-              src="./assets/imgs/main/image-14.jpg"
-              class=" shadow bg-body-tertiary rounded mt-5"
+        <div id="copertina-album" class=" row flex-nowrap align-items-end   ">
+          <div class="d-flex align-items-end col col-md-8 col-lg-4  ">
+            <img id="imgAlbum"
+              class="d-block w-100 shadow bg-body-tertiary rounded mt-5 "
               alt="Album-IMG"
             />
-            <div class="ms-4">
-              <div>
+            <div class="col col-md-12 col-lg-12 ms-4">
+              <div id="nomeEartista">
                 <p class="text-white-50" >ALBUM</p>
               </div>
               <div>
-                <h1 src="" class="text-white">RISE</h1>
+                <h1 src="" class="text-white" id="h1"></h1>
               </div>
               <div class="mt-4">
-                <p class="text-white" >Skillet • 2013 • 15 brani ,<span class="text-white-50" > 48 min 12 sec.</span> </p> 
+                <p class="text-white" ><span id="artista">Skillet</span ><span id="release"></span><span id="nBrani"></span> ,<span class="text-white-50" id = "durataTotale"></span> </p> 
               </div>
             </div>
 
@@ -55,7 +53,8 @@
       </div>
     </header>
     </div>
-    <main class=" bg-dark-subtle d-flex flex-column   " style="background: linear-gradient(180deg, rgba(134,131,131,1) 0%, rgba(13,12,12,0.8603816526610644) 14%);">
+    <!-- HO TOLTO DAL MAIN VH 100 ALTRIMENTI IL BODY NON OCCUPAVA IL SUO VH-100 ORIGINARIO, CI SONO DA SISTEMARE 2 COSE NEL FOOTER ORA -->
+    <main class=" bg-dark-subtle d-flex flex-column" style="background: linear-gradient(180deg, rgba(134,131,131,1) 0%, rgba(13,12,12,0.8603816526610644) 14%);">
     <section class="d-flex justify-content-center pt-4 ">
       <div class="container d-flex flex-column align-items-baseline  ">
         <div class=" row ">
@@ -75,16 +74,7 @@
           <a class="  link-light link-underline-light  col col-md-1 col-lg-1" href="#"><i class="icone  bi bi-stopwatch fs-3"></i></a>
         </div>
         <hr class="border  border-11 opacity-50 w-100">
-      <div class="row w-100  ">
-          <div class="col col-md-7 col-lg-7 d-flex align-items-center   ">
-            <h5 class="me-4 text-secondary ">1</h5>
-            <div class="">
-              <h4 class="pt-3 text-white ">Rise-Intro</h4>
-              <h5 class="text-white-50    ">Skillet</h5>
-            </div>
-            </div>
-            <p class="col col-md-4 col-lg-4 text-white-50 ">1,5Mln</p>
-            <p class="col col-md-1 col-lg-1 text-white-50">4:21</p>
+      <div class="container w-100" id="divTracklist">
         </div>
         <!--/________________________________________________________/-->
       
@@ -181,6 +171,17 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+    <script src="./albumProva.js"></script>
   </div>
   </body>
 </html>
+
+<!-- 
+<div id="divAlto" class="container">
+  <div class="row">
+    <div class="col" id="imgAlbum"></div>
+    <div class="col">
+      <div class="row flex-column" id="nomeEartista"></div>
+    </div>
+  </div>
+</div> -->
