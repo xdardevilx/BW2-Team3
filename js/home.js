@@ -77,6 +77,7 @@ const createNavBar = () => {
   navBar.appendChild(iconRight);
   createSearchBar();
 };
+
 const createSearchBar = () => {
   const navBar = document.getElementById("nav-bar");
   const searchBar = document.createElement("div");
@@ -91,7 +92,18 @@ const createSearchBar = () => {
   searchBar.addEventListener("submit", (e) => {
     let searchTerm = document.getElementById("searchInput").value;
     searchAPI(searchTerm);
+    createSearchBar();
   });
+};
+
+const addParamSearch = () => {
+  const inputsearch = document.getElementById("searchInput").value;
+  const paramSearch = document.getElementById("params-search");
+  const buttonParam = document.createElement("div");
+  paramSearch.appendChild(buttonParam);
+  buttonParam.innerHTML = `
+  <a class="text-decoration-none text-white" href="}">${inputsearch}</a>
+  `;
 };
 
 const createNavigationButton = (btnConfig, classSpace) => {
@@ -175,7 +187,8 @@ const createCardHero = () => {
     "mt-3",
     "text-white",
     "bg-black",
-    "bg-gradient");
+    "bg-gradient"
+  );
   heroPage.appendChild(card);
   card.innerHTML = `
   <div class="row align-items-center  g-0">
@@ -214,7 +227,7 @@ const createCardGridCell = (album) => {
     </div>
     <div class="col-md-9 ">
       <div class="card-body">
-        <p class="card-text ps-3">${album.title.substring(0,25)}...</p>
+        <p class="card-text ps-3">${album.title.substring(0, 25)}...</p>
       </div>
     </div>
   </div>
@@ -258,6 +271,7 @@ const createCardPreference = (artist) => {
     window.location.href = url;
   });
 };
+
 const createPreference = (listIdAlbums) => {
   if (!listIdAlbums) {
     console.log("no id albums");
