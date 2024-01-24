@@ -142,7 +142,7 @@ const getArtist = function () {
                   if (index !== i && !audio.paused) {
                     // SE AUDIO NON è UGUALE AD INDICE DI ARRAY TRACK E AUDIO NON è IN PAUSA STOPPA QUELLA CANZONE
                     stopAudio(index);
-                    arrayTrack[index].classList.remove("active");
+                    // arrayTrack[index].classList.remove("active");
                     titoloPreviewElements[index].classList.add("text-white");
                     titoloPreviewElements[index].classList.remove(
                       "text-success"
