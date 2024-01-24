@@ -1,7 +1,6 @@
 // CERCANDO UN GENERE LA PAGINA LI CARICHERà
 let myUrl = " https://striveschool-api.herokuapp.com/api/deezer/album/";
 const albumId = "1121401";
-let songNumber = 0;
 
 const searchGenere = function () {
   fetch(myUrl + albumId)
@@ -86,6 +85,8 @@ const searchGenere = function () {
         h4Elements.forEach((element, index) => {
           element.addEventListener("click", function () {
             playAudio(index);
+            // if (element.playing) {
+            // }
           });
         });
 
