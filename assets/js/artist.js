@@ -1,89 +1,94 @@
 let myUrl = "https://striveschool-api.herokuapp.com/api/deezer/artist/";
-let nomeArtista = "gue";
+let idArtista = "1155242";
+let tracklist = "/top?limit=10";
 
 const getArtist = function () {
-  fetch(myUrl + nomeArtista)
+  fetch(myUrl + idArtista)
     .then((response) => {
-      console.log(myUrl + nomeArtista);
+      console.log(response.url);
       if (response.ok) {
         return response.json();
       } else {
-        throw new Error("errore");
+        throw new Error("ERRORE");
       }
     })
 
     .then((data) => {
       console.log("OGGETTO ARTISTA", data);
-      const oggettoArtista = data;
-      const idArtista = oggettoArtista.id;
-      console.log("ID ARTISTA", idArtista);
 
-      ////////////// CONTANDO CHE NON DOVREBBERO ESSERCI ARTISTI CON LO STESSO NOME FORSE NON SERVE TROVARE L'OGGETTO
-      ///////////// ARTIST CON ANCHE L 'ID NELL URL, DOVREBBE BASTARE L URL + NOME ARTISTA .. ? MA INTANTO LASCIO ANCHE QUESTA PARTE
-      fetch(myUrl + idArtista)
+      function formattaNumeroConPunti(numero) {
+        return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      }
+
+      const generaContenutoAlto = () => {
+        const divAlto = document.getElementById("sezioneAlta");
+        const img = document.getElementById("imgArtista");
+        const nome = document.getElementById("artist-name");
+
+        const ascoltatoriMensili = document.getElementById("artist-listeners");
+
+        ascoltatoriMensili.classList.add("col", "fs-5");
+        img.src = data.picture_big;
+        nome.innerText = data.name;
+        /// MODIFICO IL NUMERO DEGLI ASCOLTATORI MENSILI CON UN PUNTINO OGNI 3 CIFRE INTERE
+
+        ascoltatoriMensili.innerText = `${formattaNumeroConPunti(
+          data.nb_fan
+        )} ascoltatori mensili`;
+      };
+      generaContenutoAlto();
+
+      fetch(myUrl + idArtista + tracklist)
         .then((response) => {
-          console.log(myUrl + idArtista);
+          console.log(response.url);
           if (response.ok) {
             return response.json();
           } else {
             throw new Error("ERRORE");
           }
         })
+        .then((data) => {
+          //MI SA CHE DOMANI FACCIO PARTIRE UN ALTRA FETCH DENTRO QUESTO THEN CHE PUNTA A QUES'URL MA CON LA PARTE FINALE
+          ///// PARAMETRIZZATA DAL NUMERO MASSIMO DI TRACKLIST DI OGNI ARTISTA
+          console.log("OGGETTO TRACKLIST RICEVUTO DA FETCH", data);
+          const arrayTrackList = data.data;
+          console.log("ARRAY TRACKLIST", arrayTrackList);
 
-        .then((dataIdUrl) => {
-          console.log("OGGETTO ARTISTA DA URL CON ID", dataIdUrl);
+          const creaTracklist = function () {
+            const divTracklist = document.getElementById("divTracklist");
+            let track = "";
 
-          function formattaNumeroConPunti(numero) {
-            return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-          }
+            const secondsIntoMinutes = function (secondi) {
+              let minutes = secondi / 60;
+              return minutes.toFixed(2);
+            };
 
-          const generaContenuto = () => {
-            const divAlto = document.getElementById("sezioneAlta");
-            const divImg = document.getElementById("imgArtista");
-            const img = document.createElement("img");
-            const colName = document.createElement("h1");
-            const colAscoltatoriMensili = document.createElement("div");
-            //COME CIRCA SEMPRE L'IMMAGINE DI BACKROUND MI DA PROBLEMI,
-            ///CHIODO FISSO .. DOMANI MI DITE VOI CHE STO SBAGLIANDO, ITANTO HO ASSEGNATO LA SORGENTE AD UN IMMAGINE PER VEDERE SE FUNZIONAVA
+            function formattaNumeroConPunti(numero) {
+              return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
 
-            colName.classList.add("col");
-            colAscoltatoriMensili.classList.add("col", "fs-5");
-            img.src = dataIdUrl.picture_big;
-            // divImg.style.background = "url(${dataIdUrl.picture_big})";
-            colName.innerText = dataIdUrl.name;
-            /// MODIFICO IL NUMERO DEGLI ASCOLTATORI MENSILI CON UN PUNTINO OGNI 3 CIFRE INTERE
-            const numeroFormattato = formattaNumeroConPunti(dataIdUrl.nb_fan);
-            colAscoltatoriMensili.innerText = `${numeroFormattato} ascoltatori mensili`;
-
-            divImg.appendChild(img);
-            divAlto.appendChild(colName);
-            divAlto.appendChild(colAscoltatoriMensili);
+            arrayTrackList.forEach((element) => {
+              track += `
+                                <li class="d-flex align-items-center justify-content-between list-group-item h5"><img src="/assets/imgs/main/image-1.jpg" class="col-2 rounded-0 mx-1 my-2" alt="..." style="width: 40px; height: 40px;"><span class=" col-6 text-white h4 ms-2 mb-0">${
+                                  element.title
+                                }</span><span class="col-2 ms-4 h5 text-info">${formattaNumeroConPunti(
+                element.rank
+              )}</span><span class="col-2 ms-4 h6 text-info">${secondsIntoMinutes(
+                element.duration
+              )}</span></li>
+            `;
+            });
+            divTracklist.innerHTML = track;
           };
-          generaContenuto();
+          creaTracklist();
         })
-
         .catch((err) => {
           console.log("errore", err);
         });
-
-      //   const albumStampati = new Set();
-      //   const artistiStampati = new Set(); // TRACCIO GLI ARTISTI GIà STAMPATI
-      //   arrayDiOggetti.forEach((element) => {
-      //     const artista = element.artist.name;
-      // const album = element.album.title;
-
-      // if (!albumStampati.has(album)) {
-      //   // VERIFICO SE L'ARTISTA è GIA STATO TRACCIATO
-      //   console.log(album);
-      //   albumStampati.add(album); //E LO AGGIUNGO AL SET
-      // } else {
-      //   console.log("ALBUM GIà STAMPATO");
-      // }
-      //   });
     })
 
     .catch((err) => {
-      console.log(err, "errore");
+      console.log("errore", err);
     });
 };
 getArtist();
