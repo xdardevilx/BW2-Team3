@@ -1,10 +1,15 @@
-const url = "https://striveschool-api.herokuapp.com/api/deezer/album";
-let idAlbum = "212357";
+const url = "https://striveschool-api.herokuapp.com/api/deezer/artist/";
+let idArtist = "412";
 
-const getAlbum = async () => {
+const getArtistAPI = async () => {
   const response = await fetch(`${url}/${idAlbum}`);
   return response.json();
 };
 
-getAlbum();
-console.log(getAlbum());
+const getArtist = async () => {
+  const album = await getAlbum();
+  console.log(album)
+  return album;
+};
+
+getArtist()

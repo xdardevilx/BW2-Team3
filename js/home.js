@@ -65,7 +65,7 @@ const createNavigationButton = (btnConfig, classSpace) => {
 
 const createTitleUsers = () => {
   const title = document.getElementById("title");
-  title.classList.add("d-flex", "justify-content-evenly", "mt-2");
+  title.classList.add("d-flex", "justify-content-around", "mt-2");
   const text = document.createElement("p");
   const divIcon=document.createElement("div");
   const icon = document.createElement("i");
