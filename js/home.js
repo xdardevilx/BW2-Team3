@@ -175,8 +175,7 @@ const createCardHero = () => {
     "mt-3",
     "text-white",
     "bg-black",
-    "bg-gradient"
-  );
+    "bg-gradient");
   heroPage.appendChild(card);
   card.innerHTML = `
   <div class="row align-items-center  g-0">
@@ -207,7 +206,7 @@ const createCardGridCell = (album) => {
   col.classList.add("col-4", "p-1", "m-0");
   grid.appendChild(col);
   col.innerHTML = `
-  <div id="${album.id}" class="card custom-card">
+  <div id="${album.id}" class="card custom-card h-100 ">
   <div class="row g-0 justify-content-center align-items-center">
     <div class="col-md-3">
       <img src="${album.cover_small}" 
@@ -215,7 +214,7 @@ const createCardGridCell = (album) => {
     </div>
     <div class="col-md-9 ">
       <div class="card-body">
-        <p class="card-text ps-3">${album.title}</p>
+        <p class="card-text ps-3">${album.title.substring(0,15)}...</p>
       </div>
     </div>
   </div>
