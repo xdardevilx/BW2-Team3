@@ -138,7 +138,7 @@ const createCardHero = () => {
       <p class="card-text m-0">Fedez, Salmo</p>
       <p class="card-text m-0"><small">Ascolta il nuovo singolo di Fedez e Salmo</small></p>
       <button id="play-button" class="btn btn-primary rounded-5 ps-4 pe-4 mt-2">Play</button>
-      <button id="play-button" class="btn btn-outline-primary rounded-5 ps-4 pe-4 mt-2 ms-3">Salva</button>
+      <button id="save-button" class="btn rounded-5 ps-3 pe-3 mt-2 ms-3">Salva</button>
 
 
     </div>
