@@ -1,15 +1,29 @@
-const url = "https://striveschool-api.herokuapp.com/api/deezer/artist/";
-let idArtist = "412";
+const url = "https://striveschool-api.herokuapp.com/api/deezer/album";
 
-const getArtistAPI = async () => {
-  const response = await fetch(`${url}/${idArtist}`);
-  return response.json();
+
+ 
+
+const getAlbumAPI = async (idAlbum) => {
+  try {
+    const response = await fetch(`${url}/${idAlbum}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching artist:", error.message);
+  }
 };
 
-const getArtist = async () => {
-  const album = await getArtistAPI();
-  console.log(album)
-  return album;
+export const getAlbum = async (idAlbum) => {
+  try {
+    const artist = await getAlbumAPI(idAlbum);
+    return artist;
+  } catch (error) {
+    console.error("Error getting artist:", error);
+  }
 };
 
-getArtist()
+

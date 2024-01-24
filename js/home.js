@@ -1,4 +1,13 @@
 // -----configuration-------
+import { getAlbum } from "./get-api-music.js";
+const idAlbums = [
+  "382624",
+  "1121182",
+  "12207660",
+  "121532",
+  "1401302",
+  "708674",
+];
 
 class ButtonConfig {
   constructor(text, link, icon) {
@@ -67,11 +76,11 @@ const createTitleUsers = () => {
   const title = document.getElementById("title");
   title.classList.add("d-flex", "justify-content-around", "mt-2");
   const text = document.createElement("p");
-  const divIcon=document.createElement("div");
+  const divIcon = document.createElement("div");
   const icon = document.createElement("i");
   const iconClosed = document.createElement("i");
   iconClosed.classList.add("bi", "bi-x");
-  icon.classList.add("bi","bi-person-add");
+  icon.classList.add("bi", "bi-person-add");
   title.appendChild(text);
   title.appendChild(divIcon);
   divIcon.appendChild(icon);
@@ -138,7 +147,7 @@ const createCardHero = () => {
       <p class="card-text m-0">Fedez, Salmo</p>
       <p class="card-text m-0"><small">Ascolta il nuovo singolo di Fedez e Salmo</small></p>
       <button id="play-button" class="btn btn-primary rounded-5 ps-4 pe-4 mt-2">Play</button>
-      <button id="play-button" class="btn btn-outline-primary rounded-5 ps-4 pe-4 mt-2 ms-3">Salva</button>
+      <button id="save-button" class="btn rounded-5 ps-3 pe-3 mt-2 ms-3">Salva</button>
 
 
     </div>
@@ -148,39 +157,44 @@ const createCardHero = () => {
   `;
 };
 
-const createCardGridCell = () => {
+const createCardGridCell = (album) => {
   const grid = document.getElementById("grid");
   const col = document.createElement("div");
   col.classList.add("col-4", "p-1", "m-0");
   grid.appendChild(col);
   col.innerHTML = `
-  <div class="card custom-card">
+  <div id="${album.id}" class="card custom-card">
   <div class="row g-0 justify-content-center align-items-center">
     <div class="col-md-3">
-      <img src="http://placekitten.com/200/200" 
+      <img src="${album.cover_small}" 
       class="img-fluid rounded-start" alt="...">
     </div>
     <div class="col-md-9 ">
       <div class="card-body">
-        <p class="card-text ps-3">titolo canzone prova</p>
+        <p class="card-text ps-3">${album.title}</p>
       </div>
     </div>
   </div>
 </div>
-
   `;
+  const sendParam = document.getElementById(album.id);
+  sendParam.addEventListener("click", (e) => {
+    const url = `./album.html?albumId=${album.id}`;
+    window.location.href = url;
+  });
 };
 
-const creatGrid = () => {
+const createGrid = (listIdAlbums) => {
   const grid = document.getElementById("grid");
   grid.classList.add("row", "g-3", "p-0");
+  listIdAlbums.forEach(async (element) => {
+    let album = await getAlbum(element);
 
-  for (let i = 0; i < 6; i++) {
-    createCardGridCell();
-  }
+    createCardGridCell(album);
+  });
 };
 
-const createCardPreference = () => {
+const createCardPreference = (album) => {
   const row = document.getElementById("preference");
   row.classList.add("justify-content-evenly");
   const col = document.createElement("div");
@@ -188,20 +202,25 @@ const createCardPreference = () => {
   row.appendChild(col);
   col.innerHTML = `
   <div class="card custom-card ">
-  <img class="p-2" src="http://placekitten.com/300" class="card-img-top" alt="...">
+  <img class="p-2" src="${album.cover_medium}" class="card-img-top" alt="...">
   <div class="card-body p-0 text-center ">
-    <h5 class="card-title">Card title</h5>
-    <pclass="card-text"><small>sottotitolo</small> </p>
+    <h5 class="card-title">${album.title}</h5>
+    <pclass="card-text"><small>${album.label}</small> </p>
   </div>
 </div>  
   `;
 };
 
-const createPreference = () => {
-  const preference = document.getElementById("preference");
-  for (let i = 0; i < 5; i++) {
-    createCardPreference();
+const createPreference = (listIdAlbums) => {
+  if (!listIdAlbums) {
+    console.log("no id albums");
+    listIdAlbums = ["382624", "382624", "382624", "382624", "382624"];
   }
+  const preference = document.getElementById("preference");
+  listIdAlbums.forEach(async (element) => {
+    let album = await getAlbum(element);
+    createCardPreference(album);
+  });
 };
 
 // ------main------
@@ -209,5 +228,5 @@ addNavigationButtons();
 addUsers();
 createCardHero();
 createTitleUsers();
-creatGrid();
-createPreference();
+createGrid(idAlbums);
+createPreference(idAlbums);
