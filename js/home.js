@@ -2,6 +2,7 @@
 import { searchAPI } from "./search-api-music.js";
 import { getAlbum } from "./get-api-music.js";
 import { getArtistAPI } from "./get-artist.js";
+
 const idAlbums = [
   "382624",
   "1121182",
@@ -96,14 +97,32 @@ const createSearchBar = () => {
   });
 };
 
-const addParamSearch = () => {
-  const inputsearch = document.getElementById("searchInput").value;
-  const paramSearch = document.getElementById("params-search");
-  const buttonParam = document.createElement("div");
-  paramSearch.appendChild(buttonParam);
-  buttonParam.innerHTML = `
-  <a class="text-decoration-none text-white" href="}">${inputsearch}</a>
-  `;
+const saveDataLocalStorage = () => {
+  const inputsearch = document.getElementById("search-bar");
+  const searchElements = [];
+  inputsearch.addEventListener("submit", () => {
+    let inputValue = document.getElementById("searchInput").value;
+    searchElements.push(inputValue);
+    localStorage.setItem("search", JSON.stringify(searchElements));
+    console.log(searchElements);
+  });
+};
+
+const createResearchfromLocalStorage = () => {
+  const searchvalues = JSON.parse(localStorage.getItem("search"));
+
+  if (searchvalues && searchvalues.length > 0) {
+    const research = document.getElementById("params-search");
+    research.innerHTML = "";
+    searchvalues.forEach((element) => {
+      const researchElement = document.createElement("a");
+      researchElement.classList.add("text-decoration-none", "text-white", "d-flex");
+      researchElement.innerHTML = element;
+      research.appendChild(researchElement);
+    });
+  } else {
+    console.log("nessun valore in uscita");
+  }
 };
 
 const createNavigationButton = (btnConfig, classSpace) => {
@@ -292,3 +311,5 @@ createTitleUsers();
 createGrid(idAlbums);
 createPreference(idArtist);
 createNavBar();
+saveDataLocalStorage();
+createResearchfromLocalStorage();
