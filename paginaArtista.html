@@ -70,14 +70,14 @@
               </div>
               <div class="col-12 col-md-7 mx-0">
                 <div class="card text-bg-dark" id="artist-card">
-                    <img src="/photo/Florence-Social.jpg" class="card-img  gx-0 rounded-0" alt="..." style="width: 100%">
+                    <img id="imgArtista" class="card-img  gx-0 rounded-0" alt="..." style=" max-height: 70vh;"> <!--ALTEZZA DA SISTEMARE PER NON FARLO DEFORMARE-->
                     <div class="card-img-overlay d-flex flex-column justify-content-between">
                     <div id="buttons-start"><button type="button" class="btn btn-dark rounded-circle opacity-50" style="width: 40px; height: 40px;"><</button> <button type="button" class="btn btn-dark rounded-circle opacity-50 ms-2 " style="width: 40px; height: 40px;">></button></div>
                     
                     <div>
                     <div><img src="/photo/telegrambadge.da6300a1 (1).png" class="img-fluid mx-1" alt="..." width="30px" height="30px"><span class="h5">Artista verificato</span></p></div>
-                    <h1 class="card-title text-start fw-bold" id="artist-name">Florence and the Machine</h1>
-                    <p class="card-text mt-n6 text-start fs-6" id="artist-listeners"><small>3.982.937 ascoltatori mensili</small></p>
+                    <h1 class="card-title text-start fw-bold" id="artist-name"></h1>
+                    <p class="card-text mt-n6 text-start fs-6" id="artist-listeners"><small></small></p>
                     </div>
                     </div>
                     </div>
@@ -90,11 +90,7 @@
                       <div class="row justify-content-between" style="width: 100%;" id="artist-favourites">
                         <div class="col col-md-7 float-start mt-3 ps-4"> 
                             <h3 id="popular">Popolari</h3>
-                            <ol class="fs-4 list-group-numbered mt-3 text-info">
-                                <li class="list-group-item h5"><img src="/assets/imgs/main/image-1.jpg" class="rounded-0 mx-1 my-2" alt="..." style="width: 40px; height: 40px;"><span class="text-white h4 ms-2">Brano</span><span class="ms-4 h5 text-info">102.033.020</span><span class="ms-4 h6 text-info">Time</span></li>
-                                <li class="list-group-item h5"><img src="/assets/imgs/main/image-1.jpg" class="rounded-0 mx-1 my-2" alt="..." style="width: 40px; height: 40px;"><span class="text-white h4 ms-2">Brano</span><span class="ms-4 h5 text-info">102.033.020</span><span class="ms-4 h6 text-info">Time</span></li>
-                                <li class="list-group-item h5"><img src="/assets/imgs/main/image-1.jpg" class="rounded-0 mx-1 my-2" alt="..." style="width: 40px; height: 40px;"><span class="text-white h4 ms-2">Brano</span><span class="ms-4 h5 text-info">102.033.020</span><span class="ms-4 h6 text-info">Time</span></li>
-                                <li class="list-group-item h5"><img src="/assets/imgs/main/image-1.jpg" class="rounded-0 mx-1 my-2" alt="..." style="width: 40px; height: 40px;"><span class="text-white h4 ms-2">Brano</span><span class="ms-4 h5 text-info">102.033.020</span><span class="ms-4 h6 text-info">Time</span></li>
+                            <ol id="divTracklist" class="fs-4 list-group-numbered mt-3 text-info">
                               </ol>
                               <h5>VISUALIZZA ALTRO</h5>
                         </div>
@@ -142,5 +138,6 @@
       </nav>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+ <script src="./assets/js/artist.js"></script>
   </body>
 </html>

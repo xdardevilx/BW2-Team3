@@ -32,6 +32,7 @@ const generateAlbum = function (data, albumId) {
 };
 getDataDatas();
 
+//TE LA COPIO ALESSIA!:)
 const secondsIntoMinutes = function (secondi) {
   let minutes = secondi / 60;
   return minutes.toFixed(2);
