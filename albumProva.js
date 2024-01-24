@@ -1,7 +1,6 @@
 // CERCANDO UN GENERE LA PAGINA LI CARICHERà
 let myUrl = " https://striveschool-api.herokuapp.com/api/deezer/album/";
-const albumId = "86379";
-let songNumber = 10;
+const albumId = "508204251";
 
 const searchGenere = function () {
   fetch(myUrl + albumId)
@@ -45,6 +44,9 @@ const searchGenere = function () {
 
         nBrani.textContent = arrayTracks.length + " brani";
 
+        const audioElements = []; // ARRAY PER TRACCIARE GLI ELEMENTI AUDIO
+        let currentlyPlayingIndex = -1; //INDICE TRACCIA IN PLAY
+
         arrayTracks.forEach((element, i) => {
           console.log("UNA TRACK", element);
           const divTracklist = document.getElementById("divTracklist");
@@ -57,17 +59,13 @@ const searchGenere = function () {
             return minutes.toFixed(2);
           };
           const numeroCanzoneInAlbum = i + 1;
-          // const titolo = document.getElementById("titolo");
-          // const imgPreview = document.getElementById("preview");
 
-          // titolo.textContent = element.title;
-          // console.log("TITOLO TRACK", titoloTrack);
           divTrack.classList.add("row");
           divTrack.innerHTML = `
           <div class="col col-md-7 col-lg-7 d-flex align-items-center   ">
               <h5 class="me-4 text-secondary">${numeroCanzoneInAlbum}</h5>
               <div class="">
-                <h4 class="pt-3 text-white " id="titolo">${element.title}</h4>
+                <h4 class="pt-3" id="titolo">${element.title}</h4>
                 <h5 class="text-white-50    ">${element.artist.name}</h5>
               </div>
           </div>
@@ -78,20 +76,49 @@ const searchGenere = function () {
           `;
 
           divTracklist.appendChild(divTrack);
-        });
-        const previewSongArray = data.tracks.data;
-        console.log(previewSongArray);
 
-        const h4Elements = document.querySelectorAll("h4");
-        h4Elements.forEach((element) => {
-          element.addEventListener("click", function () {
-            playAudio(songNumber);
+          const playAudio = function (index) {
+            const audio = new Audio(arrayTracks[index].preview);
+            audio.play();
+            audioElements[index] = audio;
+            currentlyPlayingIndex = index;
+            console.log("TRACK IN PLAY", currentlyPlayingIndex);
+          };
+
+          const stopAudio = function (index) {
+            if (audioElements[index]) {
+              audioElements[index].pause();
+              audioElements[index].currentTime = 0;
+              currentlyPlayingIndex = -1;
+            }
+          };
+
+          const h4Element = divTrack.querySelector("h4");
+          h4Element.classList.add("text-white");
+
+          h4Element.addEventListener("click", function () {
+            const isPlaying = divTrack.classList.toggle("active");
+
+            if (isPlaying) {
+              h4Element.classList.remove("text-white");
+              h4Element.classList.add("text-success");
+              playAudio(i);
+            } else {
+              h4Element.classList.remove("text-success");
+              h4Element.classList.add("text-white");
+              stopAudio(i);
+            }
+
+            audioElements.forEach((audio, index) => {
+              if (index !== i && !audio.paused) {
+                //SE AUDIO NON è UGUALE AD INDICE DI ARRAY TRACK E AUDIO NON è IN PAUSA STOPPA QUELLA CANZONE
+                stopAudio(index);
+                audio.classList.remove("active");
+                audio.classList.remove("text-success");
+              }
+            });
           });
         });
-
-        const playAudio = function (index) {
-          new Audio(previewSongArray[index].preview).play();
-        };
       };
 
       creaContenutoAlbum();
