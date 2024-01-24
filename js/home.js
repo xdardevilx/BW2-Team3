@@ -3,17 +3,7 @@ import { searchAPI } from "./search-api-music.js";
 import { getAlbum } from "./get-api-music.js";
 import { getArtistAPI } from "./get-artist.js";
 
-const idAlbums = [
-  "382624",
-  "1121182",
-  "12207660",
-  "121532",
-  "1401302",
-  "708674",
-];
-
-const idArtist = ["412", "7357", "115", "4611", "13"];
-
+//Class
 class ButtonConfig {
   constructor(id, text, link, icon) {
     this.id = id;
@@ -31,6 +21,9 @@ class UsersConfig {
     this.icon = icon;
   }
 }
+
+//Variable
+
 const arrayUsersConfig = [
   new UsersConfig(
     "Charlie Hookham",
@@ -66,8 +59,21 @@ const arrayButtonsConfig = [
   new ButtonConfig("my-podcast", "I tuoi episodi", "#", "bi bi-bookmark-fill"),
 ];
 
+const idAlbums = [
+  "382624",
+  "1121182",
+  "12207660",
+  "121532",
+  "1401302",
+  "708674",
+];
+
+const idArtist = ["412", "7357", "115", "4611", "13"];
+
+
 // -----DOM MANIPULATION-----
 
+//Navbar
 const createNavBar = () => {
   const navBar = document.getElementById("nav-bar");
   const iconLeft = document.createElement("i");
@@ -97,34 +103,7 @@ const createSearchBar = () => {
   });
 };
 
-const saveDataLocalStorage = () => {
-  const inputsearch = document.getElementById("search-bar");
-  const searchElements = [];
-  inputsearch.addEventListener("submit", () => {
-    let inputValue = document.getElementById("searchInput").value;
-    searchElements.push(inputValue);
-    localStorage.setItem("search", JSON.stringify(searchElements));
-    console.log(searchElements);
-  });
-};
-
-const createResearchfromLocalStorage = () => {
-  const searchvalues = JSON.parse(localStorage.getItem("search"));
-
-  if (searchvalues && searchvalues.length > 0) {
-    const research = document.getElementById("params-search");
-    research.innerHTML = "";
-    searchvalues.forEach((element) => {
-      const researchElement = document.createElement("a");
-      researchElement.classList.add("text-decoration-none", "text-white", "d-flex");
-      researchElement.innerHTML = element;
-      research.appendChild(researchElement);
-    });
-  } else {
-    console.log("nessun valore in uscita");
-  }
-};
-
+//Button
 const createNavigationButton = (btnConfig, classSpace) => {
   const menu = document.getElementById("menu");
   const button = document.createElement("div");
@@ -147,6 +126,15 @@ const createNavigationButton = (btnConfig, classSpace) => {
   }
 };
 
+//Left Sidenav
+const addNavigationButtons = () => {
+  for (let i = 0; i < arrayButtonsConfig.length; i++) {
+    //if i ===  2 add padding bottom on 3th button
+    createNavigationButton(arrayButtonsConfig[i], i === 2 ? "pb-4" : null);
+  }
+};
+
+//Right Sidenav
 const createTitleUsers = () => {
   const title = document.getElementById("title");
   title.classList.add("d-flex", "justify-content-around", "mt-2");
@@ -190,48 +178,7 @@ const addUsers = () => {
   }
 };
 
-const addNavigationButtons = () => {
-  for (let i = 0; i < arrayButtonsConfig.length; i++) {
-    //if i ===  2 add padding bottom on 3th button
-    createNavigationButton(arrayButtonsConfig[i], i === 2 ? "pb-4" : null);
-  }
-};
-
-const createCardHero = () => {
-  const heroPage = document.getElementById("hero-page");
-  const card = document.createElement("div");
-  card.classList.add(
-    "card",
-    "p-0",
-    "mt-3",
-    "text-white",
-    "bg-black",
-    "bg-gradient"
-  );
-  heroPage.appendChild(card);
-  card.innerHTML = `
-  <div class="row align-items-center  g-0">
-  <div class="col-md-2 ps-2">
-    <img src="http://placekitten.com/300/300
-    " class="img-fluid rounded-start" alt="...">
-  </div>
-  <div class="col-md-10">
-    <div class="card-body">
-    <p class="m-0">ALBUM</p>
-      <h2 class="card-title m-0 ">titolo della canzone molto molto </h2>
-      <p class="card-text m-0">Fedez, Salmo</p>
-      <p class="card-text m-0"><small">Ascolta il nuovo singolo di Fedez e Salmo</small></p>
-      <button id="play-button" class="btn btn-primary rounded-5 ps-4 pe-4 mt-2">Play</button>
-      <button id="save-button" class="btn rounded-5 ps-3 pe-3 mt-2 ms-3">Salva</button>
-
-
-    </div>
-  </div>
-</div>
-</div>
-  `;
-};
-
+//Grid Album
 const createCardGridCell = (album) => {
   const grid = document.getElementById("grid");
   const col = document.createElement("div");
@@ -269,6 +216,7 @@ const createGrid = (listIdAlbums) => {
   });
 };
 
+//Grid Artist
 const createCardPreference = (artist) => {
   const row = document.getElementById("preference");
   row.classList.add("justify-content-evenly");
@@ -301,6 +249,82 @@ const createPreference = (listIdAlbums) => {
     let album = await getArtistAPI(element);
     createCardPreference(album);
   });
+};
+
+//Hero-album
+const createCardHero = () => {
+  const heroPage = document.getElementById("hero-page");
+  const card = document.createElement("div");
+  card.classList.add(
+    "card",
+    "p-0",
+    "mt-3",
+    "text-white",
+    "bg-black",
+    "bg-gradient"
+  );
+  heroPage.appendChild(card);
+  card.innerHTML = `
+  <div class="row align-items-center  g-0">
+  <div class="col-md-2 ps-2">
+    <img src="http://placekitten.com/300/300
+    " class="img-fluid rounded-start" alt="...">
+  </div>
+  <div class="col-md-10">
+    <div class="card-body">
+    <p class="m-0">ALBUM</p>
+      <h2 class="card-title m-0 ">titolo della canzone molto molto </h2>
+      <p class="card-text m-0">Fedez, Salmo</p>
+      <p class="card-text m-0"><small">Ascolta il nuovo singolo di Fedez e Salmo</small></p>
+      <button id="play-button" class="btn btn-primary rounded-5 ps-4 pe-4 mt-2">Play</button>
+      <button id="save-button" class="btn rounded-5 ps-3 pe-3 mt-2 ms-3">Salva</button>
+
+
+    </div>
+  </div>
+</div>
+</div>
+  `;
+};
+
+//Methods
+const saveDataLocalStorage = () => {
+  const inputSearch = document.getElementById("search-bar");
+
+  inputSearch.addEventListener("submit", () => {
+    let inputValue = document.getElementById("searchInput").value;
+
+    let localStorageSearch = JSON.parse(localStorage.getItem("search"));
+
+    if (!localStorageSearch) {
+      localStorageSearch = [];
+    }
+
+    localStorageSearch.push(inputValue);
+
+    localStorage.setItem("search", JSON.stringify(localStorageSearch));
+  });
+};
+
+const createResearchfromLocalStorage = () => {
+  const searchvalues = JSON.parse(localStorage.getItem("search"));
+
+  if (searchvalues && searchvalues.length > 0) {
+    const research = document.getElementById("params-search");
+    research.innerHTML = "";
+    searchvalues.forEach((element) => {
+      const researchElement = document.createElement("a");
+      researchElement.classList.add(
+        "text-decoration-none",
+        "text-white",
+        "d-flex"
+      );
+      researchElement.innerHTML = element;
+      research.appendChild(researchElement);
+    });
+  } else {
+    console.log("nessun valore in uscita");
+  }
 };
 
 // ------main------
