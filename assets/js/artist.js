@@ -73,12 +73,26 @@ const getArtist = function () {
             }
 
             arrayTrackList.forEach((element) => {
+              ///// TITOLO TRACK IN MAIUSCOLO, MA NON PARTE TRA PARENTESI
+              ///// TITOLO TRACK IN MAIUSCOLO, MA NON PARTE TRA PARENTESI
+              const titoloToUpperCaseSenzaParentesi = function (titolo) {
+                const parentesi = titolo.indexOf("(");
+                if (parentesi !== -1) {
+                  return (
+                    titolo.substr(0, parentesi).toUpperCase() +
+                    titolo.substr(parentesi)
+                  );
+                } else {
+                  return titolo.toUpperCase();
+                }
+              };
+
               track += `
                                 <li class="d-flex align-items-center justify-content-between list-group-item h5"><img src="${
                                   element.album.cover
-                                }" class="col-2 rounded-0 mx-1 my-2" alt="..." style="width: 40px; height: 40px;"><span class=" col-6 text-white h4 ms-2 mb-0">${
+                                }" class="col-2 rounded-0 mx-1 my-2" alt="..." style="width: 40px; height: 40px;"><span class=" col-6 text-white h4 ms-2 mb-0">${titoloToUpperCaseSenzaParentesi(
                 element.title
-              }</span><span class="col-2 ms-4 h5 text-info">${formattaNumeroConPunti(
+              )}</span><span class="col-2 ms-4 h5 text-info">${formattaNumeroConPunti(
                 element.rank
               )}</span><span class="col-2 ms-4 h6 text-info">${secondsIntoMinutes(
                 element.duration
