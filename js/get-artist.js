@@ -7,7 +7,6 @@ export const getArtistAPI = async (idArtist) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     } else {
         const data = await response.json();
-        console.log("DATA", data);
         return data;
     }
   } catch (error) {

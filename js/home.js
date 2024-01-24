@@ -214,7 +214,7 @@ const createCardGridCell = (album) => {
     </div>
     <div class="col-md-9 ">
       <div class="card-body">
-        <p class="card-text ps-3">${album.title.substring(0,15)}...</p>
+        <p class="card-text ps-3">${album.title.substring(0,25)}...</p>
       </div>
     </div>
   </div>
