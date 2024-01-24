@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./assets/css/circular-font.css">
+    <title>Build week Spotify</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body >
+    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-body-tertiary  rounded-2" tabindex="0">
+    
+    <header class=" p-5 bg-black sticky-top">
+      
+      <i class="bi bi-arrow-left-circle-fill  fs-2 me-3 ms-3"></i><i class="bi bi-arrow-right-circle-fill fs-2"></i>
+      <div class="container m-0">
+        <!---COPERTINA ALUM-->
+        <div id="copertina-album" class=" row flex-nowrap align-items-end   ">
+          <div class="d-flex align-items-end col col-md-8 col-lg-4  ">
+            <img id="imgAlbum"
+              class="d-block w-100 shadow bg-body-tertiary rounded mt-5 "
+              alt="Album-IMG"
+            />
+            <div class="col col-md-12 col-lg-12 ms-4">
+              <div id="nomeEartista">
+                <p class="text-white-50" >ALBUM</p>
+              </div>
+              <div>
+                <h1 src="" class="text-white" id="h1"></h1>
+              </div>
+              <div class="mt-4">
+                <p class="text-white" ><span id="artista">Skillet</span ><span id="release"></span><span id="nBrani"></span> ,<span class="text-white-50" id = "durataTotale"></span> </p> 
+              </div>
+            </div>
+          </div>
+          <!----/__________________________________________________/--->
+        </div>
+      </div>
+    </header>
+    </div>
+    <!-- HO TOLTO DAL MAIN VH 100 ALTRIMENTI IL BODY NON OCCUPAVA IL SUO VH-100 ORIGINARIO, CI SONO DA SISTEMARE 2 COSE NEL FOOTER ORA -->
+    <main class=" bg-dark-subtle d-flex flex-column" style="background: linear-gradient(180deg, rgba(134,131,131,1) 0%, rgba(13,12,12,0.8603816526610644) 14%);">
+    <section class="d-flex justify-content-center pt-4 ">
+      <div class="container d-flex flex-column align-items-baseline  ">
+        <div class=" row ">
+          
+        <div class="col col-md-12 col-lg-12  p-0 ">
+          <a class="icon-link icon-link-hover link-success link-underline-success link-underline-opacity-25" href="#"><i class="bi bi-play-circle-fill  p-3 fs-1 me-4" ></i></a>
+        <a class="icon-link icon-link-hover link-light link-underline- link-underline-opacity-25" href="#"><i class="bi bi-heart p-3 fs-2 me-3"></i></a>
+        <a class="icon-link icon-link-hover link-light link-underline- link-underline-opacity-25" href="#"><i class="bi bi-download  p-3 fs-2 me-3"></i></a>
+        <a class="icon-link icon-link-hover link-light link-underline- link-underline-opacity-25" href="#"><i class="bi bi-three-dots  p-3 fs-2 me-3"></i></a>
+        
+      </div>
+      </div>
+      <!--RIPRODUZIONE ALBUM-->
+      <div  class="row w-100 mt-5 justify-content-between">
+          <h5 class="icone col col-md-6 col-lg-6 text-white-50 "><span class="me-3 ">#</span><span>TITOLO</span></h5>
+          <h5 class="icone col col-md-4 col-lg-4 text-white-50">Riproduzioni</h5>
+          <a class="  link-light link-underline-light  col col-md-1 col-lg-1" href="#"><i class="icone  bi bi-stopwatch fs-3"></i></a>
+        </div>
+        <hr class="border  border-11 opacity-50 w-100">
+      <div class="container w-100" id="divTracklist">
+        </div>
+        <!--/________________________________________________________/-->
+      
+      </div>
+      </div>
+      
+      </div>
+      
+    </section>
+    </main>
+    <!-----------MUSICA BAR-------------->
+    
+    <footer class="bg-black pt-4  pb-5   "  >
+      <div class="container-fluid ">
+        <div class="row align-items-center  justify-content-between ">
+      
+
+      
+          
+        <div class="song-bar col col-md-2  ">
+<div class="row align-items-center ">
+          <div class="song-info col col-md-5 ">
+            <div class="img-container d-flex align-items-center   ">
+              <img class="img-thumbnail bg-black ms-4  " style="width: 7em;" src="./assets/imgs/main/image-1.jpg"  alt="">
+              <div class="song-description d-flex flex-column  justify-content-center ms-3 ">
+            <p class="title text-white">Rise</p>
+            <p class="artist text-white-50  ">Skillet</p>
+            
+          </div>
+  
+      
+          
+        </div>
+          </div>
+          <div class="icons col col-md-4   ">
+            <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-heart fs-5 ms-4"></i></a>
+        
+        </div>
+</div>
+        </div>
+
+        <div class="progress-controller    col col-md-8  " >
+          <div class="row justify-content-center   ">
+<div class="col col-md-4">
+          <div class="coontrol-buttons d-flex align-items-center justify-content-center mt-4 ">
+          <a class=" link-success link-underline-success link-underline-opacity-25" href="#"><i class="bi bi-shuffle fs-2 me-4 "></i></a> 
+          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-skip-backward-fill fs-2 me-4"></i></a> 
+          <a class=" link-dark link-underline-dark link-underline-opacity-25" href="#"><i class="bi bi-play-fill fs-1 me-4 d-inline-block bg-white rounded-circle p-1 icon-link-hover  "></i></a> 
+          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-skip-forward-fill fs-2 me-4"></i></a> 
+          <a class=" link-success link-underline-success link-underline-opacity-25" href="#"><i class="bi bi-repeat fs-2 me-4"></i></a> 
+          </div>
+          <div>
+            </div>
+</div>
+<div class="row justify-content-center ">
+
+          <div class="progress-container d-flex align-items-center justify-content-center col col-md-12  " style="width: ;">
+            <span class="me-2 text-white-50">0:49</span>
+            <div class="progress-bar border  mt-1 rounded-3 bg-secondary" style="width: 50%;">
+              <div class="progess position-relative rounded-5 bg-light  " style="width: 30%;height: 4px;"></div>
+            </div>
+            <span class="ms-2 text-white-50">3:15</span>
+          </div>
+
+</div>  
+</div>
+
+        </div>
+
+        <div class="others-featurers d-flex justify-content-end  col col-md-2 ">
+          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-mic-fill fs-5 me-2"></i></a>
+          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-menu-button-wide fs-5 me-2"></i></a>
+          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-pc-display fs-5 me-2"></i></a>
+          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-volume-up fs-5 me-1"></i></a>
+          
+<div class="progress-bar " style="width: 8em; ">
+  <div class="progress bg-body-secondary "  style="height: 1em;"></div>
+  <div><a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-arrows-angle-expand"></i></a></div>
+          </div>
+          </div>
+        
+
+
+      </div>
+      </div>
+</div>
+    </footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./albumProva.js"></script>
+  </div>
+  </body>
+</html>
+
+<!-- 
+<div id="divAlto" class="container">
+  <div class="row">
+    <div class="col" id="imgAlbum"></div>
+    <div class="col">
+      <div class="row flex-column" id="nomeEartista"></div>
+    </div>
+  </div>
+</div> -->
