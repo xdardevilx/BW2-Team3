@@ -65,7 +65,7 @@ const searchGenere = function () {
           <div class="col col-md-7 col-lg-7 d-flex align-items-center   ">
               <h5 class="me-4 text-secondary">${numeroCanzoneInAlbum}</h5>
               <div class="">
-                <h4 class="pt-3" id="titolo">${element.title}</h4>
+                <h4 class="text-white pt-3" id="titolo">${element.title}</h4>
                 <h5 class="text-white-50    ">${element.artist.name}</h5>
               </div>
           </div>
@@ -113,8 +113,9 @@ const searchGenere = function () {
               if (index !== i && !audio.paused) {
                 //SE AUDIO NON è UGUALE AD INDICE DI ARRAY TRACK E AUDIO NON è IN PAUSA STOPPA QUELLA CANZONE
                 stopAudio(index);
-                audio.classList.remove("active");
-                audio.classList.remove("text-success");
+                // arrayTrack[index].classList.remove("active");
+                h4Element[index].classList.add("text-white");
+                h4Element[index].classList.remove("text-success");
               }
             });
           });

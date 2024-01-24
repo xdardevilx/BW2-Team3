@@ -93,7 +93,7 @@ const getArtist = function () {
               track += `
                                 <li class="d-flex align-items-center justify-content-between list-group-item h5"><img src="${
                                   element.album.cover
-                                }" class="col-2 rounded-0 mx-1 my-2 ms-2" alt="..." style="width: 40px; height: 40px;"><span id="titoloPreview" class=" col-6 h4 ms-2 mb-0">${titoloToUpperCaseSenzaParentesi(
+                                }" class="col-2 rounded-0 mx-1 my-2 ms-2" alt="..." style="width: 40px; height: 40px;"><span id="titoloPreview" class=" text-white col-6 h4 ms-2 mb-0">${titoloToUpperCaseSenzaParentesi(
                 element.title
               )}</span><span class="col-2 ms-4 h5 text-info">${formattaNumeroConPunti(
                 element.rank
@@ -142,7 +142,8 @@ const getArtist = function () {
                   if (index !== i && !audio.paused) {
                     // SE AUDIO NON è UGUALE AD INDICE DI ARRAY TRACK E AUDIO NON è IN PAUSA STOPPA QUELLA CANZONE
                     stopAudio(index);
-                    arrayTracks[index].classList.remove("active");
+                    // arrayTrack[index].classList.remove("active");
+                    titoloPreviewElements[index].classList.add("text-white");
                     titoloPreviewElements[index].classList.remove(
                       "text-success"
                     );
