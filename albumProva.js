@@ -63,7 +63,6 @@ const searchGenere = function () {
           divTrack.innerHTML = `
           <div class="col col-md-7 col-lg-7 d-flex align-items-center   ">
               <h5 class="me-4 text-secondary ">${numeroCanzoneInAlbum}</h5>
-              <img src="${element.md5_image}" alt="preview brano">
               <div class="">
                 <h4 class="pt-3 text-white " id="titolo">${element.title}</h4>
                 <h5 class="text-white-50    ">${element.artist.name}</h5>
@@ -77,7 +76,14 @@ const searchGenere = function () {
 
           divTracklist.appendChild(divTrack);
         });
+        const previewSongArray = data.tracks.data;
+        console.log(previewSongArray);
+
+        previewSongArray.forEach((element, i) => {
+          console.log(data.tracks.data[i].preview);
+        });
       };
+
       creaContenutoAlbum();
     })
     .catch((err) => {
