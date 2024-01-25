@@ -133,10 +133,10 @@ const getArtist = function () {
 
                 if (isPlaying) {
                   titoloPreviewElement.classList.remove("text-white");
-                  titoloPreviewElement.classList.add("text-success");
+                  titoloPreviewElement.classList.add("text-secondary");
                   playAudio(i);
                 } else {
-                  titoloPreviewElement.classList.remove("text-success");
+                  titoloPreviewElement.classList.remove("text-secondary");
                   titoloPreviewElement.classList.add("text-white");
                   stopAudio(i);
                 }
@@ -148,7 +148,7 @@ const getArtist = function () {
                     // arrayTrack[index].classList.remove("active");
                     titoloPreviewElements[index].classList.add("text-white");
                     titoloPreviewElements[index].classList.remove(
-                      "text-success"
+                      "text-secondary"
                     );
                   }
                 });
