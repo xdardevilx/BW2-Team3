@@ -24,6 +24,8 @@ const searchGenere = function () {
         const giveAudio = function (index) {
           return new Audio(previewSongArray[index].preview);
         };
+        const artistImg = document.getElementById("bottom-artist-image");
+        artistImg.src = data.artist.picture;
 
         h1.textContent = data.title;
         h1.classList.add("col");
@@ -80,6 +82,11 @@ const searchGenere = function () {
           hideLoadingAnimation();
           divTracklist.appendChild(divTrack);
         });
+
+        // newImageArtistBottom.innerHTML = `<img class="img-thumbnail bg-black ms-4  " style="width: 7em;"
+        // src="${data.cover}"  alt="">`;
+        // divWithArtistImage.appendChild(newImageArtistBottom);
+
         const previewSongArray = data.tracks.data;
         console.log(previewSongArray);
 
