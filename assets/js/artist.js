@@ -55,7 +55,7 @@ const getArtist = function () {
         .then((data) => {
           //MI SA CHE DOMANI FACCIO PARTIRE UN ALTRA FETCH DENTRO QUESTO THEN CHE PUNTA A QUES'URL MA CON LA PARTE FINALE
           ///// PARAMETRIZZATA DAL NUMERO MASSIMO DI TRACKLIST DI OGNI ARTISTA
-          console.log("OGGETTO TRACKLIST RICEVUTO DA FETCH", data);
+          console.log("OGGETTO TRACKLIST RICEVUTO DA SECONDA FETCH", data);
           const arrayTrackList = data.data;
 
           console.log("ARRAY TRACKLIST", arrayTrackList);
@@ -78,7 +78,6 @@ const getArtist = function () {
 
             arrayTrackList.forEach((element, i) => {
               ///// TITOLO TRACK IN MAIUSCOLO, MA NON PARTE TRA PARENTESI
-              ///// TITOLO TRACK IN MAIUSCOLO, MA NON PARTE TRA PARENTESI
               const titoloToUpperCaseSenzaParentesi = function (titolo) {
                 const parentesi = titolo.indexOf("(");
                 if (parentesi !== -1) {
@@ -98,7 +97,7 @@ const getArtist = function () {
                 element.title
               )}</span><span class="col-2 ms-4 h5 text-info">${formattaNumeroConPunti(
                 element.rank
-              )}</span><span class="col-2 ms-4 h6 text-info">${secondsIntoMinutes(
+              )}</span><span class="col-1 ms-4 h6 text-info">${secondsIntoMinutes(
                 element.duration
               )}</span></li>
             `;
@@ -127,17 +126,40 @@ const getArtist = function () {
             };
 
             titoloPreviewElements.forEach((titoloPreviewElement, i) => {
+              const playIcon = document.createElement("i");
+              const pauseIcon = document.createElement("i");
+
+              playIcon.classList.add("d-none", "col-1", "bi", "bi-play");
+              pauseIcon.classList.add(
+                "d-none",
+                "col-1",
+                "bi",
+                "bi-pause-circle"
+              );
+
+              ///// ASSEGNO GLI ID ALLE ICONE BASANDOMI SUGLI INDICI
+              playIcon.id = `icona-play-${i}`;
+              pauseIcon.id = `icona-pause-${i}`;
+
               titoloPreviewElement.addEventListener("click", function () {
                 const isPlaying =
-                  titoloPreviewElement.classList.toggle("active"); ////
+                  titoloPreviewElement.classList.toggle("active");
 
                 if (isPlaying) {
                   titoloPreviewElement.classList.remove("text-white");
-                  titoloPreviewElement.classList.add("text-secondary");
+                  titoloPreviewElement.classList.add("text-success");
+                  playIcon.classList.remove("d-none");
+                  playIcon.classList.add("d-inline");
+                  pauseIcon.classList.remove("d-inline");
+                  pauseIcon.classList.add("d-none");
                   playAudio(i);
                 } else {
-                  titoloPreviewElement.classList.remove("text-secondary");
+                  titoloPreviewElement.classList.remove("text-success");
                   titoloPreviewElement.classList.add("text-white");
+                  pauseIcon.classList.remove("d-none");
+                  pauseIcon.classList.add("d-inline");
+                  playIcon.classList.remove("d-inline");
+                  playIcon.classList.add("d-none");
                   stopAudio(i);
                 }
 
@@ -145,14 +167,25 @@ const getArtist = function () {
                   if (index !== i && !audio.paused) {
                     // SE AUDIO NON è UGUALE AD INDICE DI ARRAY TRACK E AUDIO NON è IN PAUSA STOPPA QUELLA CANZONE
                     stopAudio(index);
-                    // arrayTrack[index].classList.remove("active");
+                    const otherPlayIcon = document.getElementById(
+                      `icona-play-${index}`
+                    );
+                    const otherPauseIcon = document.getElementById(
+                      `icona-pause-${index}`
+                    );
+                    otherPlayIcon.classList.remove("d-inline");
+                    otherPlayIcon.classList.add("d-none");
+                    otherPauseIcon.classList.remove("d-inline");
+                    otherPauseIcon.classList.add("d-none");
                     titoloPreviewElements[index].classList.add("text-white");
                     titoloPreviewElements[index].classList.remove(
-                      "text-secondary"
+                      "text-success"
                     );
                   }
                 });
               });
+              titoloPreviewElement.appendChild(playIcon);
+              titoloPreviewElement.appendChild(pauseIcon);
             });
           };
           creaTracklist();
