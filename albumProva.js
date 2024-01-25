@@ -1,6 +1,6 @@
 // CERCANDO UN GENERE LA PAGINA LI CARICHERà
 let myUrl = " https://striveschool-api.herokuapp.com/api/deezer/album/";
-const albumId = "1121401";
+const albumId = "508204251";
 
 const searchGenere = function () {
   fetch(myUrl + albumId)
@@ -47,6 +47,9 @@ const searchGenere = function () {
 
         nBrani.textContent = arrayTracks.length + " brani";
 
+        const audioElements = []; // ARRAY PER TRACCIARE GLI ELEMENTI AUDIO
+        let currentlyPlayingIndex = -1; //INDICE TRACCIA IN PLAY
+
         arrayTracks.forEach((element, i) => {
           console.log("UNA TRACK", element);
           const divTracklist = document.getElementById("divTracklist");
@@ -59,17 +62,13 @@ const searchGenere = function () {
             return minutes.toFixed(2);
           };
           const numeroCanzoneInAlbum = i + 1;
-          // const titolo = document.getElementById("titolo");
-          // const imgPreview = document.getElementById("preview");
 
-          // titolo.textContent = element.title;
-          // console.log("TITOLO TRACK", titoloTrack);
           divTrack.classList.add("row");
           divTrack.innerHTML = `
           <div class="col col-md-7 col-lg-7 d-flex align-items-center   ">
               <h5 class="me-4 text-secondary">${numeroCanzoneInAlbum}</h5>
               <div class="">
-                <h4 class="pt-3 text-white " id="titolo">${element.title}</h4>
+                <h4 class="text-white pt-3" id="titolo">${element.title}</h4>
                 <h5 class="text-white-50    ">${element.artist.name}</h5>
               </div>
           </div>

@@ -72,7 +72,10 @@ const getArtist = function () {
               return numero.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
             }
 
-            arrayTrackList.forEach((element) => {
+            const audioElements = []; // ARRAY PER TRACCIARE GLI ELEMENTI AUDIO
+            let currentlyPlayingIndex = -1; //INDICE TRACCIA IN PLAY
+
+            arrayTrackList.forEach((element, i) => {
               ///// TITOLO TRACK IN MAIUSCOLO, MA NON PARTE TRA PARENTESI
               ///// TITOLO TRACK IN MAIUSCOLO, MA NON PARTE TRA PARENTESI
               const titoloToUpperCaseSenzaParentesi = function (titolo) {
@@ -90,7 +93,7 @@ const getArtist = function () {
               track += `
                                 <li class="d-flex align-items-center justify-content-between list-group-item h5"><img src="${
                                   element.album.cover
-                                }" class="col-2 rounded-0 mx-1 my-2 ms-2" alt="..." style="width: 40px; height: 40px;"><span class=" col-6 text-white h4 ms-2 mb-0">${titoloToUpperCaseSenzaParentesi(
+                                }" class="col-2 rounded-0 mx-1 my-2 ms-2" alt="..." style="width: 40px; height: 40px;"><span id="titoloPreview" class=" text-white col-6 h4 ms-2 mb-0">${titoloToUpperCaseSenzaParentesi(
                 element.title
               )}</span><span class="col-2 ms-4 h5 text-info">${formattaNumeroConPunti(
                 element.rank
@@ -99,23 +102,58 @@ const getArtist = function () {
               )}</span></li>
             `;
             });
+
             divTracklist.innerHTML = track;
+
+            const titoloPreviewElements = divTracklist.querySelectorAll(".h4");
+
+            const playAudio = function (index) {
+              const audio = new Audio(arrayTrackList[index].preview);
+              audio.play();
+              audioElements[index] = audio;
+              currentlyPlayingIndex = index;
+              console.log("TRACK IN PLAY", currentlyPlayingIndex);
+            };
+
+            const stopAudio = function (index) {
+              if (audioElements[index]) {
+                audioElements[index].pause();
+                audioElements[index].currentTime = 0;
+                currentlyPlayingIndex = -1;
+              }
+            };
+
+            titoloPreviewElements.forEach((titoloPreviewElement, i) => {
+              titoloPreviewElement.addEventListener("click", function () {
+                const isPlaying =
+                  titoloPreviewElement.classList.toggle("active");
+
+                if (isPlaying) {
+                  titoloPreviewElement.classList.remove("text-white");
+                  titoloPreviewElement.classList.add("text-success");
+                  playAudio(i);
+                } else {
+                  titoloPreviewElement.classList.remove("text-success");
+                  titoloPreviewElement.classList.add("text-white");
+                  stopAudio(i);
+                }
+
+                audioElements.forEach((audio, index) => {
+                  if (index !== i && !audio.paused) {
+                    // SE AUDIO NON è UGUALE AD INDICE DI ARRAY TRACK E AUDIO NON è IN PAUSA STOPPA QUELLA CANZONE
+                    stopAudio(index);
+                    // arrayTrack[index].classList.remove("active");
+                    titoloPreviewElements[index].classList.add("text-white");
+                    titoloPreviewElements[index].classList.remove(
+                      "text-success"
+                    );
+                  }
+                });
+              });
+            });
           };
           creaTracklist();
-
-          const liElements = document.querySelectorAll("li");
-          liElements.forEach((element, index) => {
-            element.addEventListener("click", function () {
-              playAudio(index);
-            });
-          });
-          
-          const playAudio = function (index) {
-            new Audio(arrayTrackList[index].preview).play();
-          };
         })
-
-
         .catch((err) => {
           console.log("errore", err);
         });
@@ -133,13 +171,3 @@ getArtist();
 
 // URLSearchParams.append() ///////  Aggiunge una coppia chiave/valore specificata come nuovo parametro di ricerca.
 // URLSearchParams.forEach()
-
-// const tracklist = function () {
-//   const arrayTrackList = [data];
-//   const divTracklist = document.getElementById("tracklist");
-//   arrayTrackList.forEach(element => {
-//     element.createElement("div")
-//     divTracklist.appendChild(element)
-//     console.log("TRACKLIST, BRANI PIù ASCOLTATI", element)
-// };
-// tracklist()
