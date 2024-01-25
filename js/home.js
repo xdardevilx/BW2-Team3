@@ -3,17 +3,7 @@ import { searchAPI } from "./search-api-music.js";
 import { getAlbum } from "./get-api-music.js";
 import { getArtistAPI } from "./get-artist.js";
 
-const idAlbums = [
-  "382624",
-  "1121182",
-  "12207660",
-  "121532",
-  "1401302",
-  "708674",
-];
-
-const idArtist = ["412", "7357", "115", "4611", "13"];
-
+//Class
 class ButtonConfig {
   constructor(id, text, link, icon) {
     this.id = id;
@@ -31,6 +21,8 @@ class UsersConfig {
     this.icon = icon;
   }
 }
+
+//Variable
 const arrayUsersConfig = [
   new UsersConfig(
     "Charlie Hookham",
@@ -66,8 +58,47 @@ const arrayButtonsConfig = [
   new ButtonConfig("my-podcast", "I tuoi episodi", "#", "bi bi-bookmark-fill"),
 ];
 
+const idAlbums = [
+  "382624",
+  "1121182",
+  "12207660",
+  "121532",
+  "1401302",
+  "708674",
+];
+
+const idArtist = ["412", "7357", "115", "4611", "13"];
+
 // -----DOM MANIPULATION-----
 
+//CARDS
+const createCardGridCell = (album) => {
+  const card = document.createElement("div");
+  card.classList.add("card", "border-0", "custom-card");
+  card.setAttribute("style", "max-height:48px");
+  card.setAttribute("id", `${album.id}`);
+
+  card.innerHTML = `
+
+  <div class="row g-0">
+    <div class="col-2 col-sm-2 col-md-3">
+      <img src="${
+        album.cover_small
+      }" class="img-fluid rounded-start" alt="..." style="height:48px">
+    </div>
+    <div class="col-10 col-sm-10 col-md-9">
+      <div class="card-body d-flex align-items-center " style="height:48px">
+        <p class="card-text">${album.title.substring(0, 12)}...</p>
+      </div>
+    </div>
+  </div>
+
+  `;
+
+  return card;
+};
+
+//Navbar
 const createNavBar = () => {
   const navBar = document.getElementById("nav-bar");
   const iconLeft = document.createElement("i");
@@ -90,45 +121,31 @@ const createSearchBar = () => {
     </form>
   </div>
 `;
-  searchBar.addEventListener("submit", (e) => {
+  searchBar.addEventListener("submit", async (e) => {
+    const artist = [];
+    const album = [];
+
     let searchTerm = document.getElementById("searchInput").value;
-    searchAPI(searchTerm);
+    const resp = await searchAPI(searchTerm);
+
+    console.log(resp.data[0]);
     createSearchBar();
-  });
-};
+    createCardGridCell(resp.data[0].album);
 
-const saveDataLocalStorage = () => {
-  const inputsearch = document.getElementById("search-bar");
-  const searchElements = [];
-  inputsearch.addEventListener("submit", () => {
-    let inputValue = document.getElementById("searchInput").value;
-    searchElements.push(inputValue);
-    localStorage.setItem("search", JSON.stringify(searchElements));
-    console.log(searchElements);
-  });
-};
-
-const createResearchfromLocalStorage = () => {
-  const searchvalues = JSON.parse(localStorage.getItem("search"));
-
-  if (searchvalues && searchvalues.length > 0) {
-    const research = document.getElementById("params-search");
-    research.innerHTML = "";
-    searchvalues.forEach((element) => {
-      const researchElement = document.createElement("a");
-      researchElement.classList.add(
-        "text-decoration-none",
-        "text-white",
-        "d-flex"
-      );
-      researchElement.innerHTML = element;
-      research.appendChild(researchElement);
+    resp.data.forEach((element) => {
+      if (!artist.some((item) => item.id === element.artist.id)) {
+        artist.push(element.artist);
+      }
+      if (!album.some((item) => item.id === element.album.id)) {
+        album.push(element.album);
+      }
     });
-  } else {
-    console.log("nessun valore in uscita");
-  }
+    console.log("ARTIST", artist);
+    console.log("ALBUM", album);
+  });
 };
 
+//Button
 const createNavigationButton = (btnConfig, classSpace) => {
   const menu = document.getElementById("menu");
   const button = document.createElement("div");
@@ -151,6 +168,15 @@ const createNavigationButton = (btnConfig, classSpace) => {
   }
 };
 
+//Left Sidenav
+const addNavigationButtons = () => {
+  for (let i = 0; i < arrayButtonsConfig.length; i++) {
+    //if i ===  2 add padding bottom on 3th button
+    createNavigationButton(arrayButtonsConfig[i], i === 2 ? "pb-4" : null);
+  }
+};
+
+//Right Sidenav
 const createTitleUsers = () => {
   const title = document.getElementById("title");
   title.classList.add("d-flex", "justify-content-around", "mt-2");
@@ -194,13 +220,101 @@ const addUsers = () => {
   }
 };
 
-const addNavigationButtons = () => {
-  for (let i = 0; i < arrayButtonsConfig.length; i++) {
-    //if i ===  2 add padding bottom on 3th button
-    createNavigationButton(arrayButtonsConfig[i], i === 2 ? "pb-4" : null);
-  }
+//Grid Album
+const createGrid = (listIdAlbums) => {
+  const grid = document.getElementById("grid");
+  grid.classList.add("row", "g-3", "p-0");
+
+  listIdAlbums.forEach(async (element) => {
+    const col = document.createElement("div");
+    col.classList.add(
+      "col-12",
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "p-1",
+      "m-0"
+    );
+    grid.appendChild(col);
+
+    let album = await getAlbum(element);
+    col.appendChild(createCardGridCell(album));
+
+    const sendParam = document.getElementById(album.id);
+    sendParam.addEventListener("click", (e) => {
+      const url = `./album.html?albumId=${album.id}`;
+      window.location.href = url;
+    });
+  });
 };
 
+//Grid Artist
+const createCardPreference = (artist) => {
+  const row = document.getElementById("preference");
+  row.classList.add("justify-content-evenly");
+  const col = document.createElement("div");
+  col.classList.add("col-2", "p-1", "m-0");
+  row.appendChild(col);
+  col.innerHTML = `
+  <div id="${artist.id}" class="card custom-card ">
+  <img class="p-2" src="${artist.picture_medium}" class="card-img-top" alt="...">
+  <div class="card-body p-0 text-center ">
+    <h5 class="card-title">${artist.name}</h5>
+    <pclass="card-text"><small>n album: ${artist.nb_album}</small> </p>
+  </div>
+</div>  
+  `;
+  const sendParam = document.getElementById(artist.id);
+  sendParam.addEventListener("click", (e) => {
+    const url = `./paginaArtista.html?artistId=${artist.id}`;
+    window.location.href = url;
+  });
+};
+
+const createPreference = (listIdAlbums) => {
+  if (!listIdAlbums) {
+    console.log("no id albums");
+    listIdAlbums = ["382624", "382624", "382624", "382624", "382624"];
+  }
+  const preference = document.getElementById("preference");
+  listIdAlbums.forEach(async (element) => {
+    let album = await getArtistAPI(element);
+    createCardPreference(album);
+  });
+};
+
+const createCardPreferenceAlbum = (album) => {
+  const row = document.getElementById("preference");
+  row.classList.add("justify-content-evenly");
+  const col = document.createElement("div");
+  col.classList.add("col-2", "p-1", "m-0");
+  row.appendChild(col);
+  col.innerHTML = `
+  <div id="${album.id}" class="card custom-card ">
+  <img class="p-2" src="${album.cover_medium}" class="card-img-top" alt="...">
+  <div class="card-body p-0 text-center ">
+    <h5 class="card-title">${album.title}</h5>
+    <pclass="card-text"><small>n album: ${album.type}</small> </p>
+  </div>
+</div>  
+  `;
+  const sendParam = document.getElementById(artist.id);
+  sendParam.addEventListener("click", (e) => {
+    const url = `./paginaArtista.html?artistId=${artist.id}`;
+    window.location.href = url;
+  });
+};
+
+// Grid Search
+const creatGridSearch = () => {
+  const grid = document.getElementById("search");
+  const p = document.createElement("p");
+  grid.appendChild(p);
+  p.textContent = "ciao prova";
+  // createCardPreferenceAlbum()
+};
+
+//Hero-album
 const createCardHero = () => {
   const heroPage = document.getElementById("hero-page");
   const card = document.createElement("div");
@@ -236,78 +350,285 @@ const createCardHero = () => {
   `;
 };
 
-const createCardGridCell = (album) => {
-  const grid = document.getElementById("grid");
-  const col = document.createElement("div");
-  col.classList.add("col-4", "p-1", "m-0");
-  grid.appendChild(col);
-  col.innerHTML = `
-  <div id="${album.id}" class="card custom-card h-100 ">
-  <div id="genitore" class="row g-0 justify-content-center align-items-center">
-    <div class="col-md-3">
-      <img src="${album.cover_small}" 
-      class="img-fluid rounded-start" alt="...">
-    </div>
-    <div class="col-md-9 ">
-      <div class="card-body">
-        <p class="card-text ps-3">${album.title.substring(0, 25)}...</p>
+//Now-playng-bar
+const createNowPlayingBar = () => {
+  const nowPlayingBar = document.getElementById("now-playing-bar");
+  const containerFluid = document.createElement("div");
+  containerFluid.classList.add("container-fluid");
+  nowPlayingBar.appendChild(containerFluid);
+
+  const row = document.createElement("div");
+  row.classList.add("row", "align-items-center", "justify-content-between");
+  row.setAttribute("id", "now-playing-bar-row");
+  containerFluid.appendChild(row);
+
+  const colTrack = document.createElement("div");
+  colTrack.classList.add("col", "col-md-3");
+  colTrack.setAttribute("id", "track-card-now-playing-bar");
+
+  const colMixer = document.createElement("div");
+  colMixer.classList.add("col", "col-md-6");
+  colMixer.setAttribute("id", "display-track-card");
+
+  const colAction = document.createElement("div");
+  colAction.classList.add("col", "col-md-3");
+  colAction.setAttribute("id", "action-now-playing-bar");
+
+  row.appendChild(colTrack);
+  row.appendChild(colMixer);
+  row.appendChild(colAction);
+
+  createTrackCardNowPlayingBar(
+    "./assets/imgs/main/image-1.jpg",
+    "Nome traccia",
+    "Artista"
+  );
+  // createDisplayTrackCard();
+  createActionNowPlayingBar();
+};
+
+const createTrackCardNowPlayingBar = (srcImg, titleTxt, subtitleTxt) => {
+  let _srcImg = srcImg ? srcImg : "./assets/imgs/main/image-1.jpg";
+  let _titleTxt = titleTxt ? titleTxt : "Rise";
+  let _subtitleTxt = subtitleTxt ? subtitleTxt : "Eminem";
+
+  const trackCardNowPlayingBar = document.getElementById(
+    "track-card-now-playing-bar"
+  );
+  const row = document.createElement("div");
+  row.classList.add("row", "align-items-center");
+  trackCardNowPlayingBar.appendChild(row);
+
+  const colImg = document.createElement("div");
+  colImg.classList.add("col", "col-md-3");
+  row.appendChild(colImg);
+
+  const img = document.createElement("img");
+  img.setAttribute("src", _srcImg);
+  img.setAttribute("height", "56");
+  img.setAttribute("width", "56");
+  colImg.appendChild(img);
+
+  const colText = document.createElement("div");
+  colText.classList.add("col", "col-md-7");
+  row.appendChild(colText);
+
+  const pTitle = document.createElement("p");
+  pTitle.classList.add("m-0");
+  const title = document.createTextNode(_titleTxt);
+  pTitle.appendChild(title);
+  colText.appendChild(pTitle);
+
+  const pSubtitle = document.createElement("p");
+  pSubtitle.classList.add("m-0");
+  const subtitle = document.createTextNode(_subtitleTxt);
+  pSubtitle.appendChild(subtitle);
+  colText.appendChild(subtitle);
+
+  const colPreference = document.createElement("div");
+  colPreference.classList.add("col", "col-md-2");
+  row.appendChild(colPreference);
+
+  const icon = document.createElement("i");
+  icon.classList.add("bi", "bi-heart");
+  colPreference.appendChild(icon);
+  createDisplayTrackCard()
+};
+
+const createDisplayTrackCard = () => {
+  const displayTrackCard = document.getElementById("display-track-card");
+  displayTrackCard.innerHTML = `
+  <div class="row justify-content-center">
+        <div class="col col-md-4">
+          <div
+            class="coontrol-buttons d-flex align-items-center justify-content-center mt-4">
+            <a
+              class="link-success link-underline-success link-underline-opacity-25"
+              href="#"
+              ><i class="bi bi-shuffle fs-2 me-4"></i
+            ></a>
+            <a
+              class="link-secondary link-underline-secondary link-underline-opacity-25"
+              href="#"
+              ><i class="bi bi-skip-backward-fill fs-2 me-4 text-info"></i
+            ></a>
+            <div class="me-3">
+              <a
+                class="link-dark link-underline-dark link-underline-opacity-25"
+                href="#">
+                <i
+                  class="bi bi-play-fill fs-1 bg-white text-center rounded rounded-circle ps-2 pe-1 icon-link-hover"></i>
+              </a>
+            </div>
+            <a
+              class="link-secondary link-underline-secondary link-underline-opacity-25"
+              href="#"
+              ><i class="bi bi-skip-forward-fill fs-2 me-4 text-info"></i
+            ></a>
+            <a
+              class="link-success link-underline-success link-underline-opacity-25"
+              href="#"
+              ><i class="bi bi-repeat fs-2 me-4"></i
+            ></a>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div
+            class="progress-container d-flex align-items-center justify-content-center col col-md-12">
+            <span class="me-2 text-white-50">0:49</span>
+            <div
+              class="progress-bar border mt-1 rounded-3 bg-secondary"
+              style="width: 50%">
+              <div
+                class="progess position-relative rounded-5 bg-light"
+                style="width: 30%; height: 4px"></div>
+            </div>
+            <span class="ms-2 text-white-50">3:15</span>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
   `;
-
-  hideLoadingAnimation();
-
-  const sendParam = document.getElementById(album.id);
-  sendParam.addEventListener("click", (e) => {
-    const url = `./album.html?albumId=${album.id}`;
-    window.location.href = url;
-  });
 };
 
-const createGrid = (listIdAlbums) => {
-  const grid = document.getElementById("grid");
-  grid.classList.add("row", "g-3", "p-0");
-  listIdAlbums.forEach(async (element) => {
-    let album = await getAlbum(element);
-
-    createCardGridCell(album);
-  });
-};
-
-const createCardPreference = (artist) => {
-  const row = document.getElementById("preference");
-  row.classList.add("justify-content-evenly");
+const createActionNowPlayingBar = () => {
+  const actionNowPlayingBar = document.getElementById("action-now-playing-bar");
+  const row = document.createElement("div");
+  row.classList.add("row");
   const col = document.createElement("div");
-  col.classList.add("col-2", "p-1", "m-0");
+  col.classList.add("col", "col-12");
   row.appendChild(col);
-  col.innerHTML = `
-  <div id="${artist.id}" class="card custom-card ">
-  <img class="p-2" src="${artist.picture_medium}" class="card-img-top" alt="...">
-  <div class="card-body p-0 text-center ">
-    <h5 class="card-title">${artist.name}</h5>
-    <pclass="card-text"><small>n album: ${artist.nb_album}</small> </p>
-  </div>
-</div>  
-  `;
-  const sendParam = document.getElementById(artist.id);
-  sendParam.addEventListener("click", (e) => {
-    const url = `./paginaArtista.html?artistId=${artist.id}`;
-    window.location.href = url;
+
+  const a = [
+    {
+      href: "#",
+      icon: "bi-mic-fill",
+    },
+    {
+      href: "#",
+      icon: "bi-menu-button-wide",
+    },
+    {
+      href: "#",
+      icon: "bi-pc-display",
+    },
+    {
+      href: "#",
+      icon: "bi-volume-up",
+    },
+    {
+      href: "#",
+      icon: "progress-bar",
+    },
+    {
+      href: "#",
+      icon: "bi-arrows-angle-expand",
+    },
+  ];
+
+  a.forEach((a) => {
+    if (a.icon === "progress-bar") {
+      col.appendChild(createProgressBar());
+    } else {
+      col.appendChild(createIconAnchor(a.icon, a.href));
+    }
+  });
+
+  actionNowPlayingBar.appendChild(row);
+
+  //   actionNowPlayingBar.innerHTML = `<a
+  //   class="link-secondary link-underline-secondary link-underline-opacity-25"
+  //   href="#"
+  //   ><i class="bi bi-mic-fill fs-5 me-2 text-info"></i
+  // ></a>
+  // <a
+  //   class="link-secondary link-underline-secondary link-underline-opacity-25"
+  //   href="#"
+  //   ><i class="bi bi-menu-button-wide fs-5 me-2 text-info"></i
+  // ></a>
+  // <a
+  //   class="link-secondary link-underline-secondary link-underline-opacity-25"
+  //   href="#"
+  //   ><i class="bi bi-pc-display fs-5 me-2 text-info"></i
+  // ></a>
+  // <a
+  //   class="link-secondary link-underline-secondary link-underline-opacity-25"
+  //   href="#"
+  //   ><i class="bi bi-volume-up fs-5 me-1 text-info"></i
+  // ></a>
+
+  // <div class="progress-bar" style="width: 8em">
+  //   <div class="progress bg-body-secondary" style="height: 1em"></div>
+  //   <div>
+  //     <a
+  //       class="link-secondary link-underline-secondary link-underline-opacity-25"
+  //       href="#"
+  //       ><i class="bi bi-arrows-angle-expand text-info"></i
+  //     ></a>
+  //   </div>
+  // </div>
+  // </div>`;
+};
+
+const createIconAnchor = (icon, href) => {
+  const iconAnchor = document.createElement("a");
+  iconAnchor.classList.add("link-secondary", "link-underline-secondary");
+  iconAnchor.setAttribute("href", href);
+  const iconElement = document.createElement("i");
+  iconElement.classList.add("bi", icon, "mx-1");
+  iconAnchor.appendChild(iconElement);
+  return iconAnchor;
+};
+
+const createProgressBar = () => {
+  const progressBar = document.createElement("a");
+  progressBar.classList.add("progress-bar");
+  progressBar.setAttribute("style", "height:5px; width:80px");
+
+  const body = document.createElement("div");
+  body.classList.add("progress", "bg-body-secondary");
+  // body.setAttribute("style", "height:2px; width:25px; display: inline")
+  progressBar.appendChild(body);
+  return progressBar;
+};
+
+//Methods
+const saveDataLocalStorage = () => {
+  const inputSearch = document.getElementById("search-bar");
+
+  inputSearch.addEventListener("submit", () => {
+    let inputValue = document.getElementById("searchInput").value;
+
+    let localStorageSearch = JSON.parse(localStorage.getItem("search"));
+
+    if (!localStorageSearch) {
+      localStorageSearch = [];
+    }
+
+    localStorageSearch.push(inputValue);
+
+    localStorage.setItem("search", JSON.stringify(localStorageSearch));
   });
 };
 
-const createPreference = (listIdAlbums) => {
-  if (!listIdAlbums) {
-    console.log("no id albums");
-    listIdAlbums = ["382624", "382624", "382624", "382624", "382624"];
+const createResearchfromLocalStorage = () => {
+  const searchvalues = JSON.parse(localStorage.getItem("search"));
+
+  if (searchvalues && searchvalues.length > 0) {
+    const research = document.getElementById("params-search");
+    research.innerHTML = "";
+    searchvalues.forEach((element) => {
+      const researchElement = document.createElement("a");
+      researchElement.classList.add(
+        "text-decoration-none",
+        "text-white",
+        "d-flex"
+      );
+      researchElement.innerHTML = element;
+      research.appendChild(researchElement);
+    });
+  } else {
+    console.log("nessun valore in uscita");
   }
-  const preference = document.getElementById("preference");
-  listIdAlbums.forEach(async (element) => {
-    let album = await getArtistAPI(element);
-    createCardPreference(album);
-  });
 };
 
 // ------main------
@@ -320,31 +641,4 @@ createPreference(idArtist);
 createNavBar();
 saveDataLocalStorage();
 createResearchfromLocalStorage();
-
-function hideLoadingAnimation() {
-  const loadingDiv = document.getElementById("loadingDiv");
-  if (loadingDiv) {
-    loadingDiv.style.display = "none";
-  }
-}
-
-// Verifica se il div genitore è stato creato
-const parentDiv = document.getElementById("genitore");
-
-// Se il div genitore non è ancora stato creato, creo loading div e mostro l'animazione
-if (!parentDiv) {
-  const loadingDiv = document.createElement("div");
-  loadingDiv.id = "loadingDiv";
-  loadingDiv.classList.add("clessidra");
-  loadingDiv.style.width = "20px";
-  loadingDiv.style.height = "20px";
-  document.body.appendChild(loadingDiv);
-} else {
-  hideLoadingAnimation(); // Nascondi l'animazione se il div genitore è già stato creato
-  const loadingDiv = document.getElementById("loadingDiv");
-  // Aggiungi un listener per l'evento "animationend" all'elemento di caricamento
-  loadingDiv.addEventListener("animationend", () => {
-    // Una volta completata l'animazione di opacità, nascondi il div di caricamento
-    loadingDiv.style.display = "none";
-  });
-}
+createNowPlayingBar();
