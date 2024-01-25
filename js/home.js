@@ -324,12 +324,17 @@ const createCardHero = () => {
     "mt-3",
     "text-white",
     "bg-black",
-    "bg-gradient"
+    "bg-gradient",
+    "d-none",
+    "d-md-block",
+    "col-12",
+    
   );
   heroPage.appendChild(card);
   card.innerHTML = `
+  <div>
   <div class="row align-items-center  g-0">
-  <div class="col-md-2 ps-2">
+  <div class="col-md-2 ps-3">
     <img src="http://placekitten.com/300/300
     " class="img-fluid rounded-start" alt="...">
   </div>
