@@ -350,150 +350,46 @@ const createCardHero = () => {
   `;
 };
 
-//Now-playng-bar
-const createNowPlayingBar = () => {
-  const nowPlayingBar = document.getElementById("now-playing-bar");
-  const containerFluid = document.createElement("div");
-  containerFluid.classList.add("container-fluid");
-  nowPlayingBar.appendChild(containerFluid);
-
-  const row = document.createElement("div");
-  row.classList.add("row", "align-items-center", "justify-content-between");
-  row.setAttribute("id", "now-playing-bar-row");
-  containerFluid.appendChild(row);
-
-  const colTrack = document.createElement("div");
-  colTrack.classList.add("col", "col-md-3");
-  colTrack.setAttribute("id", "track-card-now-playing-bar");
-
-  const colMixer = document.createElement("div");
-  colMixer.classList.add("col", "col-md-6");
-  colMixer.setAttribute("id", "display-track-card");
-
-  const colAction = document.createElement("div");
-  colAction.classList.add("col", "col-md-3");
-  colAction.setAttribute("id", "action-now-playing-bar");
-
-  row.appendChild(colTrack);
-  row.appendChild(colMixer);
-  row.appendChild(colAction);
-
-  createTrackCardNowPlayingBar(
-    "./assets/imgs/main/image-1.jpg",
-    "Nome traccia",
-    "Artista"
-  );
-  // createDisplayTrackCard();
-  createActionNowPlayingBar();
-};
-
-const createTrackCardNowPlayingBar = (srcImg, titleTxt, subtitleTxt) => {
-  let _srcImg = srcImg ? srcImg : "./assets/imgs/main/image-1.jpg";
-  let _titleTxt = titleTxt ? titleTxt : "Rise";
-  let _subtitleTxt = subtitleTxt ? subtitleTxt : "Eminem";
-
-  const trackCardNowPlayingBar = document.getElementById(
-    "track-card-now-playing-bar"
-  );
-  const row = document.createElement("div");
-  row.classList.add("row", "align-items-center");
-  trackCardNowPlayingBar.appendChild(row);
-
-  const colImg = document.createElement("div");
-  colImg.classList.add("col", "col-md-3");
-  row.appendChild(colImg);
-
-  const img = document.createElement("img");
-  img.setAttribute("src", _srcImg);
-  img.setAttribute("height", "56");
-  img.setAttribute("width", "56");
-  colImg.appendChild(img);
-
-  const colText = document.createElement("div");
-  colText.classList.add("col", "col-md-7");
-  row.appendChild(colText);
-
-  const pTitle = document.createElement("p");
-  pTitle.classList.add("m-0");
-  const title = document.createTextNode(_titleTxt);
-  pTitle.appendChild(title);
-  colText.appendChild(pTitle);
-
-  const pSubtitle = document.createElement("p");
-  pSubtitle.classList.add("m-0");
-  const subtitle = document.createTextNode(_subtitleTxt);
-  pSubtitle.appendChild(subtitle);
-  colText.appendChild(subtitle);
-
-  const colPreference = document.createElement("div");
-  colPreference.classList.add("col", "col-md-2");
-  row.appendChild(colPreference);
-
-  const icon = document.createElement("i");
-  icon.classList.add("bi", "bi-heart");
-  colPreference.appendChild(icon);
-  createDisplayTrackCard()
-};
-
-const createDisplayTrackCard = () => {
-  const displayTrackCard = document.getElementById("display-track-card");
-  displayTrackCard.innerHTML = `
-  <div class="row justify-content-center">
-        <div class="col col-md-4">
-          <div
-            class="coontrol-buttons d-flex align-items-center justify-content-center mt-4">
-            <a
-              class="link-success link-underline-success link-underline-opacity-25"
-              href="#"
-              ><i class="bi bi-shuffle fs-2 me-4"></i
-            ></a>
-            <a
-              class="link-secondary link-underline-secondary link-underline-opacity-25"
-              href="#"
-              ><i class="bi bi-skip-backward-fill fs-2 me-4 text-info"></i
-            ></a>
-            <div class="me-3">
-              <a
-                class="link-dark link-underline-dark link-underline-opacity-25"
-                href="#">
-                <i
-                  class="bi bi-play-fill fs-1 bg-white text-center rounded rounded-circle ps-2 pe-1 icon-link-hover"></i>
-              </a>
-            </div>
-            <a
-              class="link-secondary link-underline-secondary link-underline-opacity-25"
-              href="#"
-              ><i class="bi bi-skip-forward-fill fs-2 me-4 text-info"></i
-            ></a>
-            <a
-              class="link-success link-underline-success link-underline-opacity-25"
-              href="#"
-              ><i class="bi bi-repeat fs-2 me-4"></i
-            ></a>
-          </div>
-        </div>
-        <div class="row justify-content-center">
-          <div
-            class="progress-container d-flex align-items-center justify-content-center col col-md-12">
-            <span class="me-2 text-white-50">0:49</span>
-            <div
-              class="progress-bar border mt-1 rounded-3 bg-secondary"
-              style="width: 50%">
-              <div
-                class="progess position-relative rounded-5 bg-light"
-                style="width: 30%; height: 4px"></div>
-            </div>
-            <span class="ms-2 text-white-50">3:15</span>
-          </div>
-        </div>
+const createCardGridCell = (album) => {
+  const grid = document.getElementById("grid");
+  const col = document.createElement("div");
+  col.classList.add("col-4", "p-1", "m-0");
+  grid.appendChild(col);
+  col.innerHTML = `
+  <div id="${album.id}" class="card custom-card h-100 ">
+  <div class="row g-0 justify-content-center align-items-center">
+    <div class="col-md-3">
+      <img src="${album.cover_small}" 
+      class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-9 ">
+      <div class="card-body">
+        <p class="card-text ps-3">${album.title.substring(0, 25)}...</p>
       </div>
+    </div>
+  </div>
+</div>
   `;
+  const sendParam = document.getElementById(album.id);
+  sendParam.addEventListener("click", (e) => {
+    const url = `./album.html?albumId=${album.id}`;
+    window.location.href = url;
+  });
 };
 
-const createActionNowPlayingBar = () => {
-  const actionNowPlayingBar = document.getElementById("action-now-playing-bar");
-  const row = document.createElement("div");
-  row.classList.add("row");
+const createGrid = (listIdAlbums) => {
+  const grid = document.getElementById("grid");
+  grid.classList.add("row", "g-3", "p-0");
+  listIdAlbums.forEach(async (element) => {
+    let album = await getAlbum(element);
+
+    createCardGridCell(album);
+  });
+};
+
+const createCardPreference = (artist) => {
+  const row = document.getElementById("preference");
+  row.classList.add("justify-content-evenly");
   const col = document.createElement("div");
   col.classList.add("col", "col-12");
   row.appendChild(col);
@@ -641,4 +537,3 @@ createPreference(idArtist);
 createNavBar();
 saveDataLocalStorage();
 createResearchfromLocalStorage();
-createNowPlayingBar();

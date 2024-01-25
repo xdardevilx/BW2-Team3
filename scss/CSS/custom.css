@@ -73,6 +73,31 @@
   opacity: 50%;
 }
 
+@keyframes clessidra {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.clessidra::before {
+  content: "";
+  display: block;
+  width: 0.5%;
+  border-width: 70px;
+  border-style: solid;
+  border-color: rgb(0, 255, 0) transparent transparent transparent;
+  border-radius: 50%;
+  background-color: transparent;
+  animation: clessidra 1s infinite;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
 /*!
  * Bootstrap  v5.3.2 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors

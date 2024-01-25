@@ -1,6 +1,6 @@
 // CERCANDO UN GENERE LA PAGINA LI CARICHERà
 let myUrl = " https://striveschool-api.herokuapp.com/api/deezer/album/";
-const albumId = "1121401";
+const albumId = "508204251";
 
 const searchGenere = function () {
   fetch(myUrl + albumId)
@@ -21,6 +21,9 @@ const searchGenere = function () {
         const release = document.getElementById("release");
         const nBrani = document.getElementById("nBrani");
         const durataTotale = document.getElementById("durataTotale");
+        const giveAudio = function (index) {
+          return new Audio(previewSongArray[index].preview);
+        };
 
         h1.textContent = data.title;
         h1.classList.add("col");
@@ -44,6 +47,9 @@ const searchGenere = function () {
 
         nBrani.textContent = arrayTracks.length + " brani";
 
+        const audioElements = []; // ARRAY PER TRACCIARE GLI ELEMENTI AUDIO
+        let currentlyPlayingIndex = -1; //INDICE TRACCIA IN PLAY
+
         arrayTracks.forEach((element, i) => {
           console.log("UNA TRACK", element);
           const divTracklist = document.getElementById("divTracklist");
@@ -56,17 +62,13 @@ const searchGenere = function () {
             return minutes.toFixed(2);
           };
           const numeroCanzoneInAlbum = i + 1;
-          // const titolo = document.getElementById("titolo");
-          // const imgPreview = document.getElementById("preview");
 
-          // titolo.textContent = element.title;
-          // console.log("TITOLO TRACK", titoloTrack);
           divTrack.classList.add("row");
           divTrack.innerHTML = `
-          <div class="col col-md-7 col-lg-7 d-flex align-items-center   ">
+          <div class="col col-md-6 col-lg-6 d-flex align-items-center   ">
               <h5 class="me-4 text-secondary">${numeroCanzoneInAlbum}</h5>
               <div class="">
-                <h4 class="pt-3 text-white " id="titolo">${element.title}</h4>
+                <h4 class="text-white pt-3" id="titolo">${element.title}</h4>
                 <h5 class="text-white-50    ">${element.artist.name}</h5>
               </div>
           </div>
@@ -75,24 +77,33 @@ const searchGenere = function () {
             element.duration
           )}</p>
           `;
-
+          hideLoadingAnimation();
           divTracklist.appendChild(divTrack);
         });
         const previewSongArray = data.tracks.data;
         console.log(previewSongArray);
 
+        let isPlaying = false;
+        let currentAudio = null;
+
         const h4Elements = document.querySelectorAll("h4");
         h4Elements.forEach((element, index) => {
+          const canzone = giveAudio(index);
+          console.log(canzone);
           element.addEventListener("click", function () {
-            playAudio(index);
-            // if (element.playing) {
-            // }
+            if (currentAudio !== null && currentAudio !== canzone) {
+              currentAudio.pause();
+            }
+
+            if (isPlaying === false) {
+              canzone.play();
+            } else {
+              canzone.pause();
+            }
+            isPlaying = !isPlaying;
+            currentAudio = canzone;
           });
         });
-
-        const playAudio = function (index) {
-          new Audio(previewSongArray[index].preview).play();
-        };
       };
 
       creaContenutoAlbum();
@@ -100,6 +111,33 @@ const searchGenere = function () {
     .catch((err) => {
       console.log("ERRORE", err);
     });
+  function hideLoadingAnimation() {
+    const loadingDiv = document.getElementById("loadingDiv");
+    if (loadingDiv) {
+      loadingDiv.style.display = "none";
+    }
+  }
+
+  // Verifica se il div genitore è stato creato
+  const parentDiv = document.getElementById("genitore");
+
+  // Se il div genitore non è ancora stato creato, creo loading div e mostro l'animazione
+  if (!parentDiv) {
+    const loadingDiv = document.createElement("div");
+    loadingDiv.id = "loadingDiv";
+    loadingDiv.classList.add("clessidra");
+    loadingDiv.style.width = "20px";
+    loadingDiv.style.height = "20px";
+    document.body.appendChild(loadingDiv);
+  } else {
+    hideLoadingAnimation(); // Nascondi l'animazione se il div genitore è già stato creato
+    const loadingDiv = document.getElementById("loadingDiv");
+    // Aggiungi un listener per l'evento "animationend" all'elemento di caricamento
+    loadingDiv.addEventListener("animationend", () => {
+      // Una volta completata l'animazione di opacità, nascondi il div di caricamento
+      loadingDiv.style.display = "none";
+    });
+  }
 };
 
 searchGenere();
