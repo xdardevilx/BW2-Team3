@@ -21,6 +21,9 @@ const searchGenere = function () {
         const release = document.getElementById("release");
         const nBrani = document.getElementById("nBrani");
         const durataTotale = document.getElementById("durataTotale");
+        const giveAudio = function (index) {
+          return new Audio(previewSongArray[index].preview);
+        };
 
         h1.textContent = data.title;
         h1.classList.add("col");
@@ -81,18 +84,20 @@ const searchGenere = function () {
         const previewSongArray = data.tracks.data;
         console.log(previewSongArray);
 
+        let isPlaying = false;
         const h4Elements = document.querySelectorAll("h4");
         h4Elements.forEach((element, index) => {
+          const canzone = giveAudio(index);
+          console.log(canzone);
           element.addEventListener("click", function () {
-            playAudio(index);
-            // if (element.playing) {
-            // }
+            if (isPlaying === false) {
+              canzone.play();
+            } else {
+              canzone.pause();
+            }
+            isPlaying = !isPlaying;
           });
         });
-
-        const playAudio = function (index) {
-          new Audio(previewSongArray[index].preview).play();
-        };
       };
 
       creaContenutoAlbum();
