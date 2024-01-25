@@ -253,7 +253,14 @@ const createCardPreference = (artist) => {
   const row = document.getElementById("preference");
   row.classList.add("justify-content-evenly");
   const col = document.createElement("div");
-  col.classList.add("col", "col-sm-6", "col-md-4","col-lg-2", "p-1", "flex-fill");
+  col.classList.add(
+    "col",
+    "col-sm-6",
+    "col-md-4",
+    "col-lg-2",
+    "p-1",
+    "flex-fill"
+  );
   row.appendChild(col);
   col.innerHTML = `
   <div id="${artist.id}" class="card custom-card ">
@@ -327,8 +334,7 @@ const createCardHero = () => {
     "bg-gradient",
     "d-none",
     "d-md-block",
-    "col-12",
-    
+    "col-12"
   );
   heroPage.appendChild(card);
   card.innerHTML = `
@@ -595,6 +601,38 @@ const createProgressBar = () => {
   progressBar.appendChild(body);
   return progressBar;
 };
+
+// --footer--
+
+const responsiveFooter = () => {
+  const footerMobile = document.getElementById("footer-mobile");
+  footerMobile.classList.add("sticky");
+  const container = document.createElement("div");
+  container.classList.add("container");
+  footerMobile.appendChild(container);
+  const row = document.createElement("div");
+  row.classList.add("row", "justify-content-center", "text-center");
+  footerMobile.appendChild(row);
+  const colLeft = document.createElement("div");
+  const colCenter = document.createElement("div");
+  const colRight = document.createElement("div");
+  colLeft.classList.add("col-4");
+  colCenter.classList.add("col-4");
+  colRight.classList.add("col-4");
+  row.appendChild(colLeft);
+  row.appendChild(colCenter);
+  row.appendChild(colRight);
+  const iconHome = document.createElement("i");
+  iconHome.classList.add("bi", "bi-house-door-fill");
+  colLeft.appendChild(iconHome);
+  const iconSearch = document.createElement("i");
+  iconSearch.classList.add("bi", "bi-search");
+  colCenter.appendChild(iconSearch);
+  const iconLibrary = document.createElement("i");
+  iconLibrary.classList.add("bi", "bi-collection");
+  colRight.appendChild(iconLibrary);
+};
+responsiveFooter();
 
 //Methods
 const saveDataLocalStorage = () => {
