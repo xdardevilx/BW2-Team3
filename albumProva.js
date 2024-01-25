@@ -64,7 +64,7 @@ const searchGenere = function () {
           // console.log("TITOLO TRACK", titoloTrack);
           divTrack.classList.add('row');
           divTrack.innerHTML = `
-          <div class="col col-md-7 col-lg-7 d-flex align-items-center   ">
+          <div class="col col-md-6 col-lg-6 d-flex align-items-center   ">
               <h5 class="me-4 text-secondary">${numeroCanzoneInAlbum}</h5>
               <div class="">
                 <h4 class="pt-3 text-white " id="titolo">${element.title}</h4>
