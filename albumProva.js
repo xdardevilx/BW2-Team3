@@ -1,32 +1,32 @@
 // CERCANDO UN GENERE LA PAGINA LI CARICHERà
-let myUrl = ' https://striveschool-api.herokuapp.com/api/deezer/album/';
-const albumId = '508204251';
+let myUrl = " https://striveschool-api.herokuapp.com/api/deezer/album/";
+const albumId = "508204251";
 
 const searchGenere = function () {
   fetch(myUrl + albumId)
     .then((response) => {
-      console.log('MYURL + ALBUMID', myUrl + albumId);
+      console.log("MYURL + ALBUMID", myUrl + albumId);
       if (response.ok) {
         return response.json();
       } else {
-        throw new Error('ERRORE');
+        throw new Error("ERRORE");
       }
     })
     .then((data) => {
-      console.log('OGGETTO RICEVUTO', data);
+      console.log("OGGETTO RICEVUTO", data);
       const creaContenutoAlbum = function () {
-        const img = document.getElementById('imgAlbum');
-        const h1 = document.getElementById('h1');
-        const artista = document.getElementById('artista');
-        const release = document.getElementById('release');
-        const nBrani = document.getElementById('nBrani');
-        const durataTotale = document.getElementById('durataTotale');
+        const img = document.getElementById("imgAlbum");
+        const h1 = document.getElementById("h1");
+        const artista = document.getElementById("artista");
+        const release = document.getElementById("release");
+        const nBrani = document.getElementById("nBrani");
+        const durataTotale = document.getElementById("durataTotale");
         const giveAudio = function (index) {
           return new Audio(previewSongArray[index].preview);
         };
 
         h1.textContent = data.title;
-        h1.classList.add('col');
+        h1.classList.add("col");
         img.src = data.cover_big;
         artista.textContent = data.artist.name;
 
@@ -40,22 +40,22 @@ const searchGenere = function () {
         durataTotale.innerText = secondsToTime(data.duration);
 
         const annoCompleto = data.release_date;
-        release.innerText = ' • ' + annoCompleto.split('-')[0] + ' • ';
+        release.innerText = " • " + annoCompleto.split("-")[0] + " • ";
 
         const arrayTracks = data.tracks.data;
         console.log(arrayTracks);
 
-        nBrani.textContent = arrayTracks.length + ' brani';
+        nBrani.textContent = arrayTracks.length + " brani";
 
         const audioElements = []; // ARRAY PER TRACCIARE GLI ELEMENTI AUDIO
         let currentlyPlayingIndex = -1; //INDICE TRACCIA IN PLAY
 
         arrayTracks.forEach((element, i) => {
-          console.log('UNA TRACK', element);
-          const divTracklist = document.getElementById('divTracklist');
-          const divTrack = document.createElement('div');
+          console.log("UNA TRACK", element);
+          const divTracklist = document.getElementById("divTracklist");
+          const divTrack = document.createElement("div");
 
-          console.log(element.preview, 'lepreview');
+          console.log(element.preview, "lepreview");
 
           const secondsIntoMinutes = function (secondi) {
             let minutes = secondi / 60;
@@ -63,7 +63,7 @@ const searchGenere = function () {
           };
           const numeroCanzoneInAlbum = i + 1;
 
-          divTrack.classList.add('row');
+          divTrack.classList.add("row");
           divTrack.innerHTML = `
           <div class="col col-md-6 col-lg-6 d-flex align-items-center   ">
               <h5 class="me-4 text-secondary">${numeroCanzoneInAlbum}</h5>
@@ -84,17 +84,24 @@ const searchGenere = function () {
         console.log(previewSongArray);
 
         let isPlaying = false;
-        const h4Elements = document.querySelectorAll('h4');
+        let currentAudio = null;
+
+        const h4Elements = document.querySelectorAll("h4");
         h4Elements.forEach((element, index) => {
           const canzone = giveAudio(index);
           console.log(canzone);
-          element.addEventListener('click', function () {
+          element.addEventListener("click", function () {
+            if (currentAudio !== null && currentAudio !== canzone) {
+              currentAudio.pause();
+            }
+
             if (isPlaying === false) {
               canzone.play();
             } else {
               canzone.pause();
             }
             isPlaying = !isPlaying;
+            currentAudio = canzone;
           });
         });
       };
@@ -102,7 +109,7 @@ const searchGenere = function () {
       creaContenutoAlbum();
     })
     .catch((err) => {
-      console.log('ERRORE', err);
+      console.log("ERRORE", err);
     });
   function hideLoadingAnimation() {
     const loadingDiv = document.getElementById("loadingDiv");

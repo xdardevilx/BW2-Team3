@@ -116,7 +116,11 @@ const createResearchfromLocalStorage = () => {
     research.innerHTML = "";
     searchvalues.forEach((element) => {
       const researchElement = document.createElement("a");
-      researchElement.classList.add("text-decoration-none", "text-white", "d-flex");
+      researchElement.classList.add(
+        "text-decoration-none",
+        "text-white",
+        "d-flex"
+      );
       researchElement.innerHTML = element;
       research.appendChild(researchElement);
     });
@@ -239,7 +243,7 @@ const createCardGridCell = (album) => {
   grid.appendChild(col);
   col.innerHTML = `
   <div id="${album.id}" class="card custom-card h-100 ">
-  <div class="row g-0 justify-content-center align-items-center">
+  <div id="genitore" class="row g-0 justify-content-center align-items-center">
     <div class="col-md-3">
       <img src="${album.cover_small}" 
       class="img-fluid rounded-start" alt="...">
@@ -252,6 +256,9 @@ const createCardGridCell = (album) => {
   </div>
 </div>
   `;
+
+  hideLoadingAnimation();
+
   const sendParam = document.getElementById(album.id);
   sendParam.addEventListener("click", (e) => {
     const url = `./album.html?albumId=${album.id}`;
@@ -313,3 +320,31 @@ createPreference(idArtist);
 createNavBar();
 saveDataLocalStorage();
 createResearchfromLocalStorage();
+
+function hideLoadingAnimation() {
+  const loadingDiv = document.getElementById("loadingDiv");
+  if (loadingDiv) {
+    loadingDiv.style.display = "none";
+  }
+}
+
+// Verifica se il div genitore è stato creato
+const parentDiv = document.getElementById("genitore");
+
+// Se il div genitore non è ancora stato creato, creo loading div e mostro l'animazione
+if (!parentDiv) {
+  const loadingDiv = document.createElement("div");
+  loadingDiv.id = "loadingDiv";
+  loadingDiv.classList.add("clessidra");
+  loadingDiv.style.width = "20px";
+  loadingDiv.style.height = "20px";
+  document.body.appendChild(loadingDiv);
+} else {
+  hideLoadingAnimation(); // Nascondi l'animazione se il div genitore è già stato creato
+  const loadingDiv = document.getElementById("loadingDiv");
+  // Aggiungi un listener per l'evento "animationend" all'elemento di caricamento
+  loadingDiv.addEventListener("animationend", () => {
+    // Una volta completata l'animazione di opacità, nascondi il div di caricamento
+    loadingDiv.style.display = "none";
+  });
+}

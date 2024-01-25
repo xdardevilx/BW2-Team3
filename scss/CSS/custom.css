@@ -73,15 +73,6 @@
   opacity: 50%;
 }
 
-/* ///////////////////////////////////////////////////// ANIMAZIONE DURANTE ATTESA/CARICAMENTO PAGINA /////////////////////////////////////////////////////////////////// */
-@keyframes loading {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
 @keyframes clessidra {
   0% {
     transform: rotate(0);
@@ -98,13 +89,13 @@
   border-style: solid;
   border-color: rgb(0, 255, 0) transparent transparent transparent;
   border-radius: 50%;
-  background-color: rgb(0, 100, 0);
+  background-color: transparent;
   animation: clessidra 1s infinite;
   position: absolute;
   top: 30%;
   left: 50%;
-  /* transform: translate(-50%, -50%);
-  z-index: 100; */
+  transform: translate(-50%, -50%);
+  z-index: 100;
 }
 
 /*!
