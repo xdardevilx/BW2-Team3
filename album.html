@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="./assets/css/circular-font.css">
+    
     <link rel="stylesheet" href="/scss/CSS/circular-font.css"/>
     <title>Build week Spotify</title>
     <link
@@ -15,22 +15,22 @@
     />
     <link rel="stylesheet" href="scss/CSS/custom.css" />
   </head>
-  <body >
+  <body class="bg-dark">
     
 <div class="container-fluid ">
   
   <div class="row">
     <div class="col d-md-block d-none col-md-3 col-lg-3">
       <div class="container" id="navbar"><nav>
-        <div class="mt-2 fs-2">...</div>
-          <div class="mt-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+        <div class="mt-2 fs-2 text-light">...</div>
+          <div class="mt-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door text-light" viewBox="0 0 16 16">
               <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"/>
             </svg><span class="h5 ms-2 text-info">Home</span>
           </div>
-          <div class="mt-2 h5"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <div class="mt-2 h5"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search text-light" viewBox="0 0 16 16">
               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
             </svg><span class="h5 ms-2 text-info"> Search </span></div>
-            <div class="mt-2 h5"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-music-note-list" viewBox="0 0 16 16">
+            <div class="mt-2 h5"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-music-note-list text-light" viewBox="0 0 16 16">
               <path d="M12 13c0 1.105-1.12 2-2.5 2S7 14.105 7 13s1.12-2 2.5-2 2.5.895 2.5 2"/>
               <path fill-rule="evenodd" d="M12 3v10h-1V3z"/>
               <path d="M11 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 16 2.22V4l-5 1z"/>
@@ -39,7 +39,7 @@
       </nav>
     </div>
       <div class="container" id="little-buttons"><div class="mt-3 h5"><button type="button" class="btn btn-info rounded-1"
-          style="--bs-btn-padding-y: .2 rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .75rem;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="text-dark" class="bi bi-plus" viewBox="0 0 16 16">
+          style="--bs-btn-padding-y: .2 rem; --bs-btn-padding-x: .2rem; --bs-btn-font-size: .75rem;"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="text-dark" class="bi bi-plus text-secondary " viewBox="0 0 16 16">
           <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
         </svg></button><span class="h5 ms-2 text-info">Crea playlist</span></div>
       <div class="mt-2 h5"><button type="button" class="btn btn-body rounded-1"
@@ -112,8 +112,9 @@
     
     
     <!--HEADER-->
-    <div class="col col-md-6 col-lg-6 p-0">
-       <header class="  bg-danger  p-2 ">
+    <div class="col col-md-7 col-lg-7 p-0">
+
++      <header class="  bg-danger  p-2 ">
       <!--HEADER VERSIONE  DESKTOP-->
       <section class="d-none d-md-block  ">
       
@@ -129,33 +130,34 @@
         
         
             <img id="imgAlbum"
-              class=" img-fluid col col-md-5  "
+              class=" img-fluid col col-md-4  "
               style="min-width: 10em;"
               alt="Album-IMG"
             />
-
+<div class="col col-md-8 d-flex flex-column justify-content-end">
              <div class="col col-md-1">
                 <p class="text-white-50 " >ALBUM</p>
               </div>
              <div>
-                <h1 src="" class="text-white" id=""></h1>
+                <h1  class="text-white" id="h1"></h1>
               </div>
 <div class="row">
 
                 <div class="mt-4 col-11 col-md-8 col-lg-8 ">
                   <p class="text-white" > <img src="./assets/imgs/search/image-10.jpg " class=" rounded-circle col col-md-1  "  alt=""> <span id="artista">Skillet</span ><span id="release"></span><span id="nBrani"></span> ,<span class="text-white-50" id = "durataTotale"></span> </p> 
                 </div>
+</div>
  </div>
    </div>   
 </div>
 </section>
-<!--HEADER VERSIONE  DESKTOP-->
+<!--HEADER VERSIONE  MOBILE-->
 <section class="d-block d-md-none  ">
       
   <div class="container-fluid   ">
 <div class="row justify-content-center   ">
   <a class="icon-link icon-link-hover link-light link-underline- link-underline-opacity-25 " href="#"><i class="bi bi-arrow-left pt-5 fs-1"></i> </a>
-    <img src="./assets/imgs/main/image-11.jpg "  class="w-75   " alt="">
+    <img  src="./assets/imgs/main/image-11.jpg "  class="w-75   " alt="">
     </div>
     
      
@@ -164,7 +166,7 @@
     <h2 class="text-white mt-4">TITOLO ALBUM</h2>
 
 <div class="col col-md-7">
-    <h4 class="text-white mt-3 "  id="artista"> <img src="./assets/imgs/search/image-10.jpg " class=" rounded-circle col-1 me-3 "  alt="">AUTORE ALBUM</h4>
+    <h4 class="text-white mt-3 "  id="artista"> <img  src="./assets/imgs/search/image-10.jpg " class=" rounded-circle col-1 me-3 "  alt="">AUTORE ALBUM</h4>
 </div>
 
 
@@ -195,13 +197,15 @@
       
     
     <!-- HO TOLTO DAL MAIN VH 100 ALTRIMENTI IL BODY NON OCCUPAVA IL SUO VH-100 ORIGINARIO, CI SONO DA SISTEMARE 2 COSE NEL FOOTER ORA -->
-    <main class="   bg-dark-subtle d-flex flex-column" style="background: linear-gradient(180deg, rgba(134,131,131,1) 0%, rgba(13,12,12,0.8603816526610644) 14%);">
+    <main >
     <section class=" d-none d-md-flex  justify-content-center pt-4 ">
       <div class="container d-flex flex-column align-items-baseline  ">
         <div class=" row ">
           
         <div class="col col-md-12 col-lg-12  p-0 ">
-          <a class="icon-link icon-link-hover link-success link-underline-success link-underline-opacity-25" href="#"><i class="bi bi-play-circle-fill  p-3 fs-1 me-4" ></i></a>
+          <button type="button" class="" id="play-button-round"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="text-black" class="bi bi-play-fill" viewBox="0 0 16 16">
+            <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+          </svg></button>
         <a class="icon-link icon-link-hover link-light link-underline- link-underline-opacity-25" href="#"><i class="bi bi-heart p-3 fs-2 me-3"></i></a>
         <a class="icon-link icon-link-hover link-light link-underline- link-underline-opacity-25" href="#"><i class="bi bi-download  p-3 fs-2 me-3"></i></a>
         <a class="icon-link icon-link-hover link-light link-underline- link-underline-opacity-25" href="#"><i class="bi bi-three-dots  p-3 fs-2 me-3"></i></a>
@@ -247,16 +251,16 @@
     
     <!-----------MUSICA BAR-------------->
     
-      <div class="col d-none d-md-block d-lg-block col-md-3 col-lg-3">
+      <div class="col d-none d-md-block d-lg-block col-md-2 col-lg-2">
         <div class="mt-4 ms-3">
-        <div>Attività amici</div>
+        <div  class="text-light">Attività amici</div>
     </div>
         <div><ul class="list mt-3" id="artist-friends">
             <li class="list-group-item my-4"><div>
-                <li class="list-group-item"><img src="/assets/imgs/search/image-1.jpeg" class="rounded-circle me-2 float-start h4" alt="..." style="width: 35px; height: 35px">Federico L.<span class="h6 text-info ms-1">Durata</span></li>
+                <li class="list-group-item text-white-50 "><img src="/assets/imgs/search/image-1.jpeg" class="rounded-circle me-2 float-start h4  " alt="..." style="width: 35px; height: 35px">Federico L.<span class="h6 text-info ms-1">Durata</span></li>
                 <li class="list-group-item mt-2"><h6 class="text-info">In ascolto • Artista</h6>
             <li class="list-group-item my-4"><div>
-                <li class="list-group-item"><img src="/assets/imgs/search/image-1.jpeg" class="rounded-circle me-2 float-start h4" alt="..." style="width: 35px; height: 35px">Giovanni P.<span class="h6 text-info ms-1">Durata</span></li>
+                <li class="list-group-item text-white-50"><img src="/assets/imgs/search/image-1.jpeg" class="rounded-circle me-2 float-start h4" alt="..." style="width: 35px; height: 35px">Giovanni P.<span class="h6 text-info ms-1">Durata</span></li>
                 <li class="list-group-item mt-2"><h6 class="text-info">In ascolto • Artista</h6>
           </ul></div>
       </div>
@@ -305,13 +309,20 @@
   <div class="row text-center">
   <div class="control-buttons  ">
     <a class=" link-success link-underline-success link-underline-opacity-25" href="#"><i class="bi bi-shuffle fs-2 me-3 "></i></a> 
-    <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-skip-backward-fill fs-2 me-3"></i></a> 
-    <a class=" link-dark link-underline-dark link-underline-opacity-25" href="#"><i class="bi bi-play-fill fs-2 me-3 d-inline-block bg-white rounded-circle  icon-link-hover  "></i></a> 
-    <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-skip-forward-fill fs-2 me-3"></i></a> 
+    <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-skip-backward-fill fs-2 me-1 "></i></a> 
+    
+      <a
+        class="link-dark link-underline-dark link-underline-opacity-25"
+        href="#">
+        <i
+          class="bi bi-play-fill fs-1 bg-white text-center rounded rounded-circle ps-2 pe-1 icon-link-hover"></i>
+      </a>
+    
+    <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-skip-forward-fill fs-2 ms-1 me-3"></i></a> 
     <a class=" link-success link-underline-success link-underline-opacity-25" href="#"><i class="bi bi-repeat fs-2 "></i></a> 
     </div>
 </div>
-          <div class="progress-container d-flex align-items-center justify-content-center col col-md-8">
+          <div class="progress-container d-flex align-items-center justify-content-center col col-md-12">
             <span class="me-2 text-white-50">0:49</span>
             <div class="progress-bar  mt-1 rounded-3 bg-secondary" style="width: 100%;">
               <div class="progess  rounded-5 bg-light  " style="width: 30%;height: 4px;"></div>
@@ -327,17 +338,25 @@
         <div class="others-featurers  col col-md-4 ">
           <div class="row justify-content-end me-2 ">
 
-          <a class=" link-secondary link-underline-secondary link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-mic-fill fs-5  "></i></a>
-          <a class=" link-secondary link-underline-secondary link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-menu-button-wide fs-5 "></i></a>
-          <a class=" link-secondary link-underline-secondary link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-pc-display fs-5  "></i></a>
-          <a class=" link-secondary link-underline-secondary link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-volume-up fs-5  "></i></a>
-          
-<div class="progress-bar col col-md-3 "   >
+            <div class="d-flex justify-content-end ">
+<div>
+          <a class=" link-secondary link-underline-secondary link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-mic-fill fs-5  me-2 "></i></a>
+</div>
+<div>
+          <a class=" link-secondary link-underline-secondary link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-menu-button-wide fs-5 me-2"></i></a>
+         </div> 
+<div>
+          <a class=" link-secondary link-underline-secondary link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-pc-display fs-5 me-2 "></i></a>
+</div>
+<div>
+          <a class=" link-secondary link-underline-secondary link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-volume-up fs-5 me-2 "></i></a>
+     </div>   
+       
+<div class="progress-bar col col-md-2 "   >
   <div class="progress   bg-body-secondary  "  style="height:5px;"></div>
-  
-          </div>
-<a class=" link-secondary link-underline-secondary link-underline-opacity-25 col col-md-1" href="#"><i class="bi bi-arrows-angle-expand fs-5"></i></a>
-         
+  </div>
+<a class=" link-secondary link-underline-secondary link-underline-opacity-25 col col-md-1" href="#"><i class="bi bi-arrows-angle-expand fs-5 ms-3"></i></a>
+     </div>    
 
 </div>
 </div>
