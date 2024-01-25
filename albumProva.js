@@ -21,6 +21,9 @@ const searchGenere = function () {
         const release = document.getElementById("release");
         const nBrani = document.getElementById("nBrani");
         const durataTotale = document.getElementById("durataTotale");
+        const giveAudio = function (index) {
+          return new Audio(previewSongArray[index].preview);
+        };
 
         h1.textContent = data.title;
         h1.classList.add("col");
@@ -76,48 +79,22 @@ const searchGenere = function () {
           `;
 
           divTracklist.appendChild(divTrack);
+        });
+        const previewSongArray = data.tracks.data;
+        console.log(previewSongArray);
 
-          const playAudio = function (index) {
-            const audio = new Audio(arrayTracks[index].preview);
-            audio.play();
-            audioElements[index] = audio;
-            currentlyPlayingIndex = index;
-            console.log("TRACK IN PLAY", currentlyPlayingIndex);
-          };
-
-          const stopAudio = function (index) {
-            if (audioElements[index]) {
-              audioElements[index].pause();
-              audioElements[index].currentTime = 0;
-              currentlyPlayingIndex = -1;
-            }
-          };
-
-          const h4Element = divTrack.querySelector("h4");
-          h4Element.classList.add("text-white");
-
-          h4Element.addEventListener("click", function () {
-            const isPlaying = divTrack.classList.toggle("active");
-
-            if (isPlaying) {
-              h4Element.classList.remove("text-white");
-              h4Element.classList.add("text-success");
-              playAudio(i);
+        let isPlaying = false;
+        const h4Elements = document.querySelectorAll("h4");
+        h4Elements.forEach((element, index) => {
+          const canzone = giveAudio(index);
+          console.log(canzone);
+          element.addEventListener("click", function () {
+            if (isPlaying === false) {
+              canzone.play();
             } else {
-              h4Element.classList.remove("text-success");
-              h4Element.classList.add("text-white");
-              stopAudio(i);
+              canzone.pause();
             }
-
-            audioElements.forEach((audio, index) => {
-              if (index !== i && !audio.paused) {
-                //SE AUDIO NON è UGUALE AD INDICE DI ARRAY TRACK E AUDIO NON è IN PAUSA STOPPA QUELLA CANZONE
-                stopAudio(index);
-                // arrayTrack[index].classList.remove("active");
-                h4Element[index].classList.add("text-white");
-                h4Element[index].classList.remove("text-success");
-              }
-            });
+            isPlaying = !isPlaying;
           });
         });
       };
