@@ -71,6 +71,33 @@ const idArtist = ["412", "7357", "115", "4611", "13"];
 
 // -----DOM MANIPULATION-----
 
+//CARDS
+const createCardGridCell = (album) => {
+  const card = document.createElement("div");
+  card.classList.add("card", "border-0", "custom-card");
+  card.setAttribute("style", "max-height:48px");
+  card.setAttribute("id", `${album.id}`);
+
+  card.innerHTML = `
+
+  <div class="row g-0">
+    <div class="col-2 col-sm-2 col-md-3">
+      <img src="${
+        album.cover_small
+      }" class="img-fluid rounded-start" alt="..." style="height:48px">
+    </div>
+    <div class="col-10 col-sm-10 col-md-9">
+      <div class="card-body d-flex align-items-center " style="height:48px">
+        <p class="card-text">${album.title.substring(0, 12)}...</p>
+      </div>
+    </div>
+  </div>
+
+  `;
+
+  return card;
+};
+
 //Navbar
 const createNavBar = () => {
   const navBar = document.getElementById("nav-bar");
@@ -94,10 +121,27 @@ const createSearchBar = () => {
     </form>
   </div>
 `;
-  searchBar.addEventListener("submit", (e) => {
+  searchBar.addEventListener("submit", async (e) => {
+    const artist = [];
+    const album = [];
+
     let searchTerm = document.getElementById("searchInput").value;
-    searchAPI(searchTerm);
+    const resp = await searchAPI(searchTerm);
+
+    console.log(resp.data[0]);
     createSearchBar();
+    createCardGridCell(resp.data[0].album);
+
+    resp.data.forEach((element) => {
+      if (!artist.some((item) => item.id === element.artist.id)) {
+        artist.push(element.artist);
+      }
+      if (!album.some((item) => item.id === element.album.id)) {
+        album.push(element.album);
+      }
+    });
+    console.log("ARTIST", artist);
+    console.log("ALBUM", album);
   });
 };
 
@@ -177,40 +221,30 @@ const addUsers = () => {
 };
 
 //Grid Album
-const createCardGridCell = (album) => {
-  const grid = document.getElementById("grid");
-  const col = document.createElement("div");
-  col.classList.add("col-4", "p-1", "m-0");
-  grid.appendChild(col);
-  col.innerHTML = `
-  <div id="${album.id}" class="card custom-card h-100 ">
-  <div class="row g-0 justify-content-center align-items-center">
-    <div class="col-md-3">
-      <img src="${album.cover_small}" 
-      class="img-fluid rounded-start" alt="...">
-    </div>
-    <div class="col-md-9 ">
-      <div class="card-body">
-        <p class="card-text ps-3">${album.title.substring(0, 12)}...</p>
-      </div>
-    </div>
-  </div>
-</div>
-  `;
-  const sendParam = document.getElementById(album.id);
-  sendParam.addEventListener("click", (e) => {
-    const url = `./album.html?albumId=${album.id}`;
-    window.location.href = url;
-  });
-};
-
 const createGrid = (listIdAlbums) => {
   const grid = document.getElementById("grid");
   grid.classList.add("row", "g-3", "p-0");
-  listIdAlbums.forEach(async (element) => {
-    let album = await getAlbum(element);
 
-    createCardGridCell(album);
+  listIdAlbums.forEach(async (element) => {
+    const col = document.createElement("div");
+    col.classList.add(
+      "col-12",
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "p-1",
+      "m-0"
+    );
+    grid.appendChild(col);
+
+    let album = await getAlbum(element);
+    col.appendChild(createCardGridCell(album));
+
+    const sendParam = document.getElementById(album.id);
+    sendParam.addEventListener("click", (e) => {
+      const url = `./album.html?albumId=${album.id}`;
+      window.location.href = url;
+    });
   });
 };
 
@@ -247,6 +281,37 @@ const createPreference = (listIdAlbums) => {
     let album = await getArtistAPI(element);
     createCardPreference(album);
   });
+};
+
+const createCardPreferenceAlbum = (album) => {
+  const row = document.getElementById("preference");
+  row.classList.add("justify-content-evenly");
+  const col = document.createElement("div");
+  col.classList.add("col-2", "p-1", "m-0");
+  row.appendChild(col);
+  col.innerHTML = `
+  <div id="${album.id}" class="card custom-card ">
+  <img class="p-2" src="${album.cover_medium}" class="card-img-top" alt="...">
+  <div class="card-body p-0 text-center ">
+    <h5 class="card-title">${album.title}</h5>
+    <pclass="card-text"><small>n album: ${album.type}</small> </p>
+  </div>
+</div>  
+  `;
+  const sendParam = document.getElementById(artist.id);
+  sendParam.addEventListener("click", (e) => {
+    const url = `./paginaArtista.html?artistId=${artist.id}`;
+    window.location.href = url;
+  });
+};
+
+// Grid Search
+const creatGridSearch = () => {
+  const grid = document.getElementById("search");
+  const p = document.createElement("p");
+  grid.appendChild(p);
+  p.textContent = "ciao prova";
+  // createCardPreferenceAlbum()
 };
 
 //Hero-album
@@ -367,6 +432,7 @@ const createTrackCardNowPlayingBar = (srcImg, titleTxt, subtitleTxt) => {
   const icon = document.createElement("i");
   icon.classList.add("bi", "bi-heart");
   colPreference.appendChild(icon);
+  createDisplayTrackCard()
 };
 
 const createDisplayTrackCard = () => {
@@ -505,7 +571,7 @@ const createActionNowPlayingBar = () => {
 
 const createIconAnchor = (icon, href) => {
   const iconAnchor = document.createElement("a");
-  // iconAnchor.classList.add("link-secondary", "link-underline-secondary");
+  iconAnchor.classList.add("link-secondary", "link-underline-secondary");
   iconAnchor.setAttribute("href", href);
   const iconElement = document.createElement("i");
   iconElement.classList.add("bi", icon, "mx-1");
@@ -516,12 +582,12 @@ const createIconAnchor = (icon, href) => {
 const createProgressBar = () => {
   const progressBar = document.createElement("a");
   progressBar.classList.add("progress-bar");
-  progressBar.setAttribute("style", "height:5px; width:80px")
+  progressBar.setAttribute("style", "height:5px; width:80px");
 
   const body = document.createElement("div");
-  body.classList.add("progress", "bg-body-secondary")
+  body.classList.add("progress", "bg-body-secondary");
   // body.setAttribute("style", "height:2px; width:25px; display: inline")
-  progressBar.appendChild(body)
+  progressBar.appendChild(body);
   return progressBar;
 };
 
