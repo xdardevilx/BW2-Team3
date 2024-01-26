@@ -24,6 +24,7 @@ export const createCardHero = (album) => {
     "d-md-block",
     "col-12"
   );
+  card.id = "genitore";
   heroPage.appendChild(card);
   card.innerHTML = `
     <div>
