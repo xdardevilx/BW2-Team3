@@ -2,8 +2,11 @@
 import { searchAPI } from "./search-api-music.js";
 import { getAlbum } from "./get-api-music.js";
 import { getArtistAPI } from "./get-artist.js";
-import { playAudio } from "./utils/music-manager.js";
-import { stopAudio } from "./utils/music-manager.js";
+
+//Components
+import { createCardHero } from "./components/cards/hero-card.js";
+import { createListCard } from "./components/cards/list-card.js";
+import { createLargeCard } from "./components/cards/large-card.js";
 
 //Class
 class ButtonConfig {
@@ -121,31 +124,6 @@ const idArtist = [
 // -----DOM MANIPULATION-----
 
 //CARDS
-const createCardGridCell = (album) => {
-  const card = document.createElement("div");
-  card.classList.add("card", "border-0", "custom-card");
-  card.setAttribute("style", "max-height:48px");
-  card.setAttribute("id", `${album.id}`);
-
-  card.innerHTML = `
-
-  <div class="row g-0">
-    <div class="col-2 col-sm-2 col-md-3">
-      <img src="${
-        album.cover_small
-      }" class="img-fluid rounded-start" alt="..." style="height:48px">
-    </div>
-    <div class="col-10 col-sm-10 col-md-9">
-      <div class="card-body d-flex align-items-center " style="height:48px">
-        <p class="card-text">${album.title.substring(0, 12)}...</p>
-      </div>
-    </div>
-  </div>
-
-  `;
-
-  return card;
-};
 
 //Navbar
 const createNavBar = () => {
@@ -179,7 +157,7 @@ const createSearchBar = () => {
 
     console.log(resp.data[0]);
     createSearchBar();
-    createCardGridCell(resp.data[0].album);
+    createListCard(resp.data[0].album);
 
     resp.data.forEach((element) => {
       if (!artist.some((item) => item.id === element.artist.id)) {
@@ -287,7 +265,7 @@ const createGrid = (listIdAlbums) => {
     grid.appendChild(col);
 
     let album = await getAlbum(element);
-    col.appendChild(createCardGridCell(album));
+    col.appendChild(createListCard(album));
 
     const sendParam = document.getElementById(album.id);
     sendParam.addEventListener("click", (e) => {
@@ -298,34 +276,6 @@ const createGrid = (listIdAlbums) => {
 };
 
 //Grid Artist
-const createCardPreference = (artist) => {
-  const row = document.getElementById("preference");
-  row.classList.add("justify-content-evenly");
-  const col = document.createElement("div");
-  col.classList.add(
-    "col",
-    "col-sm-6",
-    "col-md-4",
-    "col-lg-2",
-    "p-1",
-    "flex-fill"
-  );
-  row.appendChild(col);
-  col.innerHTML = `
-  <div id="${artist.id}" class="card custom-card ">
-  <img class="p-2" src="${artist.picture_medium}" class="card-img-top" alt="...">
-  <div class="card-body p-0 text-center ">
-    <h5 class="card-title">${artist.name}</h5>
-    <p class="card-text"><small>n album: ${artist.nb_album}</small> </p>
-  </div>
-</div>  
-  `;
-  const sendParam = document.getElementById(artist.id);
-  sendParam.addEventListener("click", (e) => {
-    const url = `./paginaArtista.html?artistId=${artist.id}`;
-    window.location.href = url;
-  });
-};
 
 const createPreference = (listIdAlbums) => {
   if (!listIdAlbums) {
@@ -335,11 +285,11 @@ const createPreference = (listIdAlbums) => {
   const preference = document.getElementById("preference");
   listIdAlbums.forEach(async (element) => {
     let album = await getArtistAPI(element);
-    createCardPreference(album);
+    createLargeCard(album);
   });
 };
 
-const createCardPreferenceAlbum = (album) => {
+const createLargeCardAlbum = (album) => {
   const row = document.getElementById("preference");
   row.classList.add("justify-content-evenly");
   const col = document.createElement("div");
@@ -367,72 +317,7 @@ const creatGridSearch = () => {
   const p = document.createElement("p");
   grid.appendChild(p);
   p.textContent = "ciao prova";
-  // createCardPreferenceAlbum()
-};
-
-//Hero-album
-const createCardHero = (album) => {
-  console.log(album);
-
-  let _contributors = null;
-
-  album.contributors.forEach((e) => {
-    if (_contributors) {
-      _contributors = `${_contributors}, ${e.name}`;
-    } else {
-      _contributors = e.name;
-    }
-  });
-
-  const heroPage = document.getElementById("hero-page");
-  const card = document.createElement("div");
-  card.classList.add(
-    "card",
-    "p-0",
-    "mt-3",
-    "text-white",
-    "bg-black",
-    "bg-gradient",
-    "d-none",
-    "d-md-block",
-    "col-12"
-  );
-  heroPage.appendChild(card);
-  card.innerHTML = `
-  <div>
-    <div class="row align-items-center g-0">
-      <div class="col-md-2 ps-3">
-        <img src="${album.cover_xl}" class="img-fluid rounded-start" alt="...">
-      </div>
-      <div class="col-md-10">
-        <div class="card-body">
-          <p class="m-0">ALBUM</p>
-          <h2 class="card-title m-0 ">${album.tracks.data[0].title}</h2>
-          <p class="card-text m-0">${_contributors}</p>
-          <p class="card-text m-0"><small">${album.title}</small></p>
-          <button id="play-button" class="btn btn-primary rounded-5 ps-4 pe-4 mt-2">Play</button>
-          <button id="stop-button" class="btn btn-primary rounded-5 ps-4 pe-4 mt-2 d-none">Stop</button>
-          <button id="save-button" class="btn rounded-5 ps-3 pe-3 mt-2 ms-3">Salva</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  `;
-
-  const audio = new Audio(album.tracks.data[0].preview);
-
-  const play = document.getElementById("play-button");
-  play.addEventListener("click", () => {
-    play.classList.toggle("d-none");
-    stop.classList.toggle("d-none");
-    playAudio(audio);
-  });
-  const stop = document.getElementById("stop-button");
-  stop.addEventListener("click", () => {
-    play.classList.toggle("d-none");
-    stop.classList.toggle("d-none");
-    stopAudio(audio);
-  });
+  // createLargeCardAlbum()
 };
 
 //Now-playng-bar
