@@ -66,6 +66,16 @@ $h6-font-size: $font-size-base * 0.7 !important;
   border-radius: 100%;
 }
 
+#rounded-play-button {
+  @include buttons;
+  background-color: $new-primary;
+  border-radius: 0;
+  width: 50px;
+  height: 50px;
+  padding-top: 0.3em !important;
+  border-radius: 100%;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
