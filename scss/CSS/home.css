@@ -13,3 +13,15 @@
     background-color: #2C2C2C;
     color: white;
   }
+
+  #now-playing-bar-row{
+    height: 72px;
+  }
+
+  #now-playing-bar{
+    height: 72px;
+  }
+
+  .flex-3{
+    flex: 3;
+  }

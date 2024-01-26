@@ -24,6 +24,10 @@ const searchGenere = function () {
         const giveAudio = function (index) {
           return new Audio(previewSongArray[index].preview);
         };
+        const artistImg = document.getElementById("top-artist-image");
+        artistImg.src = data.artist.picture;
+        const albumImg = document.getElementById("bottom-artist-image");
+        albumImg.src = data.cover;
 
         h1.textContent = data.title;
         h1.classList.add("col");
@@ -80,6 +84,11 @@ const searchGenere = function () {
           hideLoadingAnimation();
           divTracklist.appendChild(divTrack);
         });
+
+        // newImageArtistBottom.innerHTML = `<img class="img-thumbnail bg-black ms-4  " style="width: 7em;"
+        // src="${data.cover}"  alt="">`;
+        // divWithArtistImage.appendChild(newImageArtistBottom);
+
         const previewSongArray = data.tracks.data;
         console.log(previewSongArray);
 
@@ -111,33 +120,34 @@ const searchGenere = function () {
     .catch((err) => {
       console.log("ERRORE", err);
     });
-  function hideLoadingAnimation() {
-    const loadingDiv = document.getElementById("loadingDiv");
-    if (loadingDiv) {
-      loadingDiv.style.display = "none";
-    }
-  }
-
-  // Verifica se il div genitore è stato creato
-  const parentDiv = document.getElementById("genitore");
-
-  // Se il div genitore non è ancora stato creato, creo loading div e mostro l'animazione
-  if (!parentDiv) {
-    const loadingDiv = document.createElement("div");
-    loadingDiv.id = "loadingDiv";
-    loadingDiv.classList.add("clessidra");
-    loadingDiv.style.width = "20px";
-    loadingDiv.style.height = "20px";
-    document.body.appendChild(loadingDiv);
-  } else {
-    hideLoadingAnimation(); // Nascondi l'animazione se il div genitore è già stato creato
-    const loadingDiv = document.getElementById("loadingDiv");
-    // Aggiungi un listener per l'evento "animationend" all'elemento di caricamento
-    loadingDiv.addEventListener("animationend", () => {
-      // Una volta completata l'animazione di opacità, nascondi il div di caricamento
-      loadingDiv.style.display = "none";
-    });
-  }
 };
 
 searchGenere();
+
+//////////////////////////////// ANIMAZIONE CARICAMENTO PAGINA
+function hideLoadingAnimation() {
+  const loadingDiv = document.getElementById("loadingDiv");
+  if (loadingDiv) {
+    loadingDiv.style.display = "none";
+  }
+}
+// Verifica se il div genitore è stato creato
+const parentDiv = document.getElementById("genitore");
+// Se il div genitore non è ancora stato creato, creo loading div e mostro l'animazione
+if (!parentDiv) {
+  const loadingDiv = document.createElement("div");
+  loadingDiv.id = "loadingDiv";
+  loadingDiv.classList.add("clessidra");
+  loadingDiv.style.width = "20px";
+  loadingDiv.style.height = "20px";
+  document.body.appendChild(loadingDiv);
+} else {
+  hideLoadingAnimation(); // Nascondi l'animazione se il div genitore è già stato creato
+  const loadingDiv = document.getElementById("loadingDiv");
+  // Aggiungi un listener per l'evento "animationend" all'elemento di caricamento
+  loadingDiv.addEventListener("animationend", () => {
+    // Una volta completata l'animazione di opacità, nascondi il div di caricamento
+    loadingDiv.style.display = "none";
+  });
+}
+//////////////////////////////
