@@ -2,6 +2,8 @@
 import { searchAPI } from "./search-api-music.js";
 import { getAlbum } from "./get-api-music.js";
 import { getArtistAPI } from "./get-artist.js";
+import { playAudio } from "./utils/music-manager.js";
+import { stopAudio } from "./utils/music-manager.js";
 
 //Class
 class ButtonConfig {
@@ -21,6 +23,40 @@ class UsersConfig {
     this.icon = icon;
   }
 }
+
+class Album {
+  constructor(data) {
+    this.cover = data.cover;
+    this.cover_big = data.cover_big;
+    this.cover_medium = data.cover_medium;
+    this.cover_small = data.cover_small;
+    this.cover_xl = data.cover_xl;
+    this.id = data.id;
+    this.md5_image = data.md5_image;
+    this.title = data.title;
+    this.tracklist = data.tracklist;
+    this.type = data.type;
+  }
+}
+
+const albumData = {
+  cover: "https://api.deezer.com/album/90184462/image",
+  cover_big:
+    "https://e-cdns-images.dzcdn.net/images/cover/754169db0b8421add6ce95f1191b8197/500x500-000000-80-0-0.jpg",
+  cover_medium:
+    "https://e-cdns-images.dzcdn.net/images/cover/754169db0b8421add6ce95f1191b8197/250x250-000000-80-0-0.jpg",
+  cover_small:
+    "https://e-cdns-images.dzcdn.net/images/cover/754169db0b8421add6ce95f1191b8197/56x56-000000-80-0-0.jpg",
+  cover_xl:
+    "https://e-cdns-images.dzcdn.net/images/cover/754169db0b8421add6ce95f1191b8197/1000x1000-000000-80-0-0.jpg",
+  id: 90184462,
+  md5_image: "754169db0b8421add6ce95f1191b8197",
+  title: "Supernatural: The Musical (Songs from the 200th Episode)",
+  tracklist: "https://api.deezer.com/album/90184462/tracks",
+  type: "album",
+};
+
+const myAlbum = new Album(albumData);
 
 //Variable
 const arrayUsersConfig = [
@@ -335,7 +371,19 @@ const creatGridSearch = () => {
 };
 
 //Hero-album
-const createCardHero = () => {
+const createCardHero = (album) => {
+  console.log(album);
+
+  let _contributors = null;
+
+  album.contributors.forEach((e) => {
+    if (_contributors) {
+      _contributors = `${_contributors}, ${e.name}`;
+    } else {
+      _contributors = e.name;
+    }
+  });
+
   const heroPage = document.getElementById("hero-page");
   const card = document.createElement("div");
   card.classList.add(
@@ -352,26 +400,39 @@ const createCardHero = () => {
   heroPage.appendChild(card);
   card.innerHTML = `
   <div>
-  <div class="row align-items-center  g-0">
-  <div class="col-md-2 ps-3">
-    <img src="http://placekitten.com/300/300
-    " class="img-fluid rounded-start" alt="...">
-  </div>
-  <div class="col-md-10">
-    <div class="card-body">
-    <p class="m-0">ALBUM</p>
-      <h2 class="card-title m-0 ">titolo della canzone molto molto </h2>
-      <p class="card-text m-0">Fedez, Salmo</p>
-      <p class="card-text m-0"><small">Ascolta il nuovo singolo di Fedez e Salmo</small></p>
-      <button id="play-button" class="btn btn-primary rounded-5 ps-4 pe-4 mt-2">Play</button>
-      <button id="save-button" class="btn rounded-5 ps-3 pe-3 mt-2 ms-3">Salva</button>
-
-
+    <div class="row align-items-center g-0">
+      <div class="col-md-2 ps-3">
+        <img src="${album.cover_xl}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-10">
+        <div class="card-body">
+          <p class="m-0">ALBUM</p>
+          <h2 class="card-title m-0 ">${album.tracks.data[0].title}</h2>
+          <p class="card-text m-0">${_contributors}</p>
+          <p class="card-text m-0"><small">${album.title}</small></p>
+          <button id="play-button" class="btn btn-primary rounded-5 ps-4 pe-4 mt-2">Play</button>
+          <button id="stop-button" class="btn btn-primary rounded-5 ps-4 pe-4 mt-2 d-none">Stop</button>
+          <button id="save-button" class="btn rounded-5 ps-3 pe-3 mt-2 ms-3">Salva</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div>
   `;
+
+  const audio = new Audio(album.tracks.data[0].preview);
+
+  const play = document.getElementById("play-button");
+  play.addEventListener("click", () => {
+    play.classList.toggle("d-none");
+    stop.classList.toggle("d-none");
+    playAudio(audio);
+  });
+  const stop = document.getElementById("stop-button");
+  stop.addEventListener("click", () => {
+    play.classList.toggle("d-none");
+    stop.classList.toggle("d-none");
+    stopAudio(audio);
+  });
 };
 
 //Now-playng-bar
@@ -703,7 +764,7 @@ const createResearchfromLocalStorage = () => {
 // ------main------
 addNavigationButtons();
 addUsers();
-createCardHero();
+createCardHero(await getAlbum(97505));
 createTitleUsers();
 createGrid(idAlbums);
 createPreference(idArtist);
