@@ -63,6 +63,8 @@ const searchGenere = function () {
           const divTracklist = document.getElementById("divTracklist");
           const divTrack = document.createElement("div");
 
+          let numeroRandom = Math.floor(1000000 + Math.random() * 52671512);
+
           console.log(element.preview, "lepreview");
 
           const secondsIntoMinutes = function (secondi) {
@@ -80,7 +82,7 @@ const searchGenere = function () {
                 <h5 class="text-white-50    ">${element.artist.name}</h5>
               </div>
           </div>
-          <p class="col col-md-4 col-lg-4 text-white-50 ">1,5Mln</p>
+          <p class="col col-md-4 col-lg-4 text-white-50 ">${numeroRandom}</p>
           <p class="col col-md-1 col-lg-1 text-white-50" id="durata">${secondsIntoMinutes(
             element.duration
           )}</p>
