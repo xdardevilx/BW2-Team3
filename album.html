@@ -110,14 +110,23 @@
       </div>
     </div>
     
-    
+   
     <!--HEADER-->
-    <div class="col col-md-7 col-lg-7 p-0">
+    <div id="header" class="col col-md-7 col-lg-7 p-0">
 
-      <header class="  bg-danger  p-2 ">
+    
+    
+
+    
+   
+
+      <header  class="p-2 ">
       <!--HEADER VERSIONE  DESKTOP-->
+     
       <section class="d-none d-md-block  ">
       
+    <canvas id="canvas" style="display:none;"></canvas>
+    
       <div class="container ">
   <div class="d-flex">
   <i class="bi bi-arrow-left-circle-fill  fs-2 me-3 "></i><i class="bi bi-arrow-right-circle-fill fs-2"></i>
@@ -155,16 +164,16 @@
   <div class="container-fluid   ">
 <div class="row justify-content-center   ">
   <a class="icon-link icon-link-hover link-light link-underline- link-underline-opacity-25 " href="#"><i class="bi bi-arrow-left pt-5 fs-1"></i> </a>
-    <img  id="imgAlbum"  src="./assets/imgs/main/image-11.jpg "  class="w-75   " alt="">
+    <img  id="imgAlbum"  src=""  class="w-75   " alt="">
     </div>
     
      
         
         
-    <h2 id="h1" class="text-white mt-4">TITOLO ALBUM</h2>
+    <h2 id="h1" class="text-white mt-4"></h2>
 
 <div class="col col-md-7">
-    <h4 class="text-white mt-3 "  id="artista"> <img  src="./assets/imgs/search/image-10.jpg " class=" rounded-circle col-1 me-3 "  alt="">AUTORE ALBUM</h4>
+    <h4 class="text-white mt-3 "  id="artista"> <img id="top-artist-image" src="" class=" rounded-circle col-1 me-3 "  alt=""></h4>
 </div>
 
 
@@ -188,7 +197,6 @@
     
 
   </div>
-
 </section>
 </header>
       
@@ -299,33 +307,37 @@
 </div>
         </div>
 
-        <div class="progress-controller    col col-md-4  " >
-          <div class="row justify-content-center   ">
+      
+
+      <div class="progress-controller    col col-md-4  " >
+        <div class="row justify-content-center   ">
 <div class="col col-md-4">
-          <div class="coontrol-buttons d-flex align-items-center justify-content-center mt-4 ">
-          <a class=" link-success link-underline-success link-underline-opacity-25" href="#"><i class="bi bi-shuffle fs-2 me-3 "></i></a> 
-          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#" id="canzone-precendente"><i class="bi bi-skip-backward-fill fs-2 me-3"></i></a> 
-          <a class=" link-dark link-underline-dark link-underline-opacity-25" href="#" id="rounded-play-button"><i class="bi bi-play-fill fs-1 me-3 d-inline-block bg-white rounded-circle  icon-link-hover  "></i></a> 
-          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#" id="canzone-dopo"><i class="bi bi-skip-forward-fill fs-2 me-3"></i></a> 
-          <a class=" link-success link-underline-success link-underline-opacity-25" href="#"><i class="bi bi-repeat fs-2 me-3"></i></a> 
+        <div class="coontrol-buttons d-flex align-items-center justify-content-center mt-4 ">
+        <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-shuffle fs-2 me-3 "></i></a> 
+        <a class=" link-info link-underline-info link-underline-opacity-25" id="canzone-precendente"href="#"><i class="bi bi-skip-backward-fill fs-2 me-3"></i></a> 
+        <a class=" link-dark link-underline-dark link-underline-opacity-25" id="rounded-play-button" href="#"><i class="bi bi-play-fill fs-1 me-3 d-inline-block bg-white pe-2  ps-2  pt-1 rounded-circle  icon-link-hover  "></i></a> 
+        <a class=" link-info link-underline-info link-underline-opacity-25"id="canzone-dopo" href="#"><i class="bi bi-skip-forward-fill fs-2 me-3"></i></a> 
+        <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-repeat fs-2 me-3"></i></a> 
+        </div>
+        <div>
           </div>
-          <div>
-            </div>
 </div>
 <div class="row justify-content-center ">
 
-          <div class="progress-container d-flex align-items-center justify-content-center col col-md-12">
-            <span class="me-2 text-white-50">0:49</span>
-            <div class="progress-bar  mt-1 rounded-3 bg-secondary" style="width: 100%;">
-              <div class="progess  rounded-5 bg-light  " style="width: 30%;height: 4px;"></div>
-            </div>
-            <span class="ms-2 text-white-50">3:15 </span>
+        <div class="progress-container d-flex align-items-center justify-content-center col col-md-12">
+          <span class="me-2 text-white-50">0:49</span>
+          <div class="progress-bar  mt-1 rounded-3 bg-secondary" style="width: 100%;">
+            <div class="progess  rounded-5 bg-light  " style="width: 30%;height: 4px;"></div>
           </div>
+          <span class="ms-2 text-white-50">3:15 </span>
+        </div>
 
 </div>  
 </div>
 
-     <div class="col col-md-3 me-3 mt-4">
+
+    </div>
+    <div class="col col-md-3 me-3 mt-4">
       <div class="d-flex justify-content-end ">
         <div>
                   <a class=" link-info link-underline-info link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-mic-fill fs-5  me-2 "></i></a>
@@ -346,10 +358,15 @@
         <a class=" link-info link-underline-info link-underline-opacity-25 col col-md-1" href="#"><i class="bi bi-arrows-angle-expand fs-5 ms-3"></i></a>
              </div>    
      </div>
-
-      </div>
-    </div>
+  </div>
+  </div>
   </section>
+
+  
+
+
+
+
   <!--FOOTER MOBILE-->
   <section class="d-block d-md-none">
     <div class="container">
@@ -358,8 +375,8 @@
        
          
     <div class="d-flex align-items-center justify-content-end ">
-      <div class="col col-8">
-            <h4 class="text-white ">TITOLO  CANZONE</h4>
+      <div class="col col-7">
+            <h4 id="titolo" class="text-white"></h4>
     </div>
             <div>
               <a class=" link-info link-underline-info link-underline-opacity-25" href="#"><i class="bi bi-pc-display fs-1 me-3"></i></a>

@@ -1,40 +1,40 @@
 // CERCANDO UN GENERE LA PAGINA LI CARICHERà
-let myUrl = " https://striveschool-api.herokuapp.com/api/deezer/album/";
-const albumId = "433511";
+let myUrl = ' https://striveschool-api.herokuapp.com/api/deezer/album/';
+const albumId = '433556';
 
 const searchGenere = function () {
   fetch(myUrl + albumId)
     .then((response) => {
-      console.log("MYURL + ALBUMID", myUrl + albumId);
+      console.log('MYURL + ALBUMID', myUrl + albumId);
       if (response.ok) {
         return response.json();
       } else {
-        throw new Error("ERRORE");
+        throw new Error('ERRORE');
       }
     })
     .then((data) => {
-      console.log("OGGETTO RICEVUTO", data);
+      console.log('OGGETTO RICEVUTO', data);
       const creaContenutoAlbum = function () {
-        const img = document.getElementById("imgAlbum");
-        const h1 = document.getElementById("h1");
-        const artista = document.getElementById("artista");
-        const release = document.getElementById("release");
-        const nBrani = document.getElementById("nBrani");
-        const durataTotale = document.getElementById("durataTotale");
+        const img = document.getElementById('imgAlbum');
+        const h1 = document.getElementById('h1');
+        const artista = document.getElementById('artista');
+        const release = document.getElementById('release');
+        const nBrani = document.getElementById('nBrani');
+        const durataTotale = document.getElementById('durataTotale');
         const giveAudio = function (index) {
           return new Audio(previewSongArray[index].preview);
         };
-        const artistImg = document.getElementById("top-artist-image");
+        const artistImg = document.getElementById('top-artist-image');
         artistImg.src = data.artist.picture;
-        const albumImg = document.getElementById("bottom-artist-image");
+        const albumImg = document.getElementById('bottom-artist-image');
         albumImg.src = data.cover;
-        const footerSong = document.getElementById("footer-song");
+        const footerSong = document.getElementById('footer-song');
         footerSong.textContent = data.title;
-        const footerTitle = document.getElementById("footer-artist");
+        const footerTitle = document.getElementById('footer-artist');
         footerTitle.textContent = data.artist.name;
 
         h1.textContent = data.title;
-        h1.classList.add("col");
+        h1.classList.add('col');
         img.src = data.cover_big;
         artista.textContent = data.artist.name;
 
@@ -48,22 +48,22 @@ const searchGenere = function () {
         durataTotale.innerText = secondsToTime(data.duration);
 
         const annoCompleto = data.release_date;
-        release.innerText = " • " + annoCompleto.split("-")[0] + " • ";
+        release.innerText = ' • ' + annoCompleto.split('-')[0] + ' • ';
 
         const arrayTracks = data.tracks.data;
         console.log(arrayTracks);
 
-        nBrani.textContent = arrayTracks.length + " brani";
+        nBrani.textContent = arrayTracks.length + ' brani';
 
         const audioElements = []; // ARRAY PER TRACCIARE GLI ELEMENTI AUDIO
         let currentlyPlayingIndex = -1; //INDICE TRACCIA IN PLAY
 
         arrayTracks.forEach((element, i) => {
-          console.log("UNA TRACK", element);
-          const divTracklist = document.getElementById("divTracklist");
-          const divTrack = document.createElement("div");
+          console.log('UNA TRACK', element);
+          const divTracklist = document.getElementById('divTracklist');
+          const divTrack = document.createElement('div');
 
-          console.log(element.preview, "lepreview");
+          console.log(element.preview, 'lepreview');
 
           const secondsIntoMinutes = function (secondi) {
             let minutes = secondi / 60;
@@ -71,7 +71,7 @@ const searchGenere = function () {
           };
           const numeroCanzoneInAlbum = i + 1;
 
-          divTrack.classList.add("row");
+          divTrack.classList.add('row');
           divTrack.innerHTML = `
           <div class="col col-md-6 col-lg-6 d-flex align-items-center   ">
               <h5 class="me-4 text-secondary">${numeroCanzoneInAlbum}</h5>
@@ -89,7 +89,7 @@ const searchGenere = function () {
           divTracklist.appendChild(divTrack);
         });
 
-        // newImageArtistBottom.innerHTML = `<img class="img-thumbnail bg-black ms-4  " style="width: 7em;"
+        // newimgArtistBottom.innerHTML = `<img class="img-thumbnail bg-black ms-4  " style="width: 7em;"
         // src="${data.cover}"  alt="">`;
         // divWithArtistImage.appendChild(newImageArtistBottom);
 
@@ -99,11 +99,11 @@ const searchGenere = function () {
         let isPlaying = false;
         let currentAudio = null;
 
-        const h4Elements = document.querySelectorAll("h4");
+        const h4Elements = document.querySelectorAll('h4');
         h4Elements.forEach((element, index) => {
           const canzone = giveAudio(index);
           console.log(canzone);
-          element.addEventListener("click", function () {
+          element.addEventListener('click', function () {
             if (currentAudio !== null && currentAudio !== canzone) {
               currentAudio.pause();
             }
@@ -122,33 +122,33 @@ const searchGenere = function () {
       creaContenutoAlbum();
     })
     .catch((err) => {
-      console.log("ERRORE", err);
+      console.log('ERRORE', err);
     });
   function hideLoadingAnimation() {
-    const loadingDiv = document.getElementById("loadingDiv");
+    const loadingDiv = document.getElementById('loadingDiv');
     if (loadingDiv) {
-      loadingDiv.style.display = "none";
+      loadingDiv.style.display = 'none';
     }
   }
 
   // Verifica se il div genitore è stato creato
-  const parentDiv = document.getElementById("genitore");
+  const parentDiv = document.getElementById('genitore');
 
   // Se il div genitore non è ancora stato creato, creo loading div e mostro l'animazione
   if (!parentDiv) {
-    const loadingDiv = document.createElement("div");
-    loadingDiv.id = "loadingDiv";
-    loadingDiv.classList.add("clessidra");
-    loadingDiv.style.width = "20px";
-    loadingDiv.style.height = "20px";
+    const loadingDiv = document.createElement('div');
+    loadingDiv.id = 'loadingDiv';
+    loadingDiv.classList.add('clessidra');
+    loadingDiv.style.width = '20px';
+    loadingDiv.style.height = '20px';
     document.body.appendChild(loadingDiv);
   } else {
     hideLoadingAnimation(); // Nascondi l'animazione se il div genitore è già stato creato
-    const loadingDiv = document.getElementById("loadingDiv");
+    const loadingDiv = document.getElementById('loadingDiv');
     // Aggiungi un listener per l'evento "animationend" all'elemento di caricamento
-    loadingDiv.addEventListener("animationend", () => {
+    loadingDiv.addEventListener('animationend', () => {
       // Una volta completata l'animazione di opacità, nascondi il div di caricamento
-      loadingDiv.style.display = "none";
+      loadingDiv.style.display = 'none';
     });
   }
 };
@@ -158,11 +158,11 @@ searchGenere();
 const cercaCanzone = function () {
   fetch(myUrl + albumId)
     .then((response) => {
-      console.log("MYURL + ALBUMID", myUrl + albumId);
+      console.log('MYURL + ALBUMID', myUrl + albumId);
       if (response.ok) {
         return response.json();
       } else {
-        throw new Error("ERRORE");
+        throw new Error('ERRORE');
       }
     })
     .then((data) => {
@@ -172,18 +172,18 @@ const cercaCanzone = function () {
       const giveAudio = function (index) {
         return new Audio(myPreviewArray[index].preview);
       };
-      const roundedPlayButton = document.getElementById("rounded-play-button");
+      const roundedPlayButton = document.getElementById('rounded-play-button');
       const bottoneCanzonePrecedente = document.getElementById(
-        "canzone-precendente"
+        'canzone-precendente'
       );
-      const bottoneCanzoneDopo = document.getElementById("canzone-dopo");
+      const bottoneCanzoneDopo = document.getElementById('canzone-dopo');
 
       let canzonePre = giveAudio(0);
 
       let isPlaying = false;
       let currentAudio = null;
 
-      bottoneCanzonePrecedente.addEventListener("click", function () {
+      bottoneCanzonePrecedente.addEventListener('click', function () {
         if (currentAudio !== null && currentAudio !== canzonePre) {
           currentAudio.pause();
         }
@@ -199,7 +199,7 @@ const cercaCanzone = function () {
 
       let canzone2 = giveAudio(1);
 
-      roundedPlayButton.addEventListener("click", function () {
+      roundedPlayButton.addEventListener('click', function () {
         if (currentAudio !== null && currentAudio !== canzone2) {
           currentAudio.pause();
         }
@@ -215,7 +215,7 @@ const cercaCanzone = function () {
 
       let canzoneDopo = giveAudio(2);
 
-      bottoneCanzoneDopo.addEventListener("click", function () {
+      bottoneCanzoneDopo.addEventListener('click', function () {
         if (currentAudio !== null && currentAudio !== canzoneDopo) {
           currentAudio.pause();
         }
@@ -230,8 +230,50 @@ const cercaCanzone = function () {
       });
     })
     .catch((err) => {
-      console.log("ERRORE", err);
+      console.log('ERRORE', err);
     });
 };
 
 cercaCanzone();
+const header = document.getElementById('header');
+function getColor(imgElement, ratio) {
+  const canvas = document.createElement('canvas');
+  let width = (canvas.width = imgElement.width);
+  let height = (canvas.height = imgElement.width);
+  const context = canvas.getContext('2d');
+  context.drawImage(imgElement, 0, 0);
+  let data, lenght;
+  let i = -4,
+    count = 0;
+  try {
+    data = context.getImageData(0, 0, width, height);
+    lenght = data.data.lenght;
+  } catch (err) {
+    return {
+      R: 0,
+      G: 0,
+      B: 0,
+    };
+  }
+  let R, G, B;
+  R = G = B = 0;
+  while (i + -ratio * 4 < lenght) {
+    ++count;
+    R += data.data[i];
+    G += data.data[i + 1];
+    B += data.data[i + 2];
+  }
+  R = ~~(R / count);
+  G = ~~(G / count);
+  B = ~~(B / count);
+  return {
+    R,
+    G,
+    B,
+  };
+}
+const image = document.getElementById('imgAlbum');
+image.onload = function () {
+  const { R, G, B } = getColor(image, 4);
+  header.style.background = `radial-gradient(rgb(${R},${G},${B}), #333 )`;
+};
