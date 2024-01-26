@@ -29,9 +29,7 @@ const searchGenere = function () {
         const albumImg = document.getElementById('bottom-artist-image');
         albumImg.src = data.cover;
         const footerSong = document.getElementById('footer-song');
-        footerSong.textContent = data.title;
-        const footerTitle = document.getElementById('footer-artist');
-        footerTitle.textContent = data.artist.name;
+        footerSong.textContent = data.artist.name;
 
         h1.textContent = data.title;
         h1.classList.add('col');
@@ -63,6 +61,8 @@ const searchGenere = function () {
           const divTracklist = document.getElementById('divTracklist');
           const divTrack = document.createElement('div');
 
+          let numeroRandom = Math.floor(1000000 + Math.random() * 52671512);
+
           console.log(element.preview, 'lepreview');
 
           const secondsIntoMinutes = function (secondi) {
@@ -80,7 +80,7 @@ const searchGenere = function () {
                 <h5 class="text-white-50    ">${element.artist.name}</h5>
               </div>
           </div>
-          <p class="col col-md-4 col-lg-4 text-white-50 ">1,5Mln</p>
+          <p class="col col-md-4 col-lg-4 text-white-50 ">${numeroRandom}</p>
           <p class="col col-md-1 col-lg-1 text-white-50" id="durata">${secondsIntoMinutes(
             element.duration
           )}</p>
@@ -102,6 +102,7 @@ const searchGenere = function () {
         const h4Elements = document.querySelectorAll('h4');
         h4Elements.forEach((element, index) => {
           const canzone = giveAudio(index);
+          console.log(element);
           console.log(canzone);
           element.addEventListener('click', function () {
             if (currentAudio !== null && currentAudio !== canzone) {
@@ -110,6 +111,8 @@ const searchGenere = function () {
 
             if (isPlaying === false) {
               canzone.play();
+              const footerTitle = document.getElementById('footer-artist');
+              footerTitle.textContent = element.textContent;
             } else {
               canzone.pause();
             }
