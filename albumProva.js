@@ -1,8 +1,6 @@
 // CERCANDO UN GENERE LA PAGINA LI CARICHERà
 let myUrl = " https://striveschool-api.herokuapp.com/api/deezer/album/";
-
-const addressBarContent = new URLSearchParams(window.location.search);
-const albumId = addressBarContent.get("albumId");
+const albumId = "433511";
 
 const searchGenere = function () {
   fetch(myUrl + albumId)
