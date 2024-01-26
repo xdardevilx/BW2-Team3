@@ -67,7 +67,20 @@ const idAlbums = [
   "708674",
 ];
 
-const idArtist = ["412", "7357", "115", "4611", "13"];
+const idArtist = [
+  "412",
+  "7357",
+  "115",
+  "4611",
+  "13",
+  "13",
+  "13",
+  "13",
+  "13",
+  "13",
+  "13",
+  "13",
+];
 
 // -----DOM MANIPULATION-----
 
@@ -606,34 +619,47 @@ const createProgressBar = () => {
 
 const responsiveFooter = () => {
   const footerMobile = document.getElementById("footer-mobile");
-  footerMobile.classList.add("sticky");
   const container = document.createElement("div");
   container.classList.add("container");
   footerMobile.appendChild(container);
   const row = document.createElement("div");
-  row.classList.add("row", "justify-content-center", "text-center");
+  row.classList.add(
+    "row",
+    "justify-content-center",
+    "text-center",
+    "align-items-center"
+  );
   footerMobile.appendChild(row);
-  const colLeft = document.createElement("div");
-  const colCenter = document.createElement("div");
-  const colRight = document.createElement("div");
-  colLeft.classList.add("col-4");
-  colCenter.classList.add("col-4");
-  colRight.classList.add("col-4");
-  row.appendChild(colLeft);
-  row.appendChild(colCenter);
-  row.appendChild(colRight);
-  const iconHome = document.createElement("i");
-  iconHome.classList.add("bi", "bi-house-door-fill");
-  colLeft.appendChild(iconHome);
-  const iconSearch = document.createElement("i");
-  iconSearch.classList.add("bi", "bi-search");
-  colCenter.appendChild(iconSearch);
-  const iconLibrary = document.createElement("i");
-  iconLibrary.classList.add("bi", "bi-collection");
-  colRight.appendChild(iconLibrary);
-};
-responsiveFooter();
 
+  const iconText = [
+    new ButtonConfig(null, "Home", "#", "bi-house-door-fill"),
+    new ButtonConfig(null, "Search", "#", "bi-search"),
+    new ButtonConfig(null, "Library", "#", "bi-collection"),
+  ];
+
+  for (let i = 0; i < 3; i++) {
+    const col = document.createElement("div");
+    col.classList.add("col-4");
+    row.appendChild(col);
+    col.appendChild(navButton(iconText[i]));
+  }
+};
+
+const navButton = (btnConfig) => {
+  const a = document.createElement("a");
+  a.setAttribute("href", btnConfig.link);
+  a.classList.add("text-decoration-none", "text-white");
+  const iconHome = document.createElement("i");
+  iconHome.classList.add("bi", btnConfig.icon);
+  a.appendChild(iconHome);
+  const text = document.createElement("p");
+  text.textContent = btnConfig.text;
+  a.appendChild(text);
+
+  return a;
+};
+
+responsiveFooter();
 //Methods
 const saveDataLocalStorage = () => {
   const inputSearch = document.getElementById("search-bar");
