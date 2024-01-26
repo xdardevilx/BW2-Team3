@@ -15,7 +15,7 @@
     />
     <link rel="stylesheet" href="scss/CSS/custom.css" />
   </head>
-  <body class="bg-dark">
+  <body class="bg-dark" style="font-family: Circular;">
     
 <div class="container-fluid ">
   
@@ -114,7 +114,7 @@
     <!--HEADER-->
     <div class="col col-md-7 col-lg-7 p-0">
 
-+      <header class="  bg-danger  p-2 ">
+      <header class="  bg-danger  p-2 ">
       <!--HEADER VERSIONE  DESKTOP-->
       <section class="d-none d-md-block  ">
       
@@ -139,7 +139,7 @@
                 <p class="text-white-50 " >ALBUM</p>
               </div>
              <div>
-                <h1  class="text-white" id="h1"></h1>
+                <h2  class="text-white" id="h1"></h2>
               </div>
 <div class="row">
 
@@ -157,13 +157,13 @@
   <div class="container-fluid   ">
 <div class="row justify-content-center   ">
   <a class="icon-link icon-link-hover link-light link-underline- link-underline-opacity-25 " href="#"><i class="bi bi-arrow-left pt-5 fs-1"></i> </a>
-    <img  src="./assets/imgs/main/image-11.jpg "  class="w-75   " alt="">
+    <img  id="imgAlbum"  src="./assets/imgs/main/image-11.jpg "  class="w-75   " alt="">
     </div>
     
      
         
         
-    <h2 class="text-white mt-4">TITOLO ALBUM</h2>
+    <h2 id="h1" class="text-white mt-4">TITOLO ALBUM</h2>
 
 <div class="col col-md-7">
     <h4 class="text-white mt-3 "  id="artista"> <img  src="./assets/imgs/search/image-10.jpg " class=" rounded-circle col-1 me-3 "  alt="">AUTORE ALBUM</h4>
@@ -183,7 +183,7 @@
 </div>
   <div>
     <a class="icon-link icon-link-hover link-light link-underline- link-underline-opacity-25" href="#"><i class="bi bi-shuffle fs-2 me-3"></i></a>
-    <a class="icon-link icon-link-hover link-success link-underline-success link-underline-opacity-25" href="#"><i class="bi bi-play-circle-fill   fs-1 " ></i></a>
+    <a class="icon-link icon-link-hover link-secondary link-underline-success link-underline-opacity-25  " href="#"><i class="bi bi-play-circle-fill fs-1 " ></i></a>
   </div>
 </div>
 </div>
@@ -196,7 +196,7 @@
       
       
     
-    <!-- HO TOLTO DAL MAIN VH 100 ALTRIMENTI IL BODY NON OCCUPAVA IL SUO VH-100 ORIGINARIO, CI SONO DA SISTEMARE 2 COSE NEL FOOTER ORA -->
+    <!-- MAIN -->
     <main >
     <section class=" d-none d-md-flex  justify-content-center pt-4 ">
       <div class="container d-flex flex-column align-items-baseline  ">
@@ -269,133 +269,105 @@
     </div>
 </div>
     <!--FOOTER-->
-    <footer class="  bg-black pt-4  pb-5 fixed-bottom   ">
-<section class="d-none d-md-flex ">
-      <div class="container-fluid ">
-        <div class="row align-items-center  justify-content-between ">
-      
-
-      
-          
-        <div class="song-bar col col-md-4  ">
-<div class="row align-items-center ">
-          
-            <div class="img-container d-flex align-items-center col col-md-10 col-lg-9  ">
-              <img class="img-thumbnail bg-black ms-4  " style="width: 7em;" src="./assets/imgs/main/image-1.jpg"  alt="">
-              <div class="song-description d-flex flex-column  justify-content-center ms-3 ">
-            <p class="title text-white">Rise</p>
-            <p class="artist text-white-50  ">Skillet</p>
-            
-            
-          </div>
+<footer class="  bg-dark  pt-2  pb-2 fixed-bottom">
+  <!--FOOTER DESKTOP-->
+<section class="d-none d-md-flex">
   
-       <div class="icons    ">
-            <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-heart fs-5 ms-4"></i></a>
-        
-        </div>
-          
-        </div>
-          
-         
-        
-</div>
-        </div>
+  <div class="container-fluid ">
+    <div class="row justify-content-between ">
+      
+     <div class="col col-md-4">
+      <div class="img-container d-flex align-items-center col col-md-10 col-lg-9  ">
+        <img class="img-thumbnail bg-black ms-4  " style="width: 7em;" src="./assets/imgs/main/image-1.jpg"  alt="">
+        <div class="song-description d-flex flex-column  justify-content-center ms-3 ">
+      <p class="title text-white">Rise</p>
+      <p class="artist text-white-50  ">Skillet </p>
+      
+     </div>
+     <a class=" link-info  link-underline-infolink-info  link-underline-opacity-25" href="#"><i class="bi bi-heart fs-5 ms-4"></i></a> 
+     </div>
+     </div>
 
-        <div class="progress-controller    col col-md-4  " >
+     <div class="col col-md-4">
+      <div class="row text-center">
+        <div class="control-buttons  ">
+          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-shuffle fs-2 me-3 "></i></a> 
+          <a class=" link-info link-underline-info link-underline-opacity-25" href="#"><i class="bi bi-skip-backward-fill fs-2 me-1 "></i></a> 
           
-
-
-<div class="row justify-content-center ">
-  <div class="row text-center">
-  <div class="control-buttons  ">
-    <a class=" link-success link-underline-success link-underline-opacity-25" href="#"><i class="bi bi-shuffle fs-2 me-3 "></i></a> 
-    <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-skip-backward-fill fs-2 me-1 "></i></a> 
-    
-      <a
-        class="link-dark link-underline-dark link-underline-opacity-25"
-        href="#">
-        <i
-          class="bi bi-play-fill fs-1 bg-white text-center rounded rounded-circle ps-2 pe-1 icon-link-hover"></i>
-      </a>
-    
-    <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-skip-forward-fill fs-2 ms-1 me-3"></i></a> 
-    <a class=" link-success link-underline-success link-underline-opacity-25" href="#"><i class="bi bi-repeat fs-2 "></i></a> 
-    </div>
-</div>
-          <div class="progress-container d-flex align-items-center justify-content-center col col-md-12">
-            <span class="me-2 text-white-50">0:49</span>
-            <div class="progress-bar  mt-1 rounded-3 bg-secondary" style="width: 100%;">
-              <div class="progess  rounded-5 bg-light  " style="width: 30%;height: 4px;"></div>
-            </div>
-            <span class="ms-2 text-white-50">3:15 </span>
+            <a
+              class="link-dark link-underline-dark link-underline-opacity-25"
+              href="#">
+              <i
+                class="bi bi-play-fill fs-1 bg-white text-center rounded rounded-circle ps-2 pe-1 pt-1 icon-link-hover"></i>
+            </a>
+          
+          <a class=" link-info link-underline-info link-underline-opacity-25" href="#"><i class="bi bi-skip-forward-fill fs-2 ms-1 me-3"></i></a> 
+          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-repeat fs-2 "></i></a> 
           </div>
-
-</div>  
-
-
-        </div>
-
-        <div class="others-featurers  col col-md-4 ">
-          <div class="row justify-content-end me-2 ">
-
-            <div class="d-flex justify-content-end ">
-<div>
-          <a class=" link-secondary link-underline-secondary link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-mic-fill fs-5  me-2 "></i></a>
-</div>
-<div>
-          <a class=" link-secondary link-underline-secondary link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-menu-button-wide fs-5 me-2"></i></a>
-         </div> 
-<div>
-          <a class=" link-secondary link-underline-secondary link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-pc-display fs-5 me-2 "></i></a>
-</div>
-<div>
-          <a class=" link-secondary link-underline-secondary link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-volume-up fs-5 me-2 "></i></a>
-     </div>   
-       
-<div class="progress-bar col col-md-2 "   >
-  <div class="progress   bg-body-secondary  "  style="height:5px;"></div>
-  </div>
-<a class=" link-secondary link-underline-secondary link-underline-opacity-25 col col-md-1" href="#"><i class="bi bi-arrows-angle-expand fs-5 ms-3"></i></a>
-     </div>    
-
-</div>
-</div>
-
-        
-
-
       </div>
-      </div>
-</section>
-<section class="d-block d-md-none">
-<div class="container">
-   <div class="row p-2">
-  <nav class="navbar  d-block bg-dark rounded-2 ">
-   
-     
-<div class="d-flex align-items-center justify-content-end ">
-  <div class="col col-8">
-        <h4 class="text-white ">TITOLO  CANZONE</h4>
-</div>
+                <div class="progress-container d-flex align-items-center justify-content-center col col-md-12">
+                  <span class="me-2 text-white-50">0:49</span>
+                  <div class="progress-bar  mt-1 rounded-3 bg-info" style="width: 100%;">
+                    <div class="progess  rounded-5 bg-light  " style="width: 30%;height: 4px;"></div>
+                  </div>
+                  <span class="ms-2 text-white-50">3:15 </span>
+                </div>
+     </div> 
+
+     <div class="col col-md-3 me-3 mt-4">
+      <div class="d-flex justify-content-end ">
         <div>
-          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-pc-display fs-1 me-3"></i></a>
-          <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-heart fs-1 me-3"></i></a>
-          <a class=" link-light   link-underline-selink-light   link-underline-opacity-25" href="#"><i class="bi bi-play-fill fs-1 me-3   icon-link-hover  "></i></a> 
+                  <a class=" link-info link-underline-info link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-mic-fill fs-5  me-2 "></i></a>
         </div>
-</div>
+        <div>
+                  <a class=" link-info link-underline-info link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-menu-button-wide fs-5 me-2"></i></a>
+                 </div> 
+        <div>
+                  <a class=" link-info link-underline-info link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-pc-display fs-5 me-2 "></i></a>
+        </div>
+        <div>
+                  <a class=" link-info link-underline-info link-underline-opacity-25 col col-md-1 p-0 " href="#"><i class="bi bi-volume-up fs-5 me-2 "></i></a>
+             </div>   
+               
+        <div class="progress-bar col col-md-4 "   >
+          <div class="progress   bg-body-secondary  "  style="height:5px;"></div>
+          </div>
+        <a class=" link-info link-underline-info link-underline-opacity-25 col col-md-1" href="#"><i class="bi bi-arrows-angle-expand fs-5 ms-3"></i></a>
+             </div>    
+     </div>
+
       </div>
-  </nav>
-  <div class="row">
-    <div class="d-flex justify-content-around ">
-      <a class=" link-light   link-underline-selink-light   link-underline-opacity-25" href="#"><i class="bi bi-house-door-fill fs-1"></i></a> 
-      <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-search fs-1"></i></a>
-      <a class=" link-secondary link-underline-secondary link-underline-opacity-25" href="#"><i class="bi bi-music-note-list fs-1"></i></a>
     </div>
-  </div>
-</div>
-</section>
-<!--FOOTER-->
-    </footer>
+  </section>
+  <!--FOOTER MOBILE-->
+  <section class="d-block d-md-none">
+    <div class="container">
+       <div class="row p-2 ">
+      <nav class="navbar  d-block bg-dark rounded-2 ">
+       
+         
+    <div class="d-flex align-items-center justify-content-end ">
+      <div class="col col-8">
+            <h4 class="text-white ">TITOLO  CANZONE</h4>
+    </div>
+            <div>
+              <a class=" link-info link-underline-info link-underline-opacity-25" href="#"><i class="bi bi-pc-display fs-1 me-3"></i></a>
+              <a class=" link-info link-underline-info link-underline-opacity-25" href="#"><i class="bi bi-heart fs-1 me-3"></i></a>
+              <a class=" link-light   link-underline-selink-light   link-underline-opacity-25" href="#"><i class="bi bi-play-fill fs-1 me-3   icon-link-hover  "></i></a> 
+            </div>
+    </div>
+          </div>
+      </nav>
+      <div class="row">
+        <div class="d-flex justify-content-around ">
+          <a class=" link-light   link-underline-selink-light   link-underline-opacity-25" href="#"><i class="bi bi-house-door-fill fs-1"></i></a> 
+          <a class=" link-info link-underline-info link-underline-opacity-25" href="#"><i class="bi bi-search fs-1"></i></a>
+          <a class=" link-info link-underline-info link-underline-opacity-25" href="#"><i class="bi bi-music-note-list fs-1"></i></a>
+        </div>
+      </div>
+    </div>
+    </section>
+</footer>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -408,12 +380,3 @@
   </body>
 </html>
 
-<!-- 
-<div id="divAlto" class="container">
-  <div class="row">
-    <div class="col" id="imgAlbum"></div>
-    <div class="col">
-      <div class="row flex-column" id="nomeEartista"></div>
-    </div>
-  </div>
-</div> -->
