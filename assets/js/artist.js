@@ -1,6 +1,9 @@
 let myUrl = "https://striveschool-api.herokuapp.com/api/deezer/artist/";
-let idArtista = "143";
+
 let tracklist = "/top?limit=100";
+
+const addressBarContent = new URLSearchParams(window.location.search);
+const idArtista = addressBarContent.get("artistId");
 
 const getArtist = function () {
   fetch(myUrl + idArtista)
