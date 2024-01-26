@@ -1,5 +1,5 @@
 let myUrl = "https://striveschool-api.herokuapp.com/api/deezer/artist/";
-let idArtista = "14352";
+let idArtista = "143";
 let tracklist = "/top?limit=100";
 
 const getArtist = function () {
@@ -35,8 +35,8 @@ const getArtist = function () {
         ascoltatoriMensili.classList.add("col", "fs-5");
         img.src = data.picture_big;
         nome.innerText = data.name;
-        /// MODIFICO IL NUMERO DEGLI ASCOLTATORI MENSILI CON UN PUNTINO OGNI 3 CIFRE INTERE
 
+        /// MODIFICO IL NUMERO DEGLI ASCOLTATORI MENSILI CON UN PUNTINO OGNI 3 CIFRE INTERE
         ascoltatoriMensili.innerText = `${formattaNumeroConPunti(
           data.nb_fan
         )} ascoltatori mensili`;
@@ -53,9 +53,7 @@ const getArtist = function () {
           }
         })
         .then((data) => {
-          //MI SA CHE DOMANI FACCIO PARTIRE UN ALTRA FETCH DENTRO QUESTO THEN CHE PUNTA A QUES'URL MA CON LA PARTE FINALE
-          ///// PARAMETRIZZATA DAL NUMERO MASSIMO DI TRACKLIST DI OGNI ARTISTA
-          console.log("OGGETTO TRACKLIST RICEVUTO DA SECONDA FETCH", data);
+          console.log("OGGETTO TRACKLIST, RICEVUTO DA SECONDA FETCH", data);
           const arrayTrackList = data.data;
 
           console.log("ARRAY TRACKLIST", arrayTrackList);
@@ -129,12 +127,13 @@ const getArtist = function () {
               const playIcon = document.createElement("i");
               const pauseIcon = document.createElement("i");
 
-              playIcon.classList.add("d-none", "col-1", "bi", "bi-play");
+              playIcon.classList.add("d-none", "row", "bi", "bi-play", "ms-2"); ///SE VOLETE FAR APPARIRE ICONA SOTTO I BRANI PIù LUNGHI QUA VA COL-1 ANZI CHE ROW///
               pauseIcon.classList.add(
                 "d-none",
-                "col-1",
+                "row", ///SE VOLETE FAR APPARIRE ICONA SOTTO I BRANI PIù LUNGHI QUA VA COL-1 ANZI CHE ROW///
                 "bi",
-                "bi-pause-circle"
+                "bi-pause-circle",
+                "ms-2"
               );
 
               ///// ASSEGNO GLI ID ALLE ICONE BASANDOMI SUGLI INDICI
@@ -198,40 +197,37 @@ const getArtist = function () {
     .catch((err) => {
       console.log("errore", err);
     });
-
-  function hideLoadingAnimation() {
-    const loadingDiv = document.getElementById("loadingDiv");
-    if (loadingDiv) {
-      loadingDiv.style.display = "none";
-    }
-  }
-
-  // Verifica se il div genitore è stato creato
-  const parentDiv = document.getElementById("genitore");
-
-  // Se il div genitore non è ancora stato creato, creo loading div e mostro l'animazione
-  if (!parentDiv) {
-    const loadingDiv = document.createElement("div");
-    loadingDiv.id = "loadingDiv";
-    loadingDiv.classList.add("clessidra");
-    loadingDiv.style.width = "20px";
-    loadingDiv.style.height = "20px";
-    document.body.appendChild(loadingDiv);
-  } else {
-    hideLoadingAnimation(); // Nascondi l'animazione se il div genitore è già stato creato
-    const loadingDiv = document.getElementById("loadingDiv");
-    // Aggiungi un listener per l'evento "animationend" all'elemento di caricamento
-    loadingDiv.addEventListener("animationend", () => {
-      // Una volta completata l'animazione di opacità, nascondi il div di caricamento
-      loadingDiv.style.display = "none";
-    });
-  }
 };
 getArtist();
 
 // let searchArtista = nomeArtista;
 
-// search.addEventListener(("click") => {getArtist()})
+// search.addEventListener(("click") => {getArtist(ID)})
 
 // URLSearchParams.append() ///////  Aggiunge una coppia chiave/valore specificata come nuovo parametro di ricerca.
 // URLSearchParams.forEach()
+function hideLoadingAnimation() {
+  const loadingDiv = document.getElementById("loadingDiv");
+  if (loadingDiv) {
+    loadingDiv.style.display = "none";
+  }
+}
+// Verifica se il div genitore è stato creato
+const parentDiv = document.getElementById("genitore");
+// Se il div genitore non è ancora stato creato, creo loading div e mostro l'animazione
+if (!parentDiv) {
+  const loadingDiv = document.createElement("div");
+  loadingDiv.id = "loadingDiv";
+  loadingDiv.classList.add("clessidra");
+  loadingDiv.style.width = "20px";
+  loadingDiv.style.height = "20px";
+  document.body.appendChild(loadingDiv);
+} else {
+  hideLoadingAnimation(); // Nascondi l'animazione se il div genitore è già stato creato
+  const loadingDiv = document.getElementById("loadingDiv");
+  // Aggiungi un listener per l'evento "animationend" all'elemento di caricamento
+  loadingDiv.addEventListener("animationend", () => {
+    // Una volta completata l'animazione di opacità, nascondi il div di caricamento
+    loadingDiv.style.display = "none";
+  });
+}
