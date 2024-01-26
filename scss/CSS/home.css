@@ -21,3 +21,7 @@
   #now-playing-bar{
     height: 72px;
   }
+
+  .flex-3{
+    flex: 3;
+  }
