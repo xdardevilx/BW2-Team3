@@ -168,11 +168,32 @@ const cercaCanzone = function () {
       const giveAudio = function (index) {
         return new Audio(myPreviewArray[index].preview);
       };
-
-      const canzone2 = giveAudio(0);
       const roundedPlayButton = document.getElementById("rounded-play-button");
+      const bottoneCanzonePrecedente = document.getElementById(
+        "canzone-precendente"
+      );
+      const bottoneCanzoneDopo = document.getElementById("canzone-dopo");
+
+      let canzonePre = giveAudio(0);
+
       let isPlaying = false;
       let currentAudio = null;
+
+      bottoneCanzonePrecedente.addEventListener("click", function () {
+        if (currentAudio !== null && currentAudio !== canzonePre) {
+          currentAudio.pause();
+        }
+
+        if (isPlaying === false) {
+          canzonePre.play();
+        } else {
+          canzonePre.pause();
+        }
+        isPlaying = !isPlaying;
+        currentAudio = canzonePre;
+      });
+
+      let canzone2 = giveAudio(1);
 
       roundedPlayButton.addEventListener("click", function () {
         if (currentAudio !== null && currentAudio !== canzone2) {
@@ -186,6 +207,22 @@ const cercaCanzone = function () {
         }
         isPlaying = !isPlaying;
         currentAudio = canzone2;
+      });
+
+      let canzoneDopo = giveAudio(2);
+
+      bottoneCanzoneDopo.addEventListener("click", function () {
+        if (currentAudio !== null && currentAudio !== canzoneDopo) {
+          currentAudio.pause();
+        }
+
+        if (isPlaying === false) {
+          canzoneDopo.play();
+        } else {
+          canzoneDopo.pause();
+        }
+        isPlaying = !isPlaying;
+        currentAudio = canzoneDopo;
       });
     })
     .catch((err) => {
