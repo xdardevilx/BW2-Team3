@@ -248,9 +248,10 @@ function getColor(imgElement, ratio) {
   let data, lenght;
   let i = -4,
     count = 0;
+
   try {
     data = context.getImageData(0, 0, width, height);
-    lenght = data.data.lenght;
+    lenght = data.data.length;
   } catch (err) {
     return {
       R: 0,
@@ -260,7 +261,7 @@ function getColor(imgElement, ratio) {
   }
   let R, G, B;
   R = G = B = 0;
-  while (i + -ratio * 4 < lenght) {
+  while ((i += ratio * 4 < lenght)) {
     ++count;
     R += data.data[i];
     G += data.data[i + 1];
