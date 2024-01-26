@@ -24,6 +24,11 @@ $h4-font-size: $font-size-base * 1.2 !important;
 $h5-font-size: $font-size-base * 0.85 !important;
 $h6-font-size: $font-size-base * 0.7 !important;
 
+span a {
+  text-decoration: none;
+  color: $new-gray;
+}
+
 @mixin buttons {
   width: 80px;
   height: 40px;

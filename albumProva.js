@@ -1,6 +1,6 @@
 // CERCANDO UN GENERE LA PAGINA LI CARICHERà
 let myUrl = " https://striveschool-api.herokuapp.com/api/deezer/album/";
-const albumId = "508204251";
+const albumId = "433511";
 
 const searchGenere = function () {
   fetch(myUrl + albumId)
@@ -150,3 +150,84 @@ const searchGenere = function () {
 };
 
 searchGenere();
+
+const cercaCanzone = function () {
+  fetch(myUrl + albumId)
+    .then((response) => {
+      console.log("MYURL + ALBUMID", myUrl + albumId);
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("ERRORE");
+      }
+    })
+    .then((data) => {
+      const myPreviewArray = data.tracks.data;
+      console.log(myPreviewArray);
+
+      const giveAudio = function (index) {
+        return new Audio(myPreviewArray[index].preview);
+      };
+      const roundedPlayButton = document.getElementById("rounded-play-button");
+      const bottoneCanzonePrecedente = document.getElementById(
+        "canzone-precendente"
+      );
+      const bottoneCanzoneDopo = document.getElementById("canzone-dopo");
+
+      let canzonePre = giveAudio(0);
+
+      let isPlaying = false;
+      let currentAudio = null;
+
+      bottoneCanzonePrecedente.addEventListener("click", function () {
+        if (currentAudio !== null && currentAudio !== canzonePre) {
+          currentAudio.pause();
+        }
+
+        if (isPlaying === false) {
+          canzonePre.play();
+        } else {
+          canzonePre.pause();
+        }
+        isPlaying = !isPlaying;
+        currentAudio = canzonePre;
+      });
+
+      let canzone2 = giveAudio(1);
+
+      roundedPlayButton.addEventListener("click", function () {
+        if (currentAudio !== null && currentAudio !== canzone2) {
+          currentAudio.pause();
+        }
+
+        if (isPlaying === false) {
+          canzone2.play();
+        } else {
+          canzone2.pause();
+        }
+        isPlaying = !isPlaying;
+        currentAudio = canzone2;
+      });
+
+      let canzoneDopo = giveAudio(2);
+
+      bottoneCanzoneDopo.addEventListener("click", function () {
+        if (currentAudio !== null && currentAudio !== canzoneDopo) {
+          currentAudio.pause();
+        }
+
+        if (isPlaying === false) {
+          canzoneDopo.play();
+        } else {
+          canzoneDopo.pause();
+        }
+        isPlaying = !isPlaying;
+        currentAudio = canzoneDopo;
+      });
+    })
+    .catch((err) => {
+      console.log("ERRORE", err);
+    });
+};
+
+cercaCanzone();
