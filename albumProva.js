@@ -29,9 +29,7 @@ const searchGenere = function () {
         const albumImg = document.getElementById("bottom-artist-image");
         albumImg.src = data.cover;
         const footerSong = document.getElementById("footer-song");
-        footerSong.textContent = data.title;
-        const footerTitle = document.getElementById("footer-artist");
-        footerTitle.textContent = data.artist.name;
+        footerSong.textContent = data.artist.name;
 
         h1.textContent = data.title;
         h1.classList.add("col");
@@ -104,6 +102,7 @@ const searchGenere = function () {
         const h4Elements = document.querySelectorAll("h4");
         h4Elements.forEach((element, index) => {
           const canzone = giveAudio(index);
+          console.log(element);
           console.log(canzone);
           element.addEventListener("click", function () {
             if (currentAudio !== null && currentAudio !== canzone) {
@@ -112,6 +111,8 @@ const searchGenere = function () {
 
             if (isPlaying === false) {
               canzone.play();
+              const footerTitle = document.getElementById("footer-artist");
+              footerTitle.textContent = element.textContent;
             } else {
               canzone.pause();
             }
