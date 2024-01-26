@@ -3,10 +3,14 @@ import { searchAPI } from "./search-api-music.js";
 import { getAlbum } from "./get-api-music.js";
 import { getArtistAPI } from "./get-artist.js";
 
+//Utils
+import { searchAction } from "./utils/search-manager.js";
+
 //Components
 import { createCardHero } from "./components/cards/hero-card.js";
 import { createListCard } from "./components/cards/list-card.js";
 import { createLargeCard } from "./components/cards/large-card.js";
+import { createIconTextButton } from "./components/buttons/icon-text-button.js";
 
 //Class
 class ButtonConfig {
@@ -26,40 +30,6 @@ class UsersConfig {
     this.icon = icon;
   }
 }
-
-class Album {
-  constructor(data) {
-    this.cover = data.cover;
-    this.cover_big = data.cover_big;
-    this.cover_medium = data.cover_medium;
-    this.cover_small = data.cover_small;
-    this.cover_xl = data.cover_xl;
-    this.id = data.id;
-    this.md5_image = data.md5_image;
-    this.title = data.title;
-    this.tracklist = data.tracklist;
-    this.type = data.type;
-  }
-}
-
-const albumData = {
-  cover: "https://api.deezer.com/album/90184462/image",
-  cover_big:
-    "https://e-cdns-images.dzcdn.net/images/cover/754169db0b8421add6ce95f1191b8197/500x500-000000-80-0-0.jpg",
-  cover_medium:
-    "https://e-cdns-images.dzcdn.net/images/cover/754169db0b8421add6ce95f1191b8197/250x250-000000-80-0-0.jpg",
-  cover_small:
-    "https://e-cdns-images.dzcdn.net/images/cover/754169db0b8421add6ce95f1191b8197/56x56-000000-80-0-0.jpg",
-  cover_xl:
-    "https://e-cdns-images.dzcdn.net/images/cover/754169db0b8421add6ce95f1191b8197/1000x1000-000000-80-0-0.jpg",
-  id: 90184462,
-  md5_image: "754169db0b8421add6ce95f1191b8197",
-  title: "Supernatural: The Musical (Songs from the 200th Episode)",
-  tracklist: "https://api.deezer.com/album/90184462/tracks",
-  type: "album",
-};
-
-const myAlbum = new Album(albumData);
 
 //Variable
 const arrayUsersConfig = [
@@ -85,7 +55,7 @@ const arrayUsersConfig = [
 
 const arrayButtonsConfig = [
   new ButtonConfig("home", "Home", "#", "bi bi-house-door-fill"),
-  new ButtonConfig("search", "cerca", "#", "bi bi-search"),
+  new ButtonConfig("search", "Cerca", "#", "bi bi-search"),
   new ButtonConfig("my-library", "La mia libreria", "#", "bi bi-collection"),
   new ButtonConfig("create-playlist", "Crea Playlist", "#", "bi bi-plus"),
   new ButtonConfig(
@@ -124,10 +94,13 @@ const createNavBar = () => {
   createSearchBar();
 };
 
-const createSearchBar = () => {
+const createSearchBar = (historySearch) => {
   const navBar = document.getElementById("nav-bar");
   const searchBar = document.createElement("div");
   navBar.appendChild(searchBar);
+  if (historySearch) {
+    document.getElementById("searchInput").value = historySearch;
+  }
   searchBar.innerHTML = `
   <div id="search-bar" class="container-fluid d-none ">
     <form class="d-flex" role="search">
@@ -135,58 +108,37 @@ const createSearchBar = () => {
     </form>
   </div>
 `;
-  searchBar.addEventListener("submit", async () => {
-    const artist = [];
-    const album = [];
+searchAction(searchBar)
+  // searchBar.addEventListener("submit", async () => {
+  //   const artist = [];
+  //   const album = [];
 
-    let searchTerm = document.getElementById("searchInput").value;
-    const resp = await searchAPI(searchTerm);
+  //   let searchTerm = document.getElementById("searchInput").value;
+  //   const resp = await searchAPI(searchTerm);
 
-    createSearchBar();
-    // createListCard(resp.data[0].album);
+  //   resp.data.forEach((element) => {
+  //     if (!artist.some((item) => item.id === element.artist.id)) {
+  //       artist.push(element.artist);
+  //     }
+  //     if (!album.some((item) => item.id === element.album.id)) {
+  //       album.push(element.album);
+  //     }
+  //   });
 
-    resp.data.forEach((element) => {
-      if (!artist.some((item) => item.id === element.artist.id)) {
-        artist.push(element.artist);
-      }
-      if (!album.some((item) => item.id === element.album.id)) {
-        album.push(element.album);
-      }
-    });
-
-    createGridAlbum(null, album);
-    createGridArtist(null, artist);
-  });
-};
-
-//Button
-const createNavigationButton = (btnConfig, classSpace) => {
-  const menu = document.getElementById("menu");
-  const button = document.createElement("div");
-  if (classSpace) {
-    button.classList.add(classSpace);
-  }
-  menu.appendChild(button);
-  button.innerHTML = `
-    <a id="${btnConfig.id}" class="text-decoration-none text-white" href="${btnConfig.link}">
-    <i class="${btnConfig.icon}"></i>
-    <span>${btnConfig.text}</span>
-  </a>
-    `;
-  const search = document.getElementById("search");
-  if (btnConfig.id === "search") {
-    search.addEventListener("click", () => {
-      const searchBar = document.getElementById("search-bar");
-      searchBar.classList.toggle("d-none");
-    });
-  }
+  //   createGridAlbum(null, album);
+  //   createGridArtist(null, artist);
+  // });
 };
 
 //Left Sidenav
 const addNavigationButtons = () => {
+  const menu = document.getElementById("menu");
+  menu.classList.add("pt-2", "ps-2");
   for (let i = 0; i < arrayButtonsConfig.length; i++) {
     //if i ===  2 add padding bottom on 3th button
-    createNavigationButton(arrayButtonsConfig[i], i === 2 ? "pb-4" : null);
+    menu.appendChild(
+      createIconTextButton(arrayButtonsConfig[i], i === 2 ? "pb-4" : null)
+    );
   }
 };
 
@@ -219,9 +171,9 @@ const createUsers = (userconfig) => {
   </div>
   <div>
 
-  <h5 class="p-0 m-0">${userconfig.name}</h5>
-  <p class="p-0 m-0">${userconfig.artist}</p>
-  <p class="p-0  ${userconfig.icon}">${userconfig.album}</p>
+  <h5 class="p-1 m-0 h5">${userconfig.name}</h5>
+  <small><p class="p-1 m-0 h6 text-info">${userconfig.artist}</p></small>
+  <small><p class="p-0 h6 text-info ${userconfig.icon}">${userconfig.album}</p></small>
   </div>
   </div>
   
@@ -235,7 +187,7 @@ const addUsers = () => {
 };
 
 //Grid Album
-const createGridAlbum = (listIdAlbums, listAlbums) => {
+export const createGridAlbum = (listIdAlbums, listAlbums) => {
   const grid = document.getElementById("grid");
   grid.classList.add("row", "g-3", "p-0");
 
@@ -287,7 +239,7 @@ const createGridAlbum = (listIdAlbums, listAlbums) => {
 };
 
 //Grid Artist
-const createGridArtist = (listIdArtists, listArtists) => {
+export const createGridArtist = (listIdArtists, listArtists) => {
   const row = document.getElementById("preference");
   row.classList.add("justify-content-evenly");
 
@@ -372,7 +324,6 @@ const createNowPlayingBar = () => {
     "Nome traccia",
     "Artista"
   );
-  // createDisplayTrackCard();
   createActionNowPlayingBar();
 };
 
@@ -523,39 +474,6 @@ const createActionNowPlayingBar = () => {
   });
 
   actionNowPlayingBar.appendChild(row);
-
-  //   actionNowPlayingBar.innerHTML = `<a
-  //   class="link-secondary link-underline-secondary link-underline-opacity-25"
-  //   href="#"
-  //   ><i class="bi bi-mic-fill fs-5 me-2 text-info"></i
-  // ></a>
-  // <a
-  //   class="link-secondary link-underline-secondary link-underline-opacity-25"
-  //   href="#"
-  //   ><i class="bi bi-menu-button-wide fs-5 me-2 text-info"></i
-  // ></a>
-  // <a
-  //   class="link-secondary link-underline-secondary link-underline-opacity-25"
-  //   href="#"
-  //   ><i class="bi bi-pc-display fs-5 me-2 text-info"></i
-  // ></a>
-  // <a
-  //   class="link-secondary link-underline-secondary link-underline-opacity-25"
-  //   href="#"
-  //   ><i class="bi bi-volume-up fs-5 me-1 text-info"></i
-  // ></a>
-
-  // <div class="progress-bar" style="width: 8em">
-  //   <div class="progress bg-body-secondary" style="height: 1em"></div>
-  //   <div>
-  //     <a
-  //       class="link-secondary link-underline-secondary link-underline-opacity-25"
-  //       href="#"
-  //       ><i class="bi bi-arrows-angle-expand text-info"></i
-  //     ></a>
-  //   </div>
-  // </div>
-  // </div>`;
 };
 
 const createIconAnchor = (icon, href) => {
@@ -581,7 +499,6 @@ const createProgressBar = () => {
 };
 
 // --footer--
-
 const responsiveFooter = () => {
   const footerMobile = document.getElementById("footer-mobile");
   const container = document.createElement("div");
@@ -625,6 +542,7 @@ const navButton = (btnConfig) => {
 };
 
 responsiveFooter();
+
 //Methods
 const saveDataLocalStorage = () => {
   const inputSearch = document.getElementById("search-bar");
@@ -637,10 +555,10 @@ const saveDataLocalStorage = () => {
     if (!localStorageSearch) {
       localStorageSearch = [];
     }
-
-    localStorageSearch.push(inputValue);
-
-    localStorage.setItem("search", JSON.stringify(localStorageSearch));
+    if (!localStorageSearch.includes(inputValue)) {
+      localStorageSearch.push(inputValue);
+      localStorage.setItem("search", JSON.stringify(localStorageSearch));
+    }
   });
 };
 
@@ -654,11 +572,16 @@ const createResearchfromLocalStorage = () => {
       const researchElement = document.createElement("a");
       researchElement.classList.add(
         "text-decoration-none",
-        "text-white",
-        "d-flex"
+        "text-info",
+        "d-flex",
+        "ps-2"
       );
       researchElement.innerHTML = element;
       research.appendChild(researchElement);
+
+      researchElement.addEventListener("click", () => {
+        searchAction(element);
+      });
     });
   } else {
     console.log("nessun valore in uscita");
