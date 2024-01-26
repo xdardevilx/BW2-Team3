@@ -28,6 +28,10 @@ const searchGenere = function () {
         artistImg.src = data.artist.picture;
         const albumImg = document.getElementById("bottom-artist-image");
         albumImg.src = data.cover;
+        const footerSong = document.getElementById("footer-song");
+        footerSong.textContent = data.title;
+        const footerTitle = document.getElementById("footer-artist");
+        footerTitle.textContent = data.artist.name;
 
         h1.textContent = data.title;
         h1.classList.add("col");
