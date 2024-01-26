@@ -29,9 +29,13 @@ const getArtist = function () {
         const nome = document.getElementById("artist-name");
         const miniImgArtista = document.getElementById("artist-mini-photo");
         const nome2 = document.getElementById("artist-name2");
+        const imgBassa = document.getElementById("fotoBassa");
+        const autoreSong = document.getElementById("autore-song");
 
         miniImgArtista.src = data.picture;
         nome2.textContent = data.name;
+        imgBassa.src = data.picture;
+        autoreSong.textContent = data.name;
 
         const ascoltatoriMensili = document.getElementById("artist-listeners");
 
@@ -154,6 +158,11 @@ const getArtist = function () {
                   playIcon.classList.add("d-inline");
                   pauseIcon.classList.remove("d-inline");
                   pauseIcon.classList.add("d-none");
+                  const listeningSong =
+                    document.getElementById("listening-song");
+                  listeningSong.textContent = titoloPreviewElement.textContent;
+                  console.log("CANZONE IN ASCOLTO", listeningSong);
+                  console.log("TITOLO PREVIEW ELEMENT", titoloPreviewElement);
                   playAudio(i);
                 } else {
                   titoloPreviewElement.classList.remove("text-success");
