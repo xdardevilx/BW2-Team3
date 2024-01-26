@@ -13,7 +13,7 @@ export const createLargeCard = (artist) => {
     <img class="p-2" src="${artist.picture_medium}" class="card-img-top" alt="...">
     <div class="card-body p-0 text-center ">
       <h5 class="card-title">${artist.name}</h5>
-      <p id="genitore" class="card-text"><small>${subtitle}</small> </p>
+      <p class="card-text"><small>${subtitle}</small> </p>
     </div>
  
     `;
