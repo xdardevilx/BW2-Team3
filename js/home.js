@@ -106,20 +106,7 @@ const idAlbums = [
   "708674",
 ];
 
-const idArtist = [
-  "412",
-  "7357",
-  "115",
-  "4611",
-  "13",
-  "13",
-  "13",
-  "13",
-  "13",
-  "13",
-  "13",
-  "13",
-];
+const idArtist = ["412", "7357", "115", "4611", "13"];
 
 // -----DOM MANIPULATION-----
 
@@ -148,16 +135,15 @@ const createSearchBar = () => {
     </form>
   </div>
 `;
-  searchBar.addEventListener("submit", async (e) => {
+  searchBar.addEventListener("submit", async () => {
     const artist = [];
     const album = [];
 
     let searchTerm = document.getElementById("searchInput").value;
     const resp = await searchAPI(searchTerm);
 
-    console.log(resp.data[0]);
     createSearchBar();
-    createListCard(resp.data[0].album);
+    // createListCard(resp.data[0].album);
 
     resp.data.forEach((element) => {
       if (!artist.some((item) => item.id === element.artist.id)) {
@@ -167,8 +153,9 @@ const createSearchBar = () => {
         album.push(element.album);
       }
     });
-    console.log("ARTIST", artist);
-    console.log("ALBUM", album);
+
+    createGridAlbum(null, album);
+    createGridArtist(null, artist);
   });
 };
 
@@ -248,76 +235,108 @@ const addUsers = () => {
 };
 
 //Grid Album
-const createGrid = (listIdAlbums) => {
+const createGridAlbum = (listIdAlbums, listAlbums) => {
   const grid = document.getElementById("grid");
   grid.classList.add("row", "g-3", "p-0");
 
-  listIdAlbums.forEach(async (element) => {
-    const col = document.createElement("div");
-    col.classList.add(
-      "col-12",
-      "col-sm-12",
-      "col-md-6",
-      "col-lg-4",
-      "p-1",
-      "m-0"
-    );
-    grid.appendChild(col);
+  grid.innerHTML = "";
+  if (!listAlbums) {
+    listIdAlbums.forEach(async (element) => {
+      const col = document.createElement("div");
+      col.classList.add(
+        "col-12",
+        "col-sm-12",
+        "col-md-6",
+        "col-lg-4",
+        "p-1",
+        "m-0"
+      );
+      grid.appendChild(col);
 
-    let album = await getAlbum(element);
-    col.appendChild(createListCard(album));
+      let album = await getAlbum(element);
+      col.appendChild(createListCard(album));
 
-    const sendParam = document.getElementById(album.id);
-    sendParam.addEventListener("click", (e) => {
-      const url = `./album.html?albumId=${album.id}`;
-      window.location.href = url;
+      const sendParam = document.getElementById(album.id);
+      sendParam.addEventListener("click", (e) => {
+        const url = `./album.html?albumId=${album.id}`;
+        window.location.href = url;
+      });
     });
-  });
+  } else {
+    listAlbums.forEach(async (album) => {
+      const col = document.createElement("div");
+      col.classList.add(
+        "col-12",
+        "col-sm-12",
+        "col-md-6",
+        "col-lg-4",
+        "p-1",
+        "m-0"
+      );
+      grid.appendChild(col);
+
+      col.appendChild(createListCard(album));
+
+      const sendParam = document.getElementById(album.id);
+      sendParam.addEventListener("click", () => {
+        const url = `./album.html?albumId=${album.id}`;
+        window.location.href = url;
+      });
+    });
+  }
 };
 
 //Grid Artist
-
-const createPreference = (listIdAlbums) => {
-  if (!listIdAlbums) {
-    console.log("no id albums");
-    listIdAlbums = ["382624", "382624", "382624", "382624", "382624"];
-  }
-  const preference = document.getElementById("preference");
-  listIdAlbums.forEach(async (element) => {
-    let album = await getArtistAPI(element);
-    createLargeCard(album);
-  });
-};
-
-const createLargeCardAlbum = (album) => {
+const createGridArtist = (listIdArtists, listArtists) => {
   const row = document.getElementById("preference");
   row.classList.add("justify-content-evenly");
-  const col = document.createElement("div");
-  col.classList.add("col-2", "p-1", "m-0");
-  row.appendChild(col);
-  col.innerHTML = `
-  <div id="${album.id}" class="card custom-card ">
-  <img class="p-2" src="${album.cover_medium}" class="card-img-top" alt="...">
-  <div class="card-body p-0 text-center ">
-    <h5 class="card-title">${album.title}</h5>
-    <pclass="card-text"><small>n album: ${album.type}</small> </p>
-  </div>
-</div>  
-  `;
-  const sendParam = document.getElementById(artist.id);
-  sendParam.addEventListener("click", (e) => {
-    const url = `./paginaArtista.html?artistId=${artist.id}`;
-    window.location.href = url;
-  });
-};
 
-// Grid Search
-const creatGridSearch = () => {
-  const grid = document.getElementById("search");
-  const p = document.createElement("p");
-  grid.appendChild(p);
-  p.textContent = "ciao prova";
-  // createLargeCardAlbum()
+  row.innerHTML = "";
+
+  if (!listArtists) {
+    listIdArtists.forEach(async (element) => {
+      const col = document.createElement("div");
+      col.classList.add(
+        "col",
+        "col-sm-6",
+        "col-md-4",
+        "col-lg-2",
+        "p-1",
+        "flex-fill"
+      );
+      row.appendChild(col);
+
+      let artist = await getArtistAPI(element);
+      col.appendChild(createLargeCard(artist));
+
+      const sendParam = document.getElementById(artist.id);
+      sendParam.addEventListener("click", (e) => {
+        const url = `./paginaArtista.html?artistId=${artist.id}`;
+        window.location.href = url;
+      });
+    });
+  } else {
+    listArtists.forEach(async (artist) => {
+      const col = document.createElement("div");
+      col.classList.add(
+        "col",
+        "col-sm-6",
+        "col-md-4",
+        "col-lg-2",
+        "p-1",
+        "flex-fill"
+      );
+      row.appendChild(col);
+
+      col.appendChild(createLargeCard(artist));
+
+      const sendParam = document.getElementById(artist.id);
+      sendParam.addEventListener("click", (e) => {
+        const url = `./paginaArtista.html?artistId=${artist.id}`;
+        window.location.href = url;
+      });
+    });
+  }
 };
 
 //Now-playng-bar
@@ -651,8 +670,10 @@ addNavigationButtons();
 addUsers();
 createCardHero(await getAlbum(97505));
 createTitleUsers();
-createGrid(idAlbums);
-createPreference(idArtist);
+
+createGridAlbum(idAlbums);
+createGridArtist(idArtist);
+
 createNavBar();
 saveDataLocalStorage();
 createResearchfromLocalStorage();
