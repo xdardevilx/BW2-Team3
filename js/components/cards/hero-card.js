@@ -24,6 +24,7 @@ export const createCardHero = (album) => {
     "d-md-block",
     "col-12"
   );
+  card.id = "genitore";
   heroPage.appendChild(card);
   card.innerHTML = `
     <div>
@@ -45,6 +46,7 @@ export const createCardHero = (album) => {
       </div>
     </div>
     `;
+  hideLoadingAnimation();
 
   const audio = new Audio(album.tracks.data[0].preview);
 
@@ -61,3 +63,31 @@ export const createCardHero = (album) => {
     stopAudio(audio);
   });
 };
+
+////////////////////////////////////////////
+function hideLoadingAnimation() {
+  const loadingDiv = document.getElementById("loadingDiv");
+  if (loadingDiv) {
+    loadingDiv.style.display = "none";
+  }
+}
+// Verifica se il div genitore è stato creato
+const parentDiv = document.getElementById("genitore");
+// Se il div genitore non è ancora stato creato, creo loading div e mostro l'animazione
+if (!parentDiv) {
+  const loadingDiv = document.createElement("div");
+  loadingDiv.id = "loadingDiv";
+  loadingDiv.classList.add("clessidra");
+  loadingDiv.style.width = "20px";
+  loadingDiv.style.height = "20px";
+  document.body.appendChild(loadingDiv);
+} else {
+  hideLoadingAnimation(); // Nascondi l'animazione se il div genitore è già stato creato
+  const loadingDiv = document.getElementById("loadingDiv");
+  // Aggiungi un listener per l'evento "animationend" all'elemento di caricamento
+  loadingDiv.addEventListener("animationend", () => {
+    // Una volta completata l'animazione di opacità, nascondi il div di caricamento
+    loadingDiv.style.display = "none";
+  });
+}
+/////////////////////////////////////////7
