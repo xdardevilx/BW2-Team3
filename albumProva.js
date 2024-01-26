@@ -1,6 +1,6 @@
 // CERCANDO UN GENERE LA PAGINA LI CARICHERà
 let myUrl = " https://striveschool-api.herokuapp.com/api/deezer/album/";
-const albumId = "508204251";
+const albumId = "433511";
 
 const searchGenere = function () {
   fetch(myUrl + albumId)
@@ -120,34 +120,77 @@ const searchGenere = function () {
     .catch((err) => {
       console.log("ERRORE", err);
     });
+  function hideLoadingAnimation() {
+    const loadingDiv = document.getElementById("loadingDiv");
+    if (loadingDiv) {
+      loadingDiv.style.display = "none";
+    }
+  }
+
+  // Verifica se il div genitore è stato creato
+  const parentDiv = document.getElementById("genitore");
+
+  // Se il div genitore non è ancora stato creato, creo loading div e mostro l'animazione
+  if (!parentDiv) {
+    const loadingDiv = document.createElement("div");
+    loadingDiv.id = "loadingDiv";
+    loadingDiv.classList.add("clessidra");
+    loadingDiv.style.width = "20px";
+    loadingDiv.style.height = "20px";
+    document.body.appendChild(loadingDiv);
+  } else {
+    hideLoadingAnimation(); // Nascondi l'animazione se il div genitore è già stato creato
+    const loadingDiv = document.getElementById("loadingDiv");
+    // Aggiungi un listener per l'evento "animationend" all'elemento di caricamento
+    loadingDiv.addEventListener("animationend", () => {
+      // Una volta completata l'animazione di opacità, nascondi il div di caricamento
+      loadingDiv.style.display = "none";
+    });
+  }
 };
 
 searchGenere();
 
-//////////////////////////////// ANIMAZIONE CARICAMENTO PAGINA
-function hideLoadingAnimation() {
-  const loadingDiv = document.getElementById("loadingDiv");
-  if (loadingDiv) {
-    loadingDiv.style.display = "none";
-  }
-}
-// Verifica se il div genitore è stato creato
-const parentDiv = document.getElementById("genitore");
-// Se il div genitore non è ancora stato creato, creo loading div e mostro l'animazione
-if (!parentDiv) {
-  const loadingDiv = document.createElement("div");
-  loadingDiv.id = "loadingDiv";
-  loadingDiv.classList.add("clessidra");
-  loadingDiv.style.width = "20px";
-  loadingDiv.style.height = "20px";
-  document.body.appendChild(loadingDiv);
-} else {
-  hideLoadingAnimation(); // Nascondi l'animazione se il div genitore è già stato creato
-  const loadingDiv = document.getElementById("loadingDiv");
-  // Aggiungi un listener per l'evento "animationend" all'elemento di caricamento
-  loadingDiv.addEventListener("animationend", () => {
-    // Una volta completata l'animazione di opacità, nascondi il div di caricamento
-    loadingDiv.style.display = "none";
-  });
-}
-//////////////////////////////
+const cercaCanzone = function () {
+  fetch(myUrl + albumId)
+    .then((response) => {
+      console.log("MYURL + ALBUMID", myUrl + albumId);
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("ERRORE");
+      }
+    })
+    .then((data) => {
+      const myPreviewArray = data.tracks.data;
+      console.log(myPreviewArray);
+
+      const giveAudio = function (index) {
+        return new Audio(myPreviewArray[index].preview);
+      };
+
+      const canzone2 = giveAudio(0);
+      const roundedPlayButton = document.getElementById("rounded-play-button");
+      let isPlaying = false;
+      let currentAudio = null;
+
+      roundedPlayButton.addEventListener("click", function () {
+        if (currentAudio !== null && currentAudio !== canzone2) {
+          currentAudio.pause();
+        }
+
+        if (isPlaying === false) {
+          canzone2.play();
+        } else {
+          canzone2.pause();
+        }
+        isPlaying = !isPlaying;
+        currentAudio = canzone2;
+      });
+    })
+    .catch((err) => {
+      console.log("ERRORE", err);
+    });
+};
+
+cercaCanzone();
